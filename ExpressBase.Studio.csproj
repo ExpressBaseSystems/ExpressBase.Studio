@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{40793A27-478B-4357-B4C3-FC8943131F3D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExpressBase.Studio</RootNamespace>
+    <AssemblyName>ExpressBase.Studio</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ExpressBase.Studio.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.1.0\lib\net451\protobuf-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ScintillaNET, Version=3.5.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jacobslusser.ScintillaNET.3.5.10\lib\net40\ScintillaNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Client, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Client.4.5.4\lib\net45\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.4.5.4\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.5.4\lib\net45\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.11.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.2.12.0-rc1\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015, Version=2.11.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.ThemeVS2015.2.12.0-rc1\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EbLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EbLayout.Designer.cs">
+      <DependentUpon>EbLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EbButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\EbPassword.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\IEbControl.cs" />
+    <Compile Include="Controls\TabControl\EbTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form.cs" />
+    <Compile Include="pDesigner\TypeDiscoveryService.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\DesignerOptionServiceExt.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\DesignerSerializationServiceImpl.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\DesignSurfaceExt.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\DesignSurfaceExt2.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\IDesignSurfaceExt.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\IDesignSurfaceExt2.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\MenuCommandServiceExt.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\NameCreationServiceImp.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\TabOrderHooker.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\ToolboxServiceImp.cs" />
+    <Compile Include="pDesigner\DesignSurfaceExt\UndoEngineExt.cs" />
+    <Compile Include="pDesigner\DesignSurfaceManagerExt\DesignSurfaceManagerExt.cs" />
+    <Compile Include="pDesigner\DesignSurfaceManagerExt\PropertyGridHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="pDesigner\DesignSurfaceManagerExt\PropertyGridHost.Designer.cs">
+      <DependentUpon>PropertyGridHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pDesigner\pDesigner\IpDesigner.cs" />
+    <Compile Include="pDesigner\pDesigner\pDesigner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="pDesigner\pDesigner\pDesigner.Designer.cs">
+      <DependentUpon>pDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pDesigner\pDesigner\pDesignerMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pDesigner\pDesigner\pDesignerMainForm.Designer.cs">
+      <DependentUpon>pDesignerMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DummyDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DummyDoc.Designer.cs">
+      <DependentUpon>DummyDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DummyOutputWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DummyOutputWindow.Designer.cs">
+      <DependentUpon>DummyOutputWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyWindow.Designer.cs">
+      <DependentUpon>PropertyWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolutionExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolutionExplorer.Designer.cs">
+      <DependentUpon>SolutionExplorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DummyTaskList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DummyTaskList.Designer.cs">
+      <DependentUpon>DummyTaskList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Toolbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Toolbox.Designer.cs">
+      <DependentUpon>Toolbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customization\DockHelper.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EbLayout.resx">
+      <DependentUpon>EbLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pDesigner\DesignSurfaceManagerExt\PropertyGridHost.resx">
+      <DependentUpon>PropertyGridHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pDesigner\pDesigner\pDesigner.resx">
+      <DependentUpon>pDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pDesigner\pDesigner\pDesignerMainForm.resx">
+      <DependentUpon>pDesignerMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DummyDoc.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DummyDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DummyOutputWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DummyOutputWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PropertyWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolutionExplorer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SolutionExplorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DummyTaskList.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DummyTaskList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Toolbox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Toolbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SqlStatementEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SqlStatementEditor.Designer.cs">
+      <DependentUpon>SqlStatementEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToolWindow.Designer.cs">
+      <DependentUpon>ToolWindow.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ArrowDown.bmp" />
+    <None Include="Images\ArrowUp.bmp" />
+    <None Include="Images\Bitmap.ico" />
+    <None Include="Images\BlankIcon.ico" />
+    <None Include="Images\ClosedFolder.ICO" />
+    <None Include="Images\CSFile.ico" />
+    <None Include="Images\CSProject.ico" />
+    <None Include="Images\File.ico" />
+    <None Include="Images\Form.ico" />
+    <None Include="Images\Mouse.bmp" />
+    <None Include="Images\msenv22.ico" />
+    <None Include="Images\New.ico" />
+    <None Include="Images\Open.ico" />
+    <None Include="Images\OpenFolder.ICO" />
+    <None Include="Images\OutputWindow.ico" />
+    <None Include="Images\PropertyWindow.ico" />
+    <None Include="Images\Reference.ico" />
+    <None Include="Images\References.ico" />
+    <None Include="Images\SolutionExplorer.ico" />
+    <None Include="Images\TaskListWindow.ico" />
+    <None Include="Images\ToolboxWindow.ico" />
+    <None Include="Images\XmlFile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ExpressBase.Studio.xml" />
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlStatementEditor.resx">
+      <DependentUpon>SqlStatementEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ToolWindow.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="pDesigner\DesignSurfaceExt\design.ico" />
+    <Content Include="pDesigner\DesignSurfaceManagerExt\design.ico" />
+    <Content Include="pDesigner\pDesigner\design.ico" />
+    <Content Include="pDesigner\pDesigner\painter.ico" />
+    <Content Include="Images\Logo.ico" />
+    <Content Include="Images\SplashScreen.png" />
+    <Content Include="Logo.ico" />
+    <None Include="Resources\Undo.png" />
+    <None Include="Resources\Sign Up.png" />
+    <None Include="Resources\Ruler.png" />
+    <None Include="Resources\Redo.png" />
+    <None Include="Resources\Paste.png" />
+    <None Include="Resources\Paste Special.png" />
+    <None Include="Resources\Multi Edit.png" />
+    <None Include="Resources\Line.png" />
+    <None Include="Resources\Full Image.png" />
+    <None Include="Resources\Erase.png" />
+    <None Include="Resources\Email Document.png" />
+    <None Include="Resources\Edit.png" />
+    <None Include="Resources\Delete.png" />
+    <None Include="Resources\Cut.png" />
+    <None Include="Resources\Create New.png" />
+    <None Include="Resources\Copy.png" />
+    <None Include="Resources\Compare.png" />
+    <None Include="Resources\Align Right.png" />
+    <None Include="Resources\Align Left.png" />
+    <None Include="Resources\Align Justify.png" />
+    <None Include="Resources\Align Center.png" />
+    <None Include="Resources\Copy-50.png" />
+    <None Include="Resources\appbar.page.copy.png" />
+    <None Include="Resources\appbar.clipboard.paste.png" />
+    <None Include="Resources\appbar.user.delete.png" />
+    <None Include="Resources\appbar.thumb.up.delete.png" />
+    <None Include="Resources\appbar.page.delete.png" />
+    <None Include="Resources\appbar.delete.png" />
+    <None Include="Resources\appbar.save.png" />
+    <None Include="Resources\appbar.book.contact.png" />
+    <None Include="Resources\appbar.share.png" />
+    <None Include="Resources\appbar.redo.png" />
+    <None Include="Resources\appbar.qr.png" />
+    <None Include="Resources\appbar.progress.png" />
+    <None Include="Resources\appbar.printer.text.png" />
+    <None Include="Resources\appbar.printer.png" />
+    <None Include="Resources\appbar.printer.blank.png" />
+    <None Include="Resources\appbar.chevron.up.png" />
+    <None Include="Resources\appbar.chevron.right.png" />
+    <None Include="Resources\appbar.chevron.left.png" />
+    <None Include="Resources\appbar.chevron.down.png" />
+    <None Include="Resources\appbar.checkmark.png" />
+    <None Include="Resources\appbar.checkmark.cross.png" />
+    <None Include="Resources\appbar.check.png" />
+    <None Include="Resources\appbar.cell.function.png" />
+    <None Include="Resources\appbar.cancel.png" />
+    <None Include="Resources\appbar.calculator.png" />
+    <None Include="Resources\appbar.barcode.png" />
+    <None Include="Resources\appbar.at.png" />
+    <None Include="Resources\appbar.arrow.right.png" />
+    <None Include="Resources\appbar.arrow.left.png" />
+    <None Include="Resources\appbar.adobe.acrobat.png" />
+    <None Include="Resources\appbar.add.png" />
+    <None Include="Resources\appbar.add.multiple.png" />
+    <None Include="Resources\appbar.align.right.png" />
+    <None Include="Resources\appbar.align.left.png" />
+    <None Include="Resources\appbar.align.justify.png" />
+    <None Include="Resources\appbar.align.center.png" />
+    <None Include="Resources\appbar.alert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
