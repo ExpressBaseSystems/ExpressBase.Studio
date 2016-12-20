@@ -46,5 +46,7 @@ namespace ExpressBase.Studio.Controls
                 (ctrl as IEbControl).DoDesignerLayout(designer, c);
             }
         }
+
+        public void DoDesignerRefresh() { }
     }
 }

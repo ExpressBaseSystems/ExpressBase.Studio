@@ -14,6 +14,8 @@ namespace ExpressBase.Studio.Controls
         IEbControl[] Controls2 { get; set; }
 
         void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl);
+
+        void DoDesignerRefresh();
     }
 
     [ProtoBuf.ProtoContract]
@@ -69,16 +71,30 @@ namespace ExpressBase.Studio.Controls
                 Location = new Point(int.Parse(coords[0]), int.Parse(coords[1]));
             }
         }
+
+        [Browsable(false)]
+        public IEbControl IEbControl { get; set; }
+
+        public EbObject() { }
+
+        public EbObject(IEbControl parent)
+        {
+            this.IEbControl = parent;
+        }
     }
 
     [ProtoBuf.ProtoContract]
     public class EbButton : EbObject
     {
+        public EbButton() { }
+        public EbButton(IEbControl parent) : base(parent) { }
     }
 
 
     [ProtoBuf.ProtoContract]
     public class EbTableLayout : EbObject
     {
+        public EbTableLayout() { }
+        public EbTableLayout(IEbControl parent) : base(parent) { }
     }
 }

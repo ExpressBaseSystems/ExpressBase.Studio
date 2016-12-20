@@ -25,5 +25,7 @@ namespace ExpressBase.Studio.Controls
             //var ctrl = designer.ActiveDesignSurface.CreateControl(this.GetType(), this.Size, this.Location) as System.Windows.Forms.Control;
             //ctrl.Name = this.Name;
         }
+
+        public void DoDesignerRefresh() { }
     }
 }

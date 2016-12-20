@@ -64,5 +64,7 @@ namespace ExpressBase.Studio.Controls
                 this.SetCellPosition(ctrl, new TableLayoutPanelCellPosition(c.EbObject.CellPositionRow, c.EbObject.CellPositionColumn));
             }
         }
+
+        public void DoDesignerRefresh() { }
     }
 }

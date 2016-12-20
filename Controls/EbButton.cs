@@ -49,17 +49,30 @@ namespace ExpressBase.Studio.Controls
         {
             base.OnParentChanged(e);
             if (this.EbObject == null)
-                this.EbObject = new EbButton();
+                this.EbObject = new EbButton(this);
+            else
+                this.EbObject.IEbControl = this;
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl)
         {
             this.EbObject = serialized_ctrl.EbObject;
+            this.EbObject.IEbControl = this;
             this.Controls2 = serialized_ctrl.Controls2;
             this.Name = serialized_ctrl.EbObject.Name;
             this.Size = serialized_ctrl.EbObject.Size;
             this.Location = serialized_ctrl.EbObject.Location;
             this.Dock = serialized_ctrl.EbObject.Dock;
+            this.Text = serialized_ctrl.EbObject.Label;
+        }
+
+        public void DoDesignerRefresh()
+        {
+            this.Name = this.EbObject.Name;
+            this.Size = this.EbObject.Size;
+            this.Location = this.EbObject.Location;
+            this.Dock = this.EbObject.Dock;
+            this.Text = this.EbObject.Label;
         }
     }
 }

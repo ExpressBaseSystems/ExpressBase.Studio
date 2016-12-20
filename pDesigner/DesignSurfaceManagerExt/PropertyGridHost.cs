@@ -62,6 +62,15 @@ public partial class PropertyGridHost : UserControl {
             ReloadComboBox();
         };
 
+            pgrdPropertyGrid.PropertyValueChanged += (object s, PropertyValueChangedEventArgs e) =>
+            {
+                if (this.SelectedObject != null)
+                {
+                    if (this.SelectedObject is ExpressBase.Studio.Controls.EbObject)
+                        (this.SelectedObject as ExpressBase.Studio.Controls.EbObject).IEbControl.DoDesignerRefresh();
+                }
+            };
+
 
         //- the PropertyGridHost is an OBSERVER of ComboBox event: SelectedIndexChanged
         //- everytime someone select a new object inside the ComboBox
@@ -71,7 +80,7 @@ public partial class PropertyGridHost : UserControl {
         //-     the OrientPropertyGridTowardsObject() method is called <------------+
         //- 
         //-
-        pgrdComboBox.SelectedIndexChanged += ( object sender, System.EventArgs e )=>
+            pgrdComboBox.SelectedIndexChanged += ( object sender, System.EventArgs e )=>
         {
             if( _bSuppressEvents )
                 return;
@@ -79,8 +88,7 @@ public partial class PropertyGridHost : UserControl {
         };
     }
 
-
-    private string TranslateComponentToName( Component comp ) {
+        private string TranslateComponentToName( Component comp ) {
         string sType = comp.GetType().ToString();
         if( string.IsNullOrEmpty( sType ) )
             return string.Empty;
