@@ -13,24 +13,24 @@ using ExpressBase.Studio.pDesigner;
 
 namespace pF.DesignSurfaceExt {
 
-//- this class adds to a .NET 
-//-     DesignSurface instance
-//- the following facilities:
-//-     * TabOrder
-//-     * UndoEngine
-//-     * Cut/Copy/Paste/Delete commands
-//-
-//- DesignSurfaceExt
-//-     |
-//-     +--|DesignSurface|
-//-     |
-//-     +--|TabOrder|
-//-     |
-//-     +--|UndoEngine|
-//-     |
-//-     +--|Cut/Copy/Paste/Delete commands|
-//-
-public class DesignSurfaceExt : DesignSurface, IDesignSurfaceExt {
+    //- this class adds to a .NET 
+    //-     DesignSurface instance
+    //- the following facilities:
+    //-     * TabOrder
+    //-     * UndoEngine
+    //-     * Cut/Copy/Paste/Delete commands
+    //-
+    //- DesignSurfaceExt
+    //-     |
+    //-     +--|DesignSurface|
+    //-     |
+    //-     +--|TabOrder|
+    //-     |
+    //-     +--|UndoEngine|
+    //-     |
+    //-     +--|Cut/Copy/Paste/Delete commands|
+    //-
+    public class DesignSurfaceExt : DesignSurface, IDesignSurfaceExt {
     private const string _Name_ = "DesignSurfaceExt";
 
     
@@ -186,7 +186,7 @@ public class DesignSurfaceExt : DesignSurface, IDesignSurfaceExt {
     public IComponent CreateRootComponent( DesignerLoader loader, Size controlSize ) {
         return CreateRootComponentCore( null, controlSize, loader );
     }
-    
+
     public Control CreateControl ( Type controlType, Size controlSize, Point controlLocation ) {
         try {
             //- step.1
@@ -252,19 +252,6 @@ public class DesignSurfaceExt : DesignSurface, IDesignSurfaceExt {
         ctrl.Dock = DockStyle.Fill;
         return ctrl;
     }
-
-        public void SetRootComponent(EbForm _form)
-        {
-            foreach (Control c in _form.Controls)
-            {
-                var ctrl = CreateControl(c.GetType(), c.Size, c.Location);
-                ctrl.Name = c.Name;
-                if (c is EbTabControl)
-                    (ctrl as EbTabControl).TabPages = (c as EbTabControl).TabPages;
-                if (c is EbTabPage)
-                    (ctrl as EbTabPage).Controls2 = (c as EbTabPage).Controls2;
-            }
-        }
 
     #endregion
 

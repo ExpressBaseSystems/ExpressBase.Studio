@@ -22,12 +22,11 @@ namespace ExpressBase.Studio
             treeView1.NodeMouseDoubleClick += TreeView1_NodeMouseDoubleClick;
 
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-
-            var fr = client.Get<FormResponse>("http://localhost:53125/forms");
+            var fr = client.Get<FormResponse>("http://localhost:53125/forms?format=json");
 
             treeView1.SuspendLayout();
 
-            foreach (Form dr in fr.Forms)
+            foreach (Form dr in fr.Data)
             {
                 var nodetemp = new TreeNode(dr.Name, 8, 8);
                 nodetemp.Tag = dr.Id.ToString();
@@ -49,23 +48,10 @@ namespace ExpressBase.Studio
                 IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
                 var fr = client.Get<FormResponse>(string.Format("http://localhost:53125/forms/{0}", id));
 
-                var _form = ProtoBuf_DeSerialize<EbForm>(fr.Forms[0].Bytea);
+                var _form = ProtoBuf_DeSerialize<EbFormControl>(fr.Data[0].Bytea);
                 pDesignerMainForm pD = new pDesignerMainForm(this.MainForm, StudioFormTypes.Desktop);
                 pD.Show(MainForm.DockPanel);
                 pD.SetEB_Form(_form);
-
-                //    var conf = EbSerializers.ProtoBuf_DeSerialize<EbConfiguration>(EB_File.Bytea_FromFile(@"D:\xyz1.conn"));
-                //    DatabaseFactory df = new DatabaseFactory(conf);
-                //    using (var con = df.ObjectsDatabase.GetNewConnection())
-                //    {
-                //        con.Open();
-                //        var dt = df.ObjectsDatabase.DoQuery(string.Format("SELECT obj_bytea FROM eb_objects WHERE id={0}", id));
-                //        var _form = EbSerializers.ProtoBuf_DeSerialize<EB_Form>((byte[])dt.Rows[0][0]);
-
-                //        pDesignerMainForm pD = new pDesignerMainForm(this.MainForm, StudioFormTypes.Desktop);
-                //        pD.Show(MainForm.DockPanel);
-                //        pD.SetEB_Form(_form);
-                //    }
             }
         }
 

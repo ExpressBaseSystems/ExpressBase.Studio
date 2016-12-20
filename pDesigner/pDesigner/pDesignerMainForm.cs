@@ -84,16 +84,16 @@ namespace pF.pDesigner {
             IpDesignerCore.Toolbox = tb.listBox1;
 
             if (this.FormType == StudioFormTypes.Desktop)
-                (IpDesignerCore as IpDesigner).AddDesignSurface<EbForm>(600, 400, AlignmentModeEnum.SnapLines, new Size(1, 1));
+                (IpDesignerCore as IpDesigner).AddDesignSurface<EbFormControl>(600, 400, AlignmentModeEnum.SnapLines, new Size(1, 1));
             else if (this.FormType == StudioFormTypes.Mobile)
-                (IpDesignerCore as IpDesigner).AddDesignSurface<EbForm>(414, 736, AlignmentModeEnum.SnapLines, new Size(1, 1));
+                (IpDesignerCore as IpDesigner).AddDesignSurface<EbFormControl>(414, 736, AlignmentModeEnum.SnapLines, new Size(1, 1));
             else if (this.FormType == StudioFormTypes.UserControl)
                 (IpDesignerCore as IpDesigner).AddDesignSurface4Web<System.Web.UI.WebControls.Panel>(150, 150, AlignmentModeEnum.SnapLines, new Size(1, 1));
         }
 
-        public void SetEB_Form(EbForm _form)
+        public void SetEB_Form(EbFormControl _form)
         {
-            (IpDesignerCore as IpDesigner).ActiveDesignSurface.SetRootComponent(_form);
+            _form.DoDesignerLayout(IpDesignerCore as IpDesigner, _form);
         }
 
         #endregion

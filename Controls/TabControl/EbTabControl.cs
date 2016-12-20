@@ -25,6 +25,12 @@ namespace ExpressBase.Studio.Controls
         /// </summary>
         private System.ComponentModel.Container components = null;
 
+        public EbObject EbObject { get; set; }
+
+        [ProtoBuf.ProtoMember(2)]
+        [Browsable(false)]
+        public IEbControl[] Controls2 { get; set; }
+
         public EbTabControl()
         {
             // This call is required by the Windows.Forms Form Designer.
@@ -122,6 +128,12 @@ namespace ExpressBase.Studio.Controls
                 string[] coords = value.Replace("{X=", string.Empty).Replace("Y=", string.Empty).Replace("}", string.Empty).Split(',');
                 Location = new Point(int.Parse(coords[0]), int.Parse(coords[1]));
             }
+        }
+
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl)
+        {
+            //var ctrl = designer.ActiveDesignSurface.CreateControl(this.GetType(), this.Size, this.Location) as System.Windows.Forms.Control;
+            //ctrl.Name = this.Name;
         }
 
         #endregion
@@ -349,6 +361,8 @@ namespace ExpressBase.Studio.Controls
         private bool bStyled = true;
         private Brush m_Brush;
 
+        public EbObject EbObject { get; set; }
+
         private bool AppIsXPThemed
         {
             //IsAppThemed will return True if the App is not using visual
@@ -398,6 +412,12 @@ namespace ExpressBase.Studio.Controls
                 foreach (IEbControl c in value)
                     this.Controls.Add((Control)c);
             }
+        }
+
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl)
+        {
+            //var ctrl = designer.ActiveDesignSurface.CreateControl(this.GetType(), this.Size, this.Location) as System.Windows.Forms.Control;
+            //ctrl.Name = this.Name;
         }
 
         #endregion

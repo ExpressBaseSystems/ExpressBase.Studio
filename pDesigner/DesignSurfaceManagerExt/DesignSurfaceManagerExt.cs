@@ -1,59 +1,60 @@
 ﻿namespace pF.DesignSurfaceManagerExt {
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.ComponentModel.Design;
-using System.ComponentModel.Design.Serialization;
-using System.Drawing.Design;
-using System.Collections;
-   
-using pF.DesignSurfaceExt;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Text;
+    using System.Windows.Forms;
+    using System.ComponentModel.Design;
+    using System.ComponentModel.Design.Serialization;
+    using System.Drawing.Design;
+    using System.Collections;
 
-//- this class manages a collection of DesignSurfaceExt2 instances
-//- this class adds to
-//-     DesignSurfaceExt2 instances
-//- the following facilities:
-//-     * PropertyGridHost 
-//-
-//- DesignSurfaceExt2
-//-     |
-//-     +--|PropertyGridHost|
-//-     |
-//-     +--|Toolbox|
-//-     |
-//-     +--|ContextMenu|
-//-     |
-//-     +--|DesignSurfaceExt|
-//-             |
-//-             +--|DesignSurface|
-//-             |
-//-             +--|TabOrder|
-//-             |
-//-             +--|UndoEngine|
-//-             |
-//-             +--|Cut/Copy/Paste/Delete commands|
-//-
-//-
-//- [Note FROM MSDN]:
-//- The ActiveDesignSurface property should be set 
-//- by the designer's Type user interface 
-//- whenever a designer becomes the active window!
-//- That is to say:
-//-   the DesignSurfaceManagerExt is an OBSERVER of UI event: SelectedTab/SelectedIndex Changed
-//- usage:
-//       //- SelectedIndexChanged event fires when the TabControls SelectedIndex or SelectedTab value changes. 
-//       //- give the focus to the DesigneSurface accordingly to te selected TabPage and sync the propertyGrid
-//       this.tabControl1.SelectedIndexChanged += ( object sender, EventArgs e ) => {
-//                TabControl tabCtrl = sender as TabControl;
-//                mgr.ActiveDesignSurface = (DesignSurfaceExt2) mgr.DesignSurfaces[tabCtrl.SelectedIndex];
-//       };
-//-
-public class DesignSurfaceManagerExt : DesignSurfaceManager {
+    using pF.DesignSurfaceExt;
+    using ExpressBase.Studio.Controls;
+
+    //- this class manages a collection of DesignSurfaceExt2 instances
+    //- this class adds to
+    //-     DesignSurfaceExt2 instances
+    //- the following facilities:
+    //-     * PropertyGridHost 
+    //-
+    //- DesignSurfaceExt2
+    //-     |
+    //-     +--|PropertyGridHost|
+    //-     |
+    //-     +--|Toolbox|
+    //-     |
+    //-     +--|ContextMenu|
+    //-     |
+    //-     +--|DesignSurfaceExt|
+    //-             |
+    //-             +--|DesignSurface|
+    //-             |
+    //-             +--|TabOrder|
+    //-             |
+    //-             +--|UndoEngine|
+    //-             |
+    //-             +--|Cut/Copy/Paste/Delete commands|
+    //-
+    //-
+    //- [Note FROM MSDN]:
+    //- The ActiveDesignSurface property should be set 
+    //- by the designer's Type user interface 
+    //- whenever a designer becomes the active window!
+    //- That is to say:
+    //-   the DesignSurfaceManagerExt is an OBSERVER of UI event: SelectedTab/SelectedIndex Changed
+    //- usage:
+    //       //- SelectedIndexChanged event fires when the TabControls SelectedIndex or SelectedTab value changes. 
+    //       //- give the focus to the DesigneSurface accordingly to te selected TabPage and sync the propertyGrid
+    //       this.tabControl1.SelectedIndexChanged += ( object sender, EventArgs e ) => {
+    //                TabControl tabCtrl = sender as TabControl;
+    //                mgr.ActiveDesignSurface = (DesignSurfaceExt2) mgr.DesignSurfaces[tabCtrl.SelectedIndex];
+    //       };
+    //-
+    public class DesignSurfaceManagerExt : DesignSurfaceManager {
     private const string _Name_ = "DesignSurfaceManagerExt";
 
     //- this List<> is necessary to be able to delete the DesignSurfaces previously created
@@ -165,7 +166,10 @@ public class DesignSurfaceManagerExt : DesignSurfaceManager {
                     return;
 
                 ArrayList comps = new ArrayList();
-                comps.AddRange( selectService.GetSelectedComponents() );
+                var x = selectService.GetSelectedComponents();
+                foreach (IEbControl c in x)
+                    comps.Add(c.EbObject);
+                //comps.AddRange( selectService.GetSelectedComponents() );
                 propertyGrid.SelectedObjects = comps.ToArray();
             };
         }
@@ -193,7 +197,10 @@ public class DesignSurfaceManagerExt : DesignSurfaceManager {
                 return;
 
             ArrayList comps = new ArrayList();
-            comps.AddRange(selectService.GetSelectedComponents());
+            var x = selectService.GetSelectedComponents();
+            foreach (IEbControl c in x)
+                comps.Add(c.EbObject);
+            //comps.AddRange(selectService.GetSelectedComponents());
             propertyGrid.SelectedObjects = comps.ToArray();
         }
 

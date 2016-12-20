@@ -25,6 +25,6 @@ namespace ExpressBase.Studio
 
     public class FormResponse
     {
-        public List<Form> Forms { get; set; }
+        public List<Form> Data { get; set; }
     }
 }
