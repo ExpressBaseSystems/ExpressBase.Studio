@@ -27,4 +27,26 @@ namespace ExpressBase.Studio
     {
         public List<Form> Data { get; set; }
     }
+
+    public class View
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Sql { get; set; }
+
+        public View() { }
+        public View(int id, string name, string sql)
+        {
+            Id = id;
+            this.Name = name;
+            this.Sql = sql;
+        }
+    }
+
+    //public class ViewResponse
+    //{
+    //    public RowColletion Data { get; set; }
+    //}
 }

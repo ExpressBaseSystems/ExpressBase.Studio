@@ -36,6 +36,7 @@ namespace ExpressBase.Studio
             this.desktopWebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mobileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.emailSMSTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,7 +99,6 @@ namespace ExpressBase.Studio
             this.vS2015BlueTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015BlueTheme();
             this.vS2015DarkTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015DarkTheme();
             this.vsToolStripExtender1 = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(this.components);
-            this.dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
             this.SuspendLayout();
@@ -181,6 +181,12 @@ namespace ExpressBase.Studio
             this.adapterToolStripMenuItem.Name = "adapterToolStripMenuItem";
             this.adapterToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.adapterToolStripMenuItem.Text = "Adapter";
+            // 
+            // dashboardToolStripMenuItem
+            // 
+            this.dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
+            this.dashboardToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.dashboardToolStripMenuItem.Text = "Dashboard";
             // 
             // dataSourceToolStripMenuItem
             // 
@@ -311,6 +317,7 @@ namespace ExpressBase.Studio
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
             // 
             // menuItemOpen
             // 
@@ -634,12 +641,6 @@ namespace ExpressBase.Studio
             // vsToolStripExtender1
             // 
             this.vsToolStripExtender1.DefaultRenderer = null;
-            // 
-            // dashboardToolStripMenuItem
-            // 
-            this.dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
-            this.dashboardToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.dashboardToolStripMenuItem.Text = "Dashboard";
             // 
             // MainForm
             // 

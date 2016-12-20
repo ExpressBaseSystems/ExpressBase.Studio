@@ -563,5 +563,11 @@ namespace ExpressBase.Studio
             pDesignerMainForm pD = new pDesignerMainForm(this, StudioFormTypes.UserControl);
             pD.Show(this.dockPanel);
         }
+
+        private void viewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SqlStatementEditor sqled = new SqlStatementEditor();
+            sqled.Show(this.dockPanel);
+        }
     }
 }

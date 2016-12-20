@@ -52,6 +52,8 @@ namespace ExpressBase.Studio.Controls
                 this.EbObject = new EbButton(this);
             else
                 this.EbObject.IEbControl = this;
+
+            this.Dock = this.EbObject.Dock;
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl)

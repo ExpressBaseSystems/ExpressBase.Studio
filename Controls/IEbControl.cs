@@ -75,7 +75,10 @@ namespace ExpressBase.Studio.Controls
         [Browsable(false)]
         public IEbControl IEbControl { get; set; }
 
-        public EbObject() { }
+        public EbObject()
+        {
+            this.Dock = DockStyle.Fill;
+        }
 
         public EbObject(IEbControl parent)
         {
@@ -90,11 +93,23 @@ namespace ExpressBase.Studio.Controls
         public EbButton(IEbControl parent) : base(parent) { }
     }
 
-
     [ProtoBuf.ProtoContract]
     public class EbTableLayout : EbObject
     {
+        [ProtoBuf.ProtoMember(1)]
+        public int RowCount { get; set; }
+
+        [ProtoBuf.ProtoMember(2)]
+        public int ColumnCount { get; set; }
+
         public EbTableLayout() { }
         public EbTableLayout(IEbControl parent) : base(parent) { }
+    }
+
+    [ProtoBuf.ProtoContract]
+    public class EbChart : EbObject
+    {
+        public EbChart() { }
+        public EbChart(IEbControl parent) : base(parent) { }
     }
 }

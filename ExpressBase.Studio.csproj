@@ -183,7 +183,7 @@
     <Compile Include="Controls\EbButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\EbChart.cs">
+    <Compile Include="Controls\EbChartControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbDataGridView.cs">
@@ -350,10 +350,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SqlStatementEditor.cs">
+    <Compile Include="Documents\SqlStatementEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SqlStatementEditor.Designer.cs">
+    <Compile Include="Documents\SqlStatementEditor.Designer.cs">
       <DependentUpon>SqlStatementEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolWindow.cs">
@@ -392,7 +392,7 @@
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqlStatementEditor.resx">
+    <EmbeddedResource Include="Documents\SqlStatementEditor.resx">
       <DependentUpon>SqlStatementEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolWindow.resx">

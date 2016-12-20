@@ -28,8 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlStatementEditor));
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.scintilla1 = new ScintillaNET.Scintilla();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(665, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
             // 
             // scintilla1
             // 
@@ -37,11 +51,21 @@
             this.scintilla1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scintilla1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scintilla1.Lexer = ScintillaNET.Lexer.Sql;
-            this.scintilla1.Location = new System.Drawing.Point(0, 0);
+            this.scintilla1.Location = new System.Drawing.Point(0, 25);
             this.scintilla1.Name = "scintilla1";
-            this.scintilla1.Size = new System.Drawing.Size(665, 261);
-            this.scintilla1.TabIndex = 0;
+            this.scintilla1.Size = new System.Drawing.Size(665, 236);
+            this.scintilla1.TabIndex = 1;
             this.scintilla1.WrapMode = ScintillaNET.WrapMode.Word;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "btnSave";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // SqlStatementEditor
             // 
@@ -49,20 +73,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 261);
             this.Controls.Add(this.scintilla1);
-            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
+            this.Controls.Add(this.toolStrip1);
             this.Name = "SqlStatementEditor";
-            this.ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Unknown;
             this.Text = "Sql Statement Editor";
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.ToolStrip toolStrip1;
         private ScintillaNET.Scintilla scintilla1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

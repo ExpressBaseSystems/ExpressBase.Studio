@@ -37,6 +37,16 @@ namespace ExpressBase.Studio.Controls
             this.EbObject.Size = this.Size;
             this.EbObject.Location = this.Location;
             this.EbObject.Dock = this.Dock;
+
+            (this.EbObject as EbTableLayout).ColumnCount = this.ColumnCount;
+            (this.EbObject as EbTableLayout).RowCount = this.RowCount;
+
+            foreach (Control c in this.Controls)
+            {
+                var position = this.GetCellPosition(c);
+                (this.EbObject as EbTableLayout).CellPositionRow = position.Row;
+                (this.EbObject as EbTableLayout).CellPositionColumn = position.Column;
+            }
         }
 
         [ProtoBuf.ProtoAfterDeserialization]
@@ -56,12 +66,17 @@ namespace ExpressBase.Studio.Controls
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl)
         {
+            this.EbObject.IEbControl = this;
+            this.RowCount = (serialized_ctrl.EbObject as EbTableLayout).RowCount;
+            this.ColumnCount = (serialized_ctrl.EbObject as EbTableLayout).ColumnCount;
+            this.Refresh();
+
             foreach (IEbControl c in serialized_ctrl.Controls2)
             {
                 var ctrl = designer.ActiveDesignSurface.CreateControl(c.GetType(), c.EbObject.Size, c.EbObject.Location) as System.Windows.Forms.Control;
                 ctrl.Parent = this;
-                (ctrl as IEbControl).DoDesignerLayout(designer, c);
                 this.SetCellPosition(ctrl, new TableLayoutPanelCellPosition(c.EbObject.CellPositionRow, c.EbObject.CellPositionColumn));
+                (ctrl as IEbControl).DoDesignerLayout(designer, c);
             }
         }
 
