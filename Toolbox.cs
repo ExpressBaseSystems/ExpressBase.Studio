@@ -19,7 +19,7 @@ namespace ExpressBase.Studio
             listBox1.Items.Add(new ToolboxItem(typeof(ListView)));
             listBox1.Items.Add(new ToolboxItem(typeof(TreeView)));
             listBox1.Items.Add(new ToolboxItem(typeof(TextBox)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbPasswordControl)));
+            //listBox1.Items.Add(new ToolboxItem(typeof(EbPasswordControl)));
             listBox1.Items.Add(new ToolboxItem(typeof(NumericUpDown)));
             listBox1.Items.Add(new ToolboxItem(typeof(MaskedTextBox)));
             listBox1.Items.Add(new ToolboxItem(typeof(RadioButton)));
@@ -33,12 +33,10 @@ namespace ExpressBase.Studio
             listBox1.Items.Add(new ToolboxItem(typeof(ComboBox)));
             listBox1.Items.Add(new ToolboxItem(typeof(GroupBox)));
             listBox1.Items.Add(new ToolboxItem(typeof(ImageList)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbTabControl)));
+            //listBox1.Items.Add(new ToolboxItem(typeof(EbTabControl)));
             listBox1.Items.Add(new ToolboxItem(typeof(EbChartControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbDataGridViewControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(System.Web.UI.WebControls.TextBox)));
-            listBox1.Items.Add(new ToolboxItem(typeof(System.Web.UI.WebControls.TextBox)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbTableLayoutPanel)));
+            //listBox1.Items.Add(new ToolboxItem(typeof(EbDataGridViewControl)));
+            //listBox1.Items.Add(new ToolboxItem(typeof(EbTableLayoutPanel)));
         }
     }
 }

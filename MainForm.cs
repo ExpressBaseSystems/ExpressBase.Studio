@@ -569,5 +569,11 @@ namespace ExpressBase.Studio
             SqlStatementEditor sqled = new SqlStatementEditor();
             sqled.Show(this.dockPanel);
         }
+
+        private void dataSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SqlStatementEditor sqled = new SqlStatementEditor();
+            sqled.Show(this.dockPanel);
+        }
     }
 }

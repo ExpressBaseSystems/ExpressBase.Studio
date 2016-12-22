@@ -305,7 +305,7 @@ namespace ExpressBase.Studio.Controls
 
     [ProtoBuf.ProtoContract]
     [Designer(typeof(System.Windows.Forms.Design.ScrollableControlDesigner))]
-    public class EbTabPage : TabPage, IEbControl
+    public class EbTabPage : TabPage
     {
         #region API Declares
 
@@ -399,24 +399,24 @@ namespace ExpressBase.Studio.Controls
             }
         }
 
-        [ProtoBuf.ProtoMember(1)]
-        [Browsable(false)]
-        public IEbControl[] Controls2
-        {
-            get
-            {
-                IEbControl[] ca = new IEbControl[this.Controls.Count];
-                this.Controls.CopyTo(ca, 0);
-                return ca;
-            }
-            set
-            {
-                foreach (IEbControl c in value)
-                    this.Controls.Add((Control)c);
-            }
-        }
+        //[ProtoBuf.ProtoMember(1)]
+        //[Browsable(false)]
+        //public IEbControl[] Controls2
+        //{
+        //    get
+        //    {
+        //        IEbControl[] ca = new IEbControl[this.Controls.Count];
+        //        this.Controls.CopyTo(ca, 0);
+        //        return ca;
+        //    }
+        //    set
+        //    {
+        //        foreach (IEbControl c in value)
+        //            this.Controls.Add((Control)c);
+        //    }
+        //}
 
-        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl)
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbObject serialized_ctrl)
         {
             //var ctrl = designer.ActiveDesignSurface.CreateControl(this.GetType(), this.Size, this.Location) as System.Windows.Forms.Control;
             //ctrl.Name = this.Name;

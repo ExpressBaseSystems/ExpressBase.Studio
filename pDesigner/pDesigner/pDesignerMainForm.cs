@@ -93,7 +93,7 @@ namespace pF.pDesigner {
 
         public void SetEB_Form(EbFormControl _form)
         {
-            _form.DoDesignerLayout(IpDesignerCore as IpDesigner, _form);
+            _form.DoDesignerLayout(IpDesignerCore as IpDesigner, _form.EbObject);
         }
 
         #endregion
@@ -147,14 +147,15 @@ namespace pF.pDesigner {
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var _form = (IpDesignerCore as pDesigner).Controls[0].Controls[0].Controls[0] as System.Windows.Forms.Form;
+            var _form = (IpDesignerCore as pDesigner).Controls[0].Controls[0].Controls[0] as EbFormControl;
+            _form.BeforeSerialization();
 
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
             var f = new ExpressBase.Studio.Form
             {
                 Id = 999,
                 Name = _form.Name,
-                Bytea = ProtoBuf_Serialize(_form)
+                Bytea = ProtoBuf_Serialize((_form as IEbControl).EbObject)
             };
 
             using (client.Post<HttpWebResponse>(f as object)) { }

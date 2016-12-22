@@ -22,11 +22,11 @@ namespace ExpressBase.Studio
             treeView1.NodeMouseDoubleClick += TreeView1_NodeMouseDoubleClick;
 
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var fr = client.Get<FormResponse>("http://localhost:53125/forms?format=json");
-
+            var fr = client.Get<FormResponse>("http://localhost:53125/form?format=json");
+            
             treeView1.SuspendLayout();
 
-            foreach (Form dr in fr.Data)
+            foreach (Form dr in fr.Forms)
             {
                 var nodetemp = new TreeNode(dr.Name, 8, 8);
                 nodetemp.Tag = dr.Id.ToString();
@@ -46,11 +46,13 @@ namespace ExpressBase.Studio
                 int id = Convert.ToInt32(node.Tag);
 
                 IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-                var fr = client.Get<FormResponse>(string.Format("http://localhost:53125/forms/{0}", id));
+                var fr = client.Get<FormResponse>(string.Format("http://localhost:53125/form/{0}", id));
 
-                var _form = ProtoBuf_DeSerialize<EbFormControl>(fr.Data[0].Bytea);
+                var _formEbObject = ProtoBuf_DeSerialize<EbObject>(fr.Forms[0].Bytea);
                 pDesignerMainForm pD = new pDesignerMainForm(this.MainForm, StudioFormTypes.Desktop);
                 pD.Show(MainForm.DockPanel);
+                var _form = new EbFormControl();
+                _form.EbObject = _formEbObject;
                 pD.SetEB_Form(_form);
             }
         }

@@ -66,8 +66,8 @@ public partial class PropertyGridHost : UserControl {
             {
                 if (this.SelectedObject != null)
                 {
-                    if (this.SelectedObject is ExpressBase.Studio.Controls.EbObject)
-                        (this.SelectedObject as ExpressBase.Studio.Controls.EbObject).IEbControl.DoDesignerRefresh();
+                    //if (this.SelectedObject is ExpressBase.Studio.Controls.EbObject && !(this.SelectedObject is ExpressBase.Studio.Controls.EbButton))
+                    //    (this.SelectedObject as ExpressBase.Studio.Controls.EbObject).IEbControl.DoDesignerRefresh();
                 }
             };
 

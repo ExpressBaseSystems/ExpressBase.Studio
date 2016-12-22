@@ -25,10 +25,10 @@ namespace ExpressBase.Studio
 
     public class FormResponse
     {
-        public List<Form> Data { get; set; }
+        public List<Form> Forms { get; set; }
     }
 
-    public class View
+    public class EbDataSource
     {
         public int Id { get; set; }
 
@@ -36,17 +36,12 @@ namespace ExpressBase.Studio
 
         public string Sql { get; set; }
 
-        public View() { }
-        public View(int id, string name, string sql)
+        public EbDataSource() { }
+        public EbDataSource(int id, string name, string sql)
         {
             Id = id;
             this.Name = name;
             this.Sql = sql;
         }
     }
-
-    //public class ViewResponse
-    //{
-    //    public RowColletion Data { get; set; }
-    //}
 }

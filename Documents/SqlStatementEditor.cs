@@ -23,11 +23,10 @@ namespace ExpressBase.Studio
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var f = new ExpressBase.Studio.View
+            var f = new ExpressBase.Studio.EbDataSource
             {
-                Id = 999,
-                Name = "view1",
-                Sql = this.scintilla1.Text
+                Name = txtName.Text.Trim(),
+                Sql = this.scintilla1.Text.Trim()
             };
 
             using (client.Post<HttpWebResponse>(f)) { }

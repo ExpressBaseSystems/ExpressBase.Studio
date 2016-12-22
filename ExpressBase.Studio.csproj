@@ -186,22 +186,10 @@
     <Compile Include="Controls\EbChartControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\EbDataGridView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\EbForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\EbPassword.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\EbTableLayoutPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\IEbControl.cs" />
-    <Compile Include="Controls\TabControl\EbTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Form.cs" />
     <Compile Include="pDesigner\TypeDiscoveryService.cs" />
     <Compile Include="pDesigner\DesignSurfaceExt\DesignerOptionServiceExt.cs" />

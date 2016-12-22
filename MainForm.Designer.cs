@@ -193,6 +193,7 @@ namespace ExpressBase.Studio
             this.dataSourceToolStripMenuItem.Name = "dataSourceToolStripMenuItem";
             this.dataSourceToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.dataSourceToolStripMenuItem.Text = "DataSource";
+            this.dataSourceToolStripMenuItem.Click += new System.EventHandler(this.dataSourceToolStripMenuItem_Click);
             // 
             // emailSMSTemplateToolStripMenuItem
             // 
