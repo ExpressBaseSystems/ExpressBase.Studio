@@ -22,6 +22,7 @@ namespace ExpressBase.Studio.Controls
     [ProtoBuf.ProtoInclude(1000, typeof(EbButton))]
     [ProtoBuf.ProtoInclude(1001, typeof(EbTableLayout))]
     [ProtoBuf.ProtoInclude(1002, typeof(EbChart))]
+    [ProtoBuf.ProtoInclude(1003, typeof(EbDataGridView))]
     public class EbObject
     {
         [ProtoBuf.ProtoMember(1)]
@@ -191,5 +192,12 @@ namespace ExpressBase.Studio.Controls
     </script>
 ", this.DataSourceId, this.ChartType);
         }
+    }
+
+    [ProtoBuf.ProtoContract]
+    public class EbDataGridView : EbObject
+    {
+        [ProtoBuf.ProtoMember(1)]
+        public int DataSourceId { get; set; }
     }
 }

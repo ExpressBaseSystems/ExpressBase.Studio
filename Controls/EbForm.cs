@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace ExpressBase.Studio.Controls
 {
-    [ProtoBuf.ProtoContract]
     public class EbFormControl : System.Windows.Forms.Form, IEbControl
     {
-        [ProtoBuf.ProtoMember(1)]
         public EbObject EbObject { get; set; }
 
         public EbFormControl() { }
