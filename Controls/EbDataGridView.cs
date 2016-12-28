@@ -1,5 +1,7 @@
 ﻿using System;
 using pF.pDesigner;
+using ExpressBase.UI;
+using System.Windows.Forms;
 
 namespace ExpressBase.Studio.Controls
 {
@@ -16,21 +18,25 @@ namespace ExpressBase.Studio.Controls
                 this.EbObject = new EbDataGridView();
         }
 
-        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, IEbControl serialized_ctrl)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DoDesignerRefresh() { }
-
+        //required
         public void BeforeSerialization()
         {
-            //throw new NotImplementedException();
+            this.EbObject.TargetType = this.GetType().FullName;
         }
 
-        public void DoDesignerLayout(IpDesigner designer, EbObject serialized_ctrl)
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbObject serialized_ctrl)
         {
-            throw new NotImplementedException();
+            this.EbObject = serialized_ctrl;
+            this.Name = serialized_ctrl.Name;
+            this.Dock = DockStyle.Fill;
+            this.Text = serialized_ctrl.Label;
+        }
+
+        public void DoDesignerRefresh()
+        {
+            this.Name = this.EbObject.Name;
+            this.Dock = DockStyle.Fill;
+            this.Text = this.EbObject.Label;
         }
     }
 }

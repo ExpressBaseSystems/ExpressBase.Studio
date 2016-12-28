@@ -19,6 +19,7 @@
     using WeifenLuo.WinFormsUI.Docking;
     using ExpressBase.Studio;
     using System.Collections;
+    using ExpressBase.Studio.Controls;
 
 
     //- [Note FROM MSDN]:

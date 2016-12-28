@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpressBase.UI;
+using System;
 
 namespace ExpressBase.Studio.Controls
 {
@@ -11,9 +12,6 @@ namespace ExpressBase.Studio.Controls
         //required
         public void BeforeSerialization()
         {
-            this.EbObject.Size = this.Size;
-            this.EbObject.Location = this.Location;
-            this.EbObject.Dock = this.Dock;
             this.EbObject.TargetType = this.GetType().FullName;
         }
 
@@ -28,18 +26,14 @@ namespace ExpressBase.Studio.Controls
         {
             this.EbObject = serialized_ctrl;
             this.Name = serialized_ctrl.Name;
-            this.Size = serialized_ctrl.Size;
-            this.Location = serialized_ctrl.Location;
-            this.Dock = serialized_ctrl.Dock;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Text = serialized_ctrl.Label;
         }
 
         public void DoDesignerRefresh()
         {
             this.Name = this.EbObject.Name;
-            this.Size = this.EbObject.Size;
-            this.Location = this.EbObject.Location;
-            this.Dock = this.EbObject.Dock;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Text = this.EbObject.Label;
         }
     }

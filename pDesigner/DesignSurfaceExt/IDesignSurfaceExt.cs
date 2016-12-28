@@ -27,7 +27,8 @@ public interface IDesignSurfaceExt {
     //- method usefull to create control without the ToolBox facility
     IComponent CreateRootComponent ( Type controlType, Size controlSize );
     IComponent CreateRootComponent( DesignerLoader loader, Size controlSize );
-    Control CreateControl ( Type controlType, Size controlSize, Point controlLocation );
+    IComponent RootComponent { get; }
+    Control CreateControl ( Type controlType );
 
     //- Get the UndoEngineExtended object
     UndoEngineExt GetUndoEngineExt();

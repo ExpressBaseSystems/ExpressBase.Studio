@@ -1,4 +1,5 @@
 using ExpressBase.Studio.Controls;
+using ExpressBase.UI;
 using pF.pDesigner;
 using ServiceStack;
 using System;
@@ -53,6 +54,7 @@ namespace ExpressBase.Studio
                 pD.Show(MainForm.DockPanel);
                 var _form = new EbFormControl();
                 _form.EbObject = _formEbObject;
+                _form.EbObject.Id = id;
                 pD.SetEB_Form(_form);
             }
         }

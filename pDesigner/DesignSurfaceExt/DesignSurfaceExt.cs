@@ -187,7 +187,7 @@ namespace pF.DesignSurfaceExt {
         return CreateRootComponentCore( null, controlSize, loader );
     }
 
-    public Control CreateControl ( Type controlType, Size controlSize, Point controlLocation ) {
+    public Control CreateControl ( Type controlType ) {
         try {
             //- step.1
             //- get the IDesignerHost
@@ -215,14 +215,14 @@ namespace pF.DesignSurfaceExt {
             //-
             //- step.3
             //- try to modify the Size/Location of the object just created
-            PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties ( newComp );
-            //- Sets a PropertyDescriptor to the specific property.
-            PropertyDescriptor pdS = pdc.Find ( "Size", false );
-            if ( null != pdS )
-                pdS.SetValue ( newComp, controlSize );
-            PropertyDescriptor pdL = pdc.Find ( "Location", false );
-            if ( null != pdL )
-                pdL.SetValue ( newComp, controlLocation );
+            //PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties ( newComp );
+            ////- Sets a PropertyDescriptor to the specific property.
+            //PropertyDescriptor pdS = pdc.Find ( "Size", false );
+            //if ( null != pdS )
+            //    pdS.SetValue ( newComp, controlSize );
+            //PropertyDescriptor pdL = pdc.Find ( "Location", false );
+            //if ( null != pdL )
+            //    pdL.SetValue ( newComp, controlLocation );
             //-
             //-
             //- step.4
@@ -275,7 +275,17 @@ namespace pF.DesignSurfaceExt {
         set {  _tabOrder = value;  }
     }
 
-    public void InvokeTabOrder() {
+        public IComponent RootComponent
+        {
+            get
+            {
+                IDesignerHost host = GetIDesignerHost();
+                if (null == host) return null;
+                return host.RootComponent;
+            }
+        }
+
+        public void InvokeTabOrder() {
         TabOrder.HookTabOrder ( this.GetIDesignerHost() );
         _tabOrderMode = true;
     }

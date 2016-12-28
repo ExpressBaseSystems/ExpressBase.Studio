@@ -153,7 +153,7 @@ namespace pF.pDesigner {
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
             var f = new ExpressBase.Studio.Form
             {
-                Id = 999,
+                Id = _form.EbObject.Id,
                 Name = _form.Name,
                 Bytea = ProtoBuf_Serialize((_form as IEbControl).EbObject)
             };

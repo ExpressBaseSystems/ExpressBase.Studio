@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpressBase.UI;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -28,10 +29,6 @@ namespace ExpressBase.Studio.Controls
                 this.EbObject.Controls.Add(e.EbObject);
             }
 
-            this.EbObject.Size = this.Size;
-            this.EbObject.Location = this.Location;
-            this.EbObject.Dock = this.Dock;
-
             (this.EbObject as EbTableLayout).ColumnCount = this.ColumnCount;
             (this.EbObject as EbTableLayout).RowCount = this.RowCount;
 
@@ -51,7 +48,7 @@ namespace ExpressBase.Studio.Controls
 
             foreach (IEbControl c in serialized_ctrl.Controls)
             {
-                var ctrl = designer.ActiveDesignSurface.CreateControl(c.GetType(), c.EbObject.Size, c.EbObject.Location) as System.Windows.Forms.Control;
+                var ctrl = designer.ActiveDesignSurface.CreateControl(c.GetType()) as System.Windows.Forms.Control;
                 ctrl.Parent = this;
                 this.SetCellPosition(ctrl, new TableLayoutPanelCellPosition(c.EbObject.CellPositionRow, c.EbObject.CellPositionColumn));
                 (ctrl as IEbControl).DoDesignerLayout(designer, c.EbObject);

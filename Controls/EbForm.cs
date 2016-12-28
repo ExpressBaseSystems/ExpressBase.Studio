@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExpressBase.UI;
+using pF.DesignSurfaceExt;
+using System;
 using System.Collections.Generic;
 
 namespace ExpressBase.Studio.Controls
@@ -30,9 +32,10 @@ namespace ExpressBase.Studio.Controls
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbObject serialized_ctrl)
         {
+            ((designer.ActiveDesignSurface as IDesignSurfaceExt).RootComponent as EbFormControl).EbObject = serialized_ctrl;
             foreach (EbObject c in serialized_ctrl.Controls)
             {
-                var ctrl = designer.ActiveDesignSurface.CreateControl(Type.GetType(c.TargetType), c.Size, c.Location) as System.Windows.Forms.Control;
+                var ctrl = designer.ActiveDesignSurface.CreateControl(Type.GetType(c.TargetType)) as System.Windows.Forms.Control;
                 (ctrl as IEbControl).DoDesignerLayout(designer, c);
             }
         }
