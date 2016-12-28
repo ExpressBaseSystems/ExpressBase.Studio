@@ -13,6 +13,7 @@ namespace ExpressBase.Studio.Controls
         public void BeforeSerialization()
         {
             this.EbControl.TargetType = this.GetType().FullName;
+            this.EbControl.Name = this.Name;
         }
 
         protected override void OnParentChanged(EventArgs e)

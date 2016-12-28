@@ -189,7 +189,10 @@
       <Link>ServiceStack_Artifacts\ServiceWrappers.cs</Link>
     </Compile>
     <Compile Include="..\ExpressBase.UI\EbObjects.cs">
-      <Link>Controls\EbObjects.cs</Link>
+      <Link>Common\EbObjects.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.UI\HtmlTable.cs">
+      <Link>Common\HtmlTable.cs</Link>
     </Compile>
     <Compile Include="AboutDialog.cs">
       <SubType>Form</SubType>

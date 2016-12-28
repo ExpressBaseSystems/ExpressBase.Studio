@@ -18,26 +18,28 @@ namespace ExpressBase.Studio.Controls
                 this.EbControl = new EbTableLayout();
         }
 
-        [ProtoBuf.ProtoBeforeSerialization]
-        private void BeforeSerialization()
+        public void BeforeSerialization()
         {
             this.EbControl.TargetType = this.GetType().FullName;
             this.EbControl.Controls = new List<EbControl>();
             foreach (IEbControl e in this.Controls)
             {
                 e.BeforeSerialization();
+                var position = this.GetCellPosition(e as Control);
+                e.EbControl.CellPositionRow = position.Row;
+                e.EbControl.CellPositionColumn = position.Column;
                 this.EbControl.Controls.Add(e.EbControl);
             }
 
             (this.EbControl as EbTableLayout).ColumnCount = this.ColumnCount;
             (this.EbControl as EbTableLayout).RowCount = this.RowCount;
 
-            foreach (Control c in this.Controls)
-            {
-                var position = this.GetCellPosition(c);
-                (this.EbControl as EbTableLayout).CellPositionRow = position.Row;
-                (this.EbControl as EbTableLayout).CellPositionColumn = position.Column;
-            }
+            //foreach (Control c in this.Controls)
+            //{
+            //    var position = this.GetCellPosition(c);
+            //    (this.EbControl as EbTableLayout).CellPositionRow = position.Row;
+            //    (this.EbControl as EbTableLayout).CellPositionColumn = position.Column;
+            //}
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
@@ -46,20 +48,15 @@ namespace ExpressBase.Studio.Controls
             this.ColumnCount = (serialized_ctrl as EbTableLayout).ColumnCount;
             this.Refresh();
 
-            foreach (IEbControl c in serialized_ctrl.Controls)
+            foreach (EbControl c in serialized_ctrl.Controls)
             {
-                var ctrl = designer.ActiveDesignSurface.CreateControl(c.GetType()) as System.Windows.Forms.Control;
+                var ctrl = designer.ActiveDesignSurface.CreateControl(Type.GetType(c.TargetType)) as System.Windows.Forms.Control;
                 ctrl.Parent = this;
-                this.SetCellPosition(ctrl, new TableLayoutPanelCellPosition(c.EbControl.CellPositionRow, c.EbControl.CellPositionColumn));
-                (ctrl as IEbControl).DoDesignerLayout(designer, c.EbControl);
+                this.SetCellPosition(ctrl, new TableLayoutPanelCellPosition(c.CellPositionRow, c.CellPositionColumn));
+                (ctrl as IEbControl).DoDesignerLayout(designer, c);
             }
         }
 
         public void DoDesignerRefresh() { }
-
-        void IEbControl.BeforeSerialization()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
