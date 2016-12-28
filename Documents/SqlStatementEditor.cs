@@ -34,6 +34,8 @@ namespace ExpressBase.Studio
                 Name = txtName.Text.Trim(),
                 Bytea = EbSerializers.ProtoBuf_Serialize(new EbDataSource
                     {
+                        Id = this.Id,
+                        Name = txtName.Text.Trim(),
                         Sql = this.scintilla1.Text.Trim()
                     })
             };
