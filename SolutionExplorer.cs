@@ -24,21 +24,7 @@ namespace ExpressBase.Studio
 
             treeView1.NodeMouseDoubleClick += TreeView1_NodeMouseDoubleClick;
 
-            IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var fr = client.Get<EbObjectResponse>("http://localhost:53125/ebo?format=json");
-            
-            treeView1.SuspendLayout();
-
-            foreach (EbObjectWrapper dr in fr.Data)
-            {
-                var nodetemp = new TreeNode(dr.Name, 8, 8);
-                nodetemp.Tag = dr.Id.ToString();
-                nodetemp.Name = dr.Id.ToString();
-                treeView1.Nodes[0].Nodes.Add(nodetemp);
-            }
-
-            treeView1.ExpandAll();
-            treeView1.ResumeLayout(true);
+            RefreshTreeView();
         }
 
         private void TreeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -77,6 +63,31 @@ namespace ExpressBase.Studio
         protected override void OnRightToLeftLayoutChanged(EventArgs e)
         {
             treeView1.RightToLeftLayout = RightToLeftLayout;
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            RefreshTreeView();
+        }
+
+        private void RefreshTreeView()
+        {
+            IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
+            var fr = client.Get<EbObjectResponse>("http://localhost:53125/ebo?format=json");
+
+            treeView1.SuspendLayout();
+            treeView1.Nodes[0].Nodes.Clear();
+
+            foreach (EbObjectWrapper dr in fr.Data)
+            {
+                var nodetemp = new TreeNode(dr.Name, 8, 8);
+                nodetemp.Tag = dr.Id.ToString();
+                nodetemp.Name = dr.Id.ToString();
+                treeView1.Nodes[0].Nodes.Add(nodetemp);
+            }
+
+            treeView1.ExpandAll();
+            treeView1.ResumeLayout(true);
         }
     }
 }
