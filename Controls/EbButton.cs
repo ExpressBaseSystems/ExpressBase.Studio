@@ -6,26 +6,26 @@ namespace ExpressBase.Studio.Controls
 {
     public class EbButtonControl : Button, IEbControl
     {
-        public EbObject EbObject { get; set; }
+        public EbControl EbControl { get; set; }
 
         public EbButtonControl() { }
 
         //required
         public void BeforeSerialization()
         {
-            this.EbObject.TargetType = this.GetType().FullName;
+            this.EbControl.TargetType = this.GetType().FullName;
         }
 
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
-            if (this.EbObject == null)
-                this.EbObject = new EbButton();
+            if (this.EbControl == null)
+                this.EbControl = new EbButton();
         }
 
-        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbObject serialized_ctrl)
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
-            this.EbObject = serialized_ctrl;
+            this.EbControl = serialized_ctrl;
             this.Name = serialized_ctrl.Name;
             this.Dock = DockStyle.Fill;
             this.Text = serialized_ctrl.Label;
@@ -33,9 +33,9 @@ namespace ExpressBase.Studio.Controls
 
         public void DoDesignerRefresh()
         {
-            this.Name = this.EbObject.Name;
+            this.Name = this.EbControl.Name;
             this.Dock = DockStyle.Fill;
-            this.Text = this.EbObject.Label;
+            this.Text = this.EbControl.Label;
         }
     }
 }

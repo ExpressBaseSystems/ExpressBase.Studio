@@ -1,4 +1,6 @@
-﻿using ServiceStack;
+﻿using ExpressBase.Common;
+using ExpressBase.UI;
+using ServiceStack;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,8 @@ namespace ExpressBase.Studio
 {
     public partial class SqlStatementEditor : DockContent
     {
+        private int Id { get; set; }
+
         public SqlStatementEditor()
         {
             InitializeComponent();
@@ -23,15 +27,27 @@ namespace ExpressBase.Studio
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var f = new ExpressBase.Studio.EbDataSource
+            var f = new ExpressBase.ServiceStack.EbObjectWrapper
             {
+                Id = this.Id,
+                EbObjectType = UI.EbObjectType.DataSource,
                 Name = txtName.Text.Trim(),
-                Sql = this.scintilla1.Text.Trim()
+                Bytea = EbSerializers.ProtoBuf_Serialize(new EbDataSource
+                    {
+                        Sql = this.scintilla1.Text.Trim()
+                    })
             };
 
             using (client.Post<HttpWebResponse>(f)) { }
 
             this.Close();
+        }
+
+        public void Set(int id, string name, string sql)
+        {
+            this.Id = id;
+            this.txtName.Text = name;
+            this.scintilla1.Text = sql;
         }
     }
 }

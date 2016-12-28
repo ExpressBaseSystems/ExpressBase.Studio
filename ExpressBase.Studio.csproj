@@ -139,6 +139,11 @@
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -174,6 +179,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceRequests.cs">
+      <Link>ServiceStack_Artifacts\ServiceRequests.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceResponses.cs">
+      <Link>ServiceStack_Artifacts\ServiceResponses.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceWrappers.cs">
+      <Link>ServiceStack_Artifacts\ServiceWrappers.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.UI\EbObjects.cs">
       <Link>Controls\EbObjects.cs</Link>
     </Compile>
@@ -183,6 +197,7 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\EbSerializers.cs" />
     <Compile Include="Controls\EbButton.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -168,7 +168,7 @@
                 ArrayList comps = new ArrayList();
                 var x = selectService.GetSelectedComponents();
                 foreach (IEbControl c in x)
-                    comps.Add(c.EbObject);
+                    comps.Add(c.EbControl);
                 //comps.AddRange( selectService.GetSelectedComponents() );
                 propertyGrid.SelectedObjects = comps.ToArray();
             };
@@ -199,7 +199,7 @@
             ArrayList comps = new ArrayList();
             var x = selectService.GetSelectedComponents();
             foreach (IEbControl c in x)
-                comps.Add(c.EbObject);
+                comps.Add(c.EbControl);
             //comps.AddRange(selectService.GetSelectedComponents());
             propertyGrid.SelectedObjects = comps.ToArray();
         }

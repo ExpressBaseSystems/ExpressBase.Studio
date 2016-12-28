@@ -10,11 +10,11 @@ namespace ExpressBase.Studio.Controls
 {
     public interface IEbControl
     {
-        EbObject EbObject { get; set; }
+        EbControl EbControl { get; set; }
 
         void BeforeSerialization();
 
-        void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbObject serialized_ctrl);
+        void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl);
 
         void DoDesignerRefresh();
     }

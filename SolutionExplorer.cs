@@ -1,3 +1,5 @@
+using ExpressBase.Common;
+using ExpressBase.ServiceStack;
 using ExpressBase.Studio.Controls;
 using ExpressBase.UI;
 using pF.pDesigner;
@@ -23,11 +25,11 @@ namespace ExpressBase.Studio
             treeView1.NodeMouseDoubleClick += TreeView1_NodeMouseDoubleClick;
 
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var fr = client.Get<FormResponse>("http://localhost:53125/form?format=json");
+            var fr = client.Get<EbObjectResponse>("http://localhost:53125/ebo?format=json");
             
             treeView1.SuspendLayout();
 
-            foreach (Form dr in fr.Forms)
+            foreach (EbObjectWrapper dr in fr.Data)
             {
                 var nodetemp = new TreeNode(dr.Name, 8, 8);
                 nodetemp.Tag = dr.Id.ToString();
@@ -47,33 +49,34 @@ namespace ExpressBase.Studio
                 int id = Convert.ToInt32(node.Tag);
 
                 IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-                var fr = client.Get<FormResponse>(string.Format("http://localhost:53125/form/{0}", id));
+                var fr = client.Get<EbObjectResponse>(string.Format("http://localhost:53125/ebo/{0}", id));
 
-                var _formEbObject = ProtoBuf_DeSerialize<EbObject>(fr.Forms[0].Bytea);
-                pDesignerMainForm pD = new pDesignerMainForm(this.MainForm, StudioFormTypes.Desktop);
-                pD.Show(MainForm.DockPanel);
-                var _form = new EbFormControl();
-                _form.EbObject = _formEbObject;
-                _form.EbObject.Id = id;
-                pD.SetEB_Form(_form);
+                var _formEbObject = EbSerializers.ProtoBuf_DeSerialize<EbObject>(fr.Data[0].Bytea);
+                _formEbObject.EbObjectType = fr.Data[0].EbObjectType;
+                _formEbObject.Name = fr.Data[0].Name;
+                _formEbObject.Id = fr.Data[0].Id;
+
+                if (_formEbObject.EbObjectType == EbObjectType.Form)
+                {
+                    pDesignerMainForm pD = new pDesignerMainForm(this.MainForm, StudioFormTypes.Desktop);
+                    pD.Show(MainForm.DockPanel);
+                    var _form = new EbFormControl();
+                    _form.EbControl = _formEbObject as EbControl;
+                    _form.EbControl.Id = id;
+                    pD.SetEB_Form(_form);
+                }
+                else if (_formEbObject.EbObjectType == EbObjectType.DataSource)
+                {
+                    SqlStatementEditor ed = new SqlStatementEditor();
+                    ed.Set(id, _formEbObject.Name, (_formEbObject as EbDataSource).Sql);
+                    ed.Show(MainForm.DockPanel);
+                }
             }
         }
 
         protected override void OnRightToLeftLayoutChanged(EventArgs e)
         {
             treeView1.RightToLeftLayout = RightToLeftLayout;
-        }
-
-        public T ProtoBuf_DeSerialize<T>(byte[] bytea)
-        {
-            object obj = null;
-
-            using (var mem2 = new MemoryStream(bytea))
-            {
-                obj = ProtoBuf.Serializer.Deserialize<T>(mem2);
-            }
-
-            return (T)obj;
         }
     }
 }

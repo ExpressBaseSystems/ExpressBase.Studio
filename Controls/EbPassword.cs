@@ -5,7 +5,7 @@ namespace ExpressBase.Studio.Controls
 {
     public class EbPasswordControl : System.Windows.Forms.TextBox, IEbControl
     {
-        public EbObject EbObject { get; set; }
+        public EbControl EbControl { get; set; }
 
         //for protobuf-net
         public EbPasswordControl() : base()
@@ -13,7 +13,7 @@ namespace ExpressBase.Studio.Controls
             base.PasswordChar = '*';
         }
 
-        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbObject serialized_ctrl)
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
             throw new NotImplementedException();
         }

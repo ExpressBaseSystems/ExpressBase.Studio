@@ -18,6 +18,7 @@ namespace pF.pDesigner {
     using ServiceStack;
     using System.Net;
     using System.IO;
+    using ExpressBase.Common;
 
     public partial class pDesignerMainForm : DockContent
     {
@@ -93,7 +94,7 @@ namespace pF.pDesigner {
 
         public void SetEB_Form(EbFormControl _form)
         {
-            _form.DoDesignerLayout(IpDesignerCore as IpDesigner, _form.EbObject);
+            _form.DoDesignerLayout(IpDesignerCore as IpDesigner, _form.EbControl);
         }
 
         #endregion
@@ -151,41 +152,17 @@ namespace pF.pDesigner {
             _form.BeforeSerialization();
 
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var f = new ExpressBase.Studio.Form
+            var f = new ExpressBase.ServiceStack.EbObjectWrapper
             {
-                Id = _form.EbObject.Id,
+                Id = _form.EbControl.Id,
+                EbObjectType = ExpressBase.UI.EbObjectType.Form,
                 Name = _form.Name,
-                Bytea = ProtoBuf_Serialize((_form as IEbControl).EbObject)
+                Bytea = EbSerializers.ProtoBuf_Serialize((_form as IEbControl).EbControl)
             };
 
             using (client.Post<HttpWebResponse>(f as object)) { }
 
             this.Close();
-        }
-
-        public byte[] ProtoBuf_Serialize(object obj)
-        {
-            byte[] buffer = null;
-
-            using (var memoryStream = new System.IO.MemoryStream())
-            {
-                ProtoBuf.Serializer.Serialize(memoryStream, obj);
-                buffer = memoryStream.ToArray();
-            }
-
-            return buffer;
-        }
-
-        public T ProtoBuf_DeSerialize<T>(byte[] bytea)
-        {
-            object obj = null;
-
-            using (var mem2 = new MemoryStream(bytea))
-            {
-                obj = ProtoBuf.Serializer.Deserialize<T>(mem2);
-            }
-
-            return (T)obj;
         }
     }//end_class
 }//end_namespace
