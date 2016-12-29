@@ -179,6 +179,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\ExpressBase.Common\EbSerializers.cs">
+      <Link>Common\EbSerializers.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceRequests.cs">
       <Link>ServiceStack_Artifacts\ServiceRequests.cs</Link>
     </Compile>
@@ -200,7 +203,6 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common\EbSerializers.cs" />
     <Compile Include="Controls\EbButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -220,7 +222,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\IEbControl.cs" />
-    <Compile Include="Form.cs" />
     <Compile Include="pDesigner\TypeDiscoveryService.cs" />
     <Compile Include="pDesigner\DesignSurfaceExt\DesignerOptionServiceExt.cs" />
     <Compile Include="pDesigner\DesignSurfaceExt\DesignerSerializationServiceImpl.cs" />
