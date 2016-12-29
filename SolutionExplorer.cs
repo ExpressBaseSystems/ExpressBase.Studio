@@ -80,7 +80,7 @@ namespace ExpressBase.Studio
 
             foreach (EbObjectWrapper dr in fr.Data)
             {
-                var nodetemp = new TreeNode(dr.Name, 8, 8);
+                var nodetemp = new TreeNode(string.Format("{0} ({1})", dr.Name, dr.Id), 8, 8);
                 nodetemp.Tag = dr.Id.ToString();
                 nodetemp.Name = dr.Id.ToString();
                 treeView1.Nodes[0].Nodes.Add(nodetemp);
