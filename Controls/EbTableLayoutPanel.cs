@@ -38,6 +38,10 @@ namespace ExpressBase.Studio.Controls
                 e.EbControl.CellPositionColumn = position.Column;
                 this.EbControl.Controls.Add(e.EbControl);
             }
+
+            (this.EbControl as EbTableLayout).Columns = new List<EbTableColumn>();
+            foreach (ColumnStyle style in this.ColumnStyles)
+                (this.EbControl as EbTableLayout).Columns.Add(new EbTableColumn { Index=this.ColumnStyles.IndexOf(style), Width=Convert.ToInt32(style.Width) });
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
