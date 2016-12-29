@@ -16,6 +16,9 @@ namespace ExpressBase.Studio.Controls
             base.OnParentChanged(e);
             if (this.EbControl == null)
                 this.EbControl = new EbDataGridView();
+
+            this.EbControl.Name = this.Name;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
         }
 
         //required

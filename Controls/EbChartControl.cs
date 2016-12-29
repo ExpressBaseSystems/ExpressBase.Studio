@@ -21,6 +21,9 @@ namespace ExpressBase.Studio.Controls
             base.OnParentChanged(e);
             if (this.EbControl == null)
                 this.EbControl = new EbChart();
+
+            this.EbControl.Name = this.Name;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)

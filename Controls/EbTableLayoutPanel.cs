@@ -14,9 +14,13 @@ namespace ExpressBase.Studio.Controls
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
-            this.Dock = DockStyle.Fill;
             if (this.EbControl == null)
                 this.EbControl = new EbTableLayout();
+
+            this.EbControl.Name = this.Name;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
+            (this.EbControl as EbTableLayout).ColumnCount = this.ColumnCount;
+            (this.EbControl as EbTableLayout).RowCount = this.RowCount;
         }
 
         public void BeforeSerialization()
@@ -34,19 +38,15 @@ namespace ExpressBase.Studio.Controls
                 e.EbControl.CellPositionColumn = position.Column;
                 this.EbControl.Controls.Add(e.EbControl);
             }
-
-            //foreach (Control c in this.Controls)
-            //{
-            //    var position = this.GetCellPosition(c);
-            //    (this.EbControl as EbTableLayout).CellPositionRow = position.Row;
-            //    (this.EbControl as EbTableLayout).CellPositionColumn = position.Column;
-            //}
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
+            this.EbControl = serialized_ctrl;
             this.RowCount = (serialized_ctrl as EbTableLayout).RowCount;
             this.ColumnCount = (serialized_ctrl as EbTableLayout).ColumnCount;
+            this.Name = serialized_ctrl.Name;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Refresh();
 
             if (serialized_ctrl.Controls != null)
@@ -61,6 +61,10 @@ namespace ExpressBase.Studio.Controls
             }
         }
 
-        public void DoDesignerRefresh() { }
+        public void DoDesignerRefresh()
+        {
+            this.Name = this.EbControl.Name;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
+        }
     }
 }
