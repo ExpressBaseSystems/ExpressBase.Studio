@@ -19,16 +19,12 @@ namespace ExpressBase.Studio.Controls
 
             this.EbControl.Name = this.Name;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
-            (this.EbControl as EbTableLayout).ColumnCount = this.ColumnCount;
-            (this.EbControl as EbTableLayout).RowCount = this.RowCount;
         }
 
         public void BeforeSerialization()
         {
             this.EbControl.TargetType = this.GetType().FullName;
             this.EbControl.Name = this.Name;
-            (this.EbControl as EbTableLayout).ColumnCount = this.ColumnCount;
-            (this.EbControl as EbTableLayout).RowCount = this.RowCount;
             this.EbControl.Controls = new List<EbControl>();
             foreach (IEbControl e in this.Controls)
             {
@@ -42,16 +38,32 @@ namespace ExpressBase.Studio.Controls
             (this.EbControl as EbTableLayout).Columns = new List<EbTableColumn>();
             foreach (ColumnStyle style in this.ColumnStyles)
                 (this.EbControl as EbTableLayout).Columns.Add(new EbTableColumn { Index=this.ColumnStyles.IndexOf(style), Width=Convert.ToInt32(style.Width) });
+
+            (this.EbControl as EbTableLayout).Rows = new List<EbTableRow>();
+            foreach (RowStyle style in this.RowStyles)
+                (this.EbControl as EbTableLayout).Rows.Add(new EbTableRow { Index = this.RowStyles.IndexOf(style), Height = Convert.ToInt32(style.Height) });
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
             this.EbControl = serialized_ctrl;
-            this.RowCount = (serialized_ctrl as EbTableLayout).RowCount;
-            this.ColumnCount = (serialized_ctrl as EbTableLayout).ColumnCount;
             this.Name = serialized_ctrl.Name;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Refresh();
+
+            this.SuspendLayout();
+            this.ColumnCount = 0;
+            this.RowCount = 0;
+            this.ColumnStyles.Clear();
+            this.RowStyles.Clear();
+            
+            foreach (EbTableColumn c in (serialized_ctrl as EbTableLayout).Columns)
+                this.ColumnStyles.Add(new ColumnStyle { SizeType = SizeType.Percent, Width = c.Width });
+
+            foreach (EbTableRow r in (serialized_ctrl as EbTableLayout).Rows)
+                this.RowStyles.Add(new RowStyle { SizeType = SizeType.Percent, Height = r.Height });
+
+            this.ColumnCount = (serialized_ctrl as EbTableLayout).Columns.Count;
+            this.RowCount = (serialized_ctrl as EbTableLayout).Rows.Count;
 
             if (serialized_ctrl.Controls != null)
             {
@@ -59,10 +71,12 @@ namespace ExpressBase.Studio.Controls
                 {
                     var ctrl = designer.ActiveDesignSurface.CreateControl(Type.GetType(c.TargetType)) as System.Windows.Forms.Control;
                     ctrl.Parent = this;
-                    this.SetCellPosition(ctrl, new TableLayoutPanelCellPosition(c.CellPositionRow, c.CellPositionColumn));
+                    this.SetCellPosition(ctrl, new TableLayoutPanelCellPosition(c.CellPositionColumn, c.CellPositionRow));
                     (ctrl as IEbControl).DoDesignerLayout(designer, c);
                 }
             }
+
+            this.ResumeLayout(true);
         }
 
         public void DoDesignerRefresh()
