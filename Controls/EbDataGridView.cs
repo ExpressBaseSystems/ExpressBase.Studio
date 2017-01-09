@@ -15,10 +15,35 @@ namespace ExpressBase.Studio.Controls
         {
             base.OnParentChanged(e);
             if (this.EbControl == null)
+            {
                 this.EbControl = new EbDataGridView();
-
+                (this.EbControl as EbDataGridView).ColumnsChanged += EbDataGridViewControl_ColumnsChanged;
+            }
             this.EbControl.Name = this.Name;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
+        }
+
+        private void EbDataGridViewControl_ColumnsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                var col = (e.NewItems[0] as EbDataGridViewColumn);
+                this.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = col.Name,
+                    HeaderText = col.Label,
+                    Width = col.Width
+                });
+            }
+            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                var col = (e.NewItems[0] as EbDataGridViewColumn);
+                this.Columns.Remove(col.Name);
+            }
+            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
+            {
+                this.Columns.Clear();
+            }
         }
 
         //required
@@ -34,6 +59,16 @@ namespace ExpressBase.Studio.Controls
             this.Name = serialized_ctrl.Name;
             this.Dock = DockStyle.Fill;
             this.Text = serialized_ctrl.Label;
+
+            foreach (EbDataGridViewColumn col in (serialized_ctrl as EbDataGridView).Columns)
+            {
+                this.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = col.Name,
+                    HeaderText = col.Label,
+                    Width = col.Width
+                });
+            }
         }
 
         public void DoDesignerRefresh()
