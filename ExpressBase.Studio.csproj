@@ -40,6 +40,14 @@
     <StartupObject>ExpressBase.Studio.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DiffPlex, Version=1.2.0.0, Culture=neutral, PublicKeyToken=1d35e91d1bd7bc0f, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiffPlex.1.2.1\lib\portable-net40+sl50+win+wpa81+wp80\DiffPlex.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
@@ -222,6 +230,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\IEbControl.cs" />
+    <Compile Include="Differ\DifferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Differ\DifferForm.Designer.cs">
+      <DependentUpon>DifferForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="pDesigner\TypeDiscoveryService.cs" />
     <Compile Include="pDesigner\DesignSurfaceExt\DesignerOptionServiceExt.cs" />
     <Compile Include="pDesigner\DesignSurfaceExt\DesignerSerializationServiceImpl.cs" />
@@ -308,6 +322,9 @@
     <EmbeddedResource Include="AboutDialog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Differ\DifferForm.resx">
+      <DependentUpon>DifferForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="pDesigner\DesignSurfaceManagerExt\PropertyGridHost.resx">
       <DependentUpon>PropertyGridHost.cs</DependentUpon>

@@ -2,12 +2,16 @@
 using pF.pDesigner;
 using ExpressBase.UI;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ExpressBase.Studio.Controls
 {
     public class EbDataGridViewControl : System.Windows.Forms.DataGridView, IEbControl
     {
         public EbControl EbControl { get; set; }
+
+        [Browsable(false)]
+        new public DataGridViewColumnCollection Columns { get; set; }
 
         public EbDataGridViewControl() { }
 

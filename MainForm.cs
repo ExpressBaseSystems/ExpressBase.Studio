@@ -575,5 +575,11 @@ namespace ExpressBase.Studio
             SqlStatementEditor sqled = new SqlStatementEditor();
             sqled.Show(this.dockPanel);
         }
+
+        private void btnDiffer_Click(object sender, EventArgs e)
+        {
+            DifferForm _df = new DifferForm();
+            _df.Show(this.dockPanel);
+        }
     }
 }

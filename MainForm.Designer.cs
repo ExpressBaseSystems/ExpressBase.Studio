@@ -99,6 +99,7 @@ namespace ExpressBase.Studio
             this.vS2015BlueTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015BlueTheme();
             this.vS2015DarkTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015DarkTheme();
             this.vsToolStripExtender1 = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(this.components);
+            this.btnDiffer = new System.Windows.Forms.ToolStripButton();
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
             this.SuspendLayout();
@@ -544,7 +545,8 @@ namespace ExpressBase.Studio
             this.toolBarButtonTaskList,
             this.toolBarButtonSeparator2,
             this.toolBarButtonLayoutByCode,
-            this.toolBarButtonLayoutByXml});
+            this.toolBarButtonLayoutByXml,
+            this.btnDiffer});
             this.toolBar.Location = new System.Drawing.Point(0, 24);
             this.toolBar.Name = "toolBar";
             this.toolBar.Size = new System.Drawing.Size(579, 25);
@@ -643,6 +645,15 @@ namespace ExpressBase.Studio
             // 
             this.vsToolStripExtender1.DefaultRenderer = null;
             // 
+            // btnDiffer
+            // 
+            this.btnDiffer.Image = ((System.Drawing.Image)(resources.GetObject("btnDiffer.Image")));
+            this.btnDiffer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDiffer.Name = "btnDiffer";
+            this.btnDiffer.Size = new System.Drawing.Size(56, 22);
+            this.btnDiffer.Text = "Differ";
+            this.btnDiffer.Click += new System.EventHandler(this.btnDiffer_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(579, 409);
@@ -739,5 +750,6 @@ namespace ExpressBase.Studio
         private System.Windows.Forms.ToolStripMenuItem desktopWebFormToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mobileFormToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dashboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btnDiffer;
     }
 }
