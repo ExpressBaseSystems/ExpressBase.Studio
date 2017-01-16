@@ -1,0 +1,39 @@
+﻿-- Table: public.eb_object
+
+DROP TABLE public.eb_object;
+
+CREATE TABLE public.eb_object
+(
+  id serial,
+  obj_name character varying,
+  obj_desc text,
+  obj_type integer,
+  CONSTRAINT eb_objects_id_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.eb_object
+  OWNER TO postgres;
+
+-- Table: public.eb_object_versions
+
+-- DROP TABLE public.eb_object_versions;
+
+CREATE TABLE public.eb_object_versions
+(
+  id serial,
+  eb_object_id integer,
+  version integer,
+  status integer,
+  submitter_id integer,
+  submitted_at timestamp without time zone,
+  obj_bytea bytea,
+  md5_obj_bytea character varying,
+  CONSTRAINT eb_object_versions_id_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.eb_object_versions
+  OWNER TO postgres;

@@ -1,8 +1,15 @@
 ﻿using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
-using FastColoredTextBoxNS;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -10,291 +17,288 @@ namespace ExpressBase.Studio
 {
     public partial class DifferForm : DockContent
     {
-        private Style greenStyle;
-        private Style redStyle;
-        private Style whiteStyle;
-        private bool scrollflag1 = true;
-        private bool scrollflag2 = true;
-
         public DifferForm()
         {
             InitializeComponent();
             this.Text = "Differ";
-            greenStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(50, Color.Lime)));
-            redStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(50, Color.Red)));
-            whiteStyle= new MarkerStyle(new SolidBrush(Color.FromArgb(50, Color.Transparent)));
-
-            fastcoloredTextBox1.Scroll += FastcoloredTextBox1_Scroll;
-            fastcoloredTextBox2.Scroll += FastcoloredTextBox2_Scroll;
+            webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompleted;
+            webBrowser2.DocumentCompleted += WebBrowser2_DocumentCompleted;
         }
 
-        private void FastcoloredTextBox1_Scroll(object sender, ScrollEventArgs e)
+        private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if (scrollflag1 == true)
-            {
-                scrollflag2 = false;
-                fastcoloredTextBox2.OnScroll(e, false);
-                scrollflag2 = true;
-            }
+            webBrowser1.Document.Window.Scroll += ScrollHandler;
         }
 
-        private void FastcoloredTextBox2_Scroll(object sender, ScrollEventArgs e)
+        private void WebBrowser2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if (scrollflag2 == true)
-            {
-                scrollflag1 = false;  
-                fastcoloredTextBox1.OnScroll(e, false);
-                scrollflag1 = true;
-            }
+            webBrowser2.Document.Window.Scroll += ScrollHandler;
         }
+
+        private void ScrollHandler(object sender, HtmlElementEventArgs e)
+        {
+            var scrolledBrowser = sender as HtmlWindow;
+            if (scrolledBrowser == null) return;
+
+            // here you can see where I needed to distinguish the browser windows
+            // none of the document, window etc properties matched the sender, so I
+            // resorted to this hacky way
+            WebBrowser otherBrowser = (scrolledBrowser == webBrowser1.Document.Window) ? webBrowser2 : webBrowser1;
+            int y = scrolledBrowser.Document.Body.ScrollRectangle.Top;
+            otherBrowser.Document.Body.ScrollTop = y;
+
+            int x = scrolledBrowser.Document.Body.ScrollRectangle.Left;
+            otherBrowser.Document.Body.ScrollLeft = x;
+        }
+
+        string spaceValue = "\u00B7";
+        string tabValue = "\u00B7\u00B7";
 
         private void Form1_Load(object sender, System.EventArgs e)
         {
             var d = new Differ();
             var inlineBuilder = new SideBySideDiffBuilder(d);
             var diffmodel = inlineBuilder.BuildDiffModel(OldText, NewText);
-            string spaceValue = "\u00B7";
-            string tabValue = "\u00B7\u00B7";
 
-            //richTextBox1
-            foreach (var diffLine in diffmodel.OldText.Lines)
+
+            webBrowser1.DocumentText = GetHtml2Render(diffmodel.OldText);
+            webBrowser2.DocumentText = GetHtml2Render(diffmodel.NewText);
+
+            webBrowser1.Refresh();
+            webBrowser2.Refresh();
+        }
+
+        private string GetHtml2Render(DiffPaneModel text)
+        {
+            string html = "<body class="+"'diffpane'"+"><table cellpadding='0' cellspacing='0' class='diffTable'>";
+
+            //webbrowser1
+            foreach (var diffLine in text.Lines)
             {
-                if (!string.IsNullOrEmpty(diffLine.Text))
+                html += "<tr>";
+                html += "<td class='lineNumber'>";
+                html += diffLine.Position.HasValue ? diffLine.Position.ToString() : "&nbsp;";
+                html += "</td>";
+                html += "<td class='line " + diffLine.Type.ToString() + "Line'>";
+                html += "<span class='lineText'>";
+
+                if (diffLine.Type == ChangeType.Deleted || diffLine.Type == ChangeType.Inserted || diffLine.Type == ChangeType.Unchanged)
                 {
-                    if (diffLine.Type == ChangeType.Deleted || diffLine.Type == ChangeType.Unchanged)
+                    html += diffLine.Text.Replace(" ", spaceValue.ToString()).Replace("\t", tabValue.ToString());
+                }
+                else if (diffLine.Type == ChangeType.Modified)
+                {
+                    foreach (var character in diffLine.SubPieces)
                     {
-                        Style selectionColor = (diffLine.Type == ChangeType.Deleted) ? redStyle : whiteStyle;
-                        fastcoloredTextBox1.AppendText(diffLine.Text.Replace(" ", spaceValue).Replace("\t", tabValue) + "\n", selectionColor);
-                    }
-                    else if (diffLine.Type == ChangeType.Modified)
-                    {
-                        foreach (var character in diffLine.SubPieces)
+                        if (character.Type == ChangeType.Imaginary) continue;
+                        else
                         {
-                            if (character.Type == ChangeType.Imaginary) continue;
-                            Style selectionColor = (character.Type == ChangeType.Deleted) ? redStyle : whiteStyle;
-                            fastcoloredTextBox1.AppendText(character.Text.Replace(" ", spaceValue.ToString()), selectionColor);
+                            html += "<span class='" + character.Type.ToString() + "Character'>";
+                            html += character.Text.Replace(" ", spaceValue.ToString()).Replace("\t", tabValue.ToString());
+                            html += "</span>";
                         }
                     }
                 }
+
+                html += "</span>";
+                html += "</td>";
+                html += "</tr>";
             }
 
-            //richTextBox2
-            foreach (var diffLine in diffmodel.NewText.Lines)
-            {
-                if (!string.IsNullOrEmpty(diffLine.Text))
-                {
-                    if (diffLine.Type == ChangeType.Inserted || diffLine.Type == ChangeType.Unchanged)
-                    {
-                        Style selectionColor = (diffLine.Type == ChangeType.Inserted) ? greenStyle : whiteStyle;
-                        fastcoloredTextBox2.AppendText(diffLine.Text.Replace(" ", spaceValue).Replace("\t", tabValue) + "\n", selectionColor);
-                    }
-                    else if (diffLine.Type == ChangeType.Modified)
-                    {
-                        foreach (var character in diffLine.SubPieces)
-                        {
-                            if (character.Type == ChangeType.Imaginary) continue;
-                            Style selectionColor = (character.Type == ChangeType.Inserted) ? greenStyle : whiteStyle;
-                            fastcoloredTextBox2.AppendText(character.Text.Replace(" ", spaceValue.ToString()), selectionColor);
-                        }
-                    }
-                    else if (diffLine.Type == ChangeType.Deleted)
-                    {
-                        fastcoloredTextBox2.AppendText("\r\n");
-                    }
-                }
-            }
+            html += "</table></body>";
+
+            return css + html;
         }
 
         private const string OldText = @"using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
 
-namespace Tester
+namespace diff
 {
-    public partial class DiffMergeSample : Form
+    static class Program
     {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
-
-        public DiffMergeSample()
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            InitializeComponent();
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
-
-namespace Tester
-{
-    public partial class DiffMergeSample : Form
-    {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
-
-        public DiffMergeSample()
-        {
-            InitializeComponent();
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
-
-namespace Tester
-{
-    public partial class DiffMergeSample : Form
-    {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
-
-        public DiffMergeSample()
-        {
-            InitializeComponent();
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
-
-namespace Tester
-{
-    public partial class DiffMergeSample : Form
-    {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
-
-        //public DiffMergeSample()//
-        {
-            InitializeComponent();
-
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new DIFF());
+        }
+  {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new DIFF());
+        }
+    }
+}
 ";
 
         private const string NewText = @"using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
+using System.Linq.hai;
+asdfv
 using System.Windows.Forms;
-using Tester.DiffMergeStuffs;
-
-namespace Tester
+using system.web;
+namespace diff
 {
-    public partial class DiffMergeSample : Form
+    static class Program
     {
-        int updating;
-         Style redStyle;
-        Style greenStyle;
-        Style redStyle;
-
-        public DiffMergeSample()
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            InitializeComponent();
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new DIFF());
+        }
+  {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new DIFF());
+        }
+    }
 
-namespace Tester
-{
-    public partial class DiffMergeSample : Form
-    {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
 
-        public DiffMergeSample()
-        {
-            InitializeComponent();
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
-
-namespace Tester
-{using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
-
-namespace Tester
-{
-    public partial class DiffMergeSample : Form
-    {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
-
-        public DiffMergeSample()
-        {
-            InitializeComponent();using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using FastColoredTextBoxNS;
-using Tester.DiffMergeStuffs;
-
-namespace Tester
-{
-    public partial class DiffMergeSample : Form
-    {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
-
-        public DiffMergeSample()
-        {
-            InitializeComponent();
-    public partial class DiffMergeSample : Form
-    {
-        int updating;
-        Style greenStyle;
-        Style redStyle;
-
-        public DiffMergeSample()
-        {
-            InitializeComponent();
 ";
-  }
+        private string css = @"<head><style>
+#diffBar
+{
+	width: 3%;
+	height: 100%;
+	float: left;
+	position:relative;
+	background: #DDDDDD;
+}
+
+.diffBarLineLeft, .diffBarLineRight
+{
+	width: 50%;
+	float:left;
+	height:0px;
+	cursor:pointer;
+}
+
+.inView
+{
+	background-repeat: repeat;
+}
+
+#activeBar
+{
+	position:absolute;
+	top:0px;
+	background-color:#6699FF;
+	opacity:0.5;
+	filter:alpha(opacity= '50');
+}
+
+
+#diffBox
+{
+	margin-left: auto;
+	margin-right: auto;
+	border: solid 2px #000000;
+}
+
+
+#leftPane, #rightPane
+{
+	float: left;
+	width: 50%;
+}
+
+.diffHeader
+{
+	font-weight: bold;
+	padding: 2px 0px 2px 10px;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+.diffPane
+{
+	margin-right: 0px;
+	padding: 0px;
+	overflow: auto;
+	font-family: Consolas;
+    font-size:xx-small;
+
+}
+
+.diffTable
+{
+	width: 100%;
+	height: 100%;
+}
+
+.line
+{
+	padding-left: .2em;
+	white-space: nowrap;
+	width: 50%;
+}
+
+.lineNumber
+{
+	padding: 0 .3em;
+	background-color: #FFFFFF;
+	text-align: right;
+}
+
+.InsertedLine
+{
+	background-color: lightgreen;
+}
+
+.ModifiedLine
+{
+	background-color: #DCDCFF;
+}
+
+.DeletedLine
+{
+	background-color: #FFC864;
+}
+
+.UnchangedLine
+{
+	background-color: #FFFFFF;
+}
+
+.ImaginaryLine
+{
+	background-color: #C8C8C8;
+}
+
+.InsertedCharacter
+{
+	background-color: lightgreen;
+}
+
+.DeletedCharacter
+{
+	background-color: #C86464;
+}
+
+.UnchangedCharacter
+{
+}
+
+.ImaginaryCharacter
+{
+}
+
+.clear
+{
+	clear: both;
+}
+</style></head>";
+    }
 }
