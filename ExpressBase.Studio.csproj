@@ -190,6 +190,36 @@
     <Compile Include="..\ExpressBase.Common\EbSerializers.cs">
       <Link>Common\EbSerializers.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Objects\Helpers\HtmlTable.cs">
+      <Link>Links\ExpressBase.Objects\Helpers\HtmlTable.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\ObjectBase\EbControl.cs">
+      <Link>Links\ExpressBase.Objects\ObjectBase\EbControl.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\ObjectBase\EbObject.cs">
+      <Link>Links\ExpressBase.Objects\ObjectBase\EbObject.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\ObjectBase\Enums.cs">
+      <Link>Links\ExpressBase.Objects\ObjectBase\Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\ObjectContainers\EbDataGridView.cs">
+      <Link>Links\ExpressBase.Objects\ObjectContainers\EbDataGridView.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\ObjectContainers\EbForm.cs">
+      <Link>Links\ExpressBase.Objects\ObjectContainers\EbForm.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\ObjectContainers\EbTableLayout.cs">
+      <Link>Links\ExpressBase.Objects\ObjectContainers\EbTableLayout.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbButton.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbButton.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbChart.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbChart.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbDataSource.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbDataSource.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceRequests.cs">
       <Link>ServiceStack_Artifacts\ServiceRequests.cs</Link>
     </Compile>
@@ -198,12 +228,6 @@
     </Compile>
     <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceWrappers.cs">
       <Link>ServiceStack_Artifacts\ServiceWrappers.cs</Link>
-    </Compile>
-    <Compile Include="..\ExpressBase.UI\EbObjects.cs">
-      <Link>Common\EbObjects.cs</Link>
-    </Compile>
-    <Compile Include="..\ExpressBase.UI\HtmlTable.cs">
-      <Link>Common\HtmlTable.cs</Link>
     </Compile>
     <Compile Include="AboutDialog.cs">
       <SubType>Form</SubType>

@@ -155,7 +155,7 @@ namespace pF.pDesigner {
             var f = new ExpressBase.ServiceStack.EbObjectWrapper
             {
                 Id = _form.EbControl.Id,
-                EbObjectType = ExpressBase.UI.EbObjectType.Form,
+                EbObjectType = ExpressBase.Objects.EbObjectType.Form,
                 Name = _form.Name,
                 Bytea = EbSerializers.ProtoBuf_Serialize((_form as IEbControl).EbControl)
             };

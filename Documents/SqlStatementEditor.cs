@@ -1,5 +1,5 @@
 ﻿using ExpressBase.Common;
-using ExpressBase.UI;
+using ExpressBase.Objects;
 using ServiceStack;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace ExpressBase.Studio
             var f = new ExpressBase.ServiceStack.EbObjectWrapper
             {
                 Id = this.Id,
-                EbObjectType = UI.EbObjectType.DataSource,
+                EbObjectType = Objects.EbObjectType.DataSource,
                 Name = txtName.Text.Trim(),
                 Bytea = EbSerializers.ProtoBuf_Serialize(new EbDataSource
                     {

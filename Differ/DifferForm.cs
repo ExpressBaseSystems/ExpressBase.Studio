@@ -60,7 +60,6 @@ namespace ExpressBase.Studio
             var inlineBuilder = new SideBySideDiffBuilder(d);
             var diffmodel = inlineBuilder.BuildDiffModel(OldText, NewText);
 
-
             webBrowser1.DocumentText = GetHtml2Render(diffmodel.OldText);
             webBrowser2.DocumentText = GetHtml2Render(diffmodel.NewText);
 
