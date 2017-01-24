@@ -20,6 +20,7 @@
     using ExpressBase.Studio;
     using System.Collections;
     using ExpressBase.Studio.Controls;
+    using ExpressBase.Studio.DesignerForms;
 
 
     //- [Note FROM MSDN]:
@@ -65,10 +66,10 @@
             return isValid;
         }
 
-        private pDesignerMainForm _parent;
+        private PropertyWindow _parent;
 
         //- ctor
-        public pDesigner(pDesignerMainForm parent) {
+        public pDesigner(PropertyWindow parent) {
             InitializeComponent();
 
             this._parent = parent;
@@ -84,9 +85,12 @@
 
         internal void SetPropertyGridToParent()
         {
-            this._parent.MainForm.PropertyWindow.Controls.Clear();
-            DesignSurfaceManager.PropertyGridHost.Parent = this._parent.MainForm.PropertyWindow;
-            DesignSurfaceManager.SyncPropertyGridHost();
+            if (this._parent != null)
+            {
+                this._parent.Controls.Clear();
+                DesignSurfaceManager.PropertyGridHost.Parent = this._parent;
+                DesignSurfaceManager.SyncPropertyGridHost();
+            }
         }
 
 

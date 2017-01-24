@@ -104,6 +104,8 @@
     }
 
     public void UpdatePropertyGridHost( DesignSurfaceExt2 surface ) {
+            if (surface == null)
+                return;
         IDesignerHost host = (IDesignerHost) surface.GetService( typeof( IDesignerHost ) );
         if( null == host)
             return;
@@ -167,8 +169,11 @@
 
                 ArrayList comps = new ArrayList();
                 var x = selectService.GetSelectedComponents();
-                foreach (IEbControl c in x)
-                    comps.Add(c.EbControl);
+                foreach (Control c in x)
+                {
+                    if (c is IEbControl)
+                        comps.Add((c as IEbControl).EbControl);
+                }
                 //comps.AddRange( selectService.GetSelectedComponents() );
                 propertyGrid.SelectedObjects = comps.ToArray();
             };
@@ -198,8 +203,11 @@
 
             ArrayList comps = new ArrayList();
             var x = selectService.GetSelectedComponents();
-            foreach (IEbControl c in x)
-                comps.Add(c.EbControl);
+            foreach (Control c in x)
+            {
+                if (c is IEbControl)
+                    comps.Add((c as IEbControl).EbControl);
+            }
             //comps.AddRange(selectService.GetSelectedComponents());
             propertyGrid.SelectedObjects = comps.ToArray();
         }

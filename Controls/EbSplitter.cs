@@ -1,19 +1,22 @@
 ﻿using ExpressBase.Objects;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExpressBase.Studio.Controls
 {
-    public class EbButtonControl : Button, IEbControl
+    public class EbSplitter: Splitter, IEbControl
     {
         public EbControl EbControl { get; set; }
 
-        public EbButtonControl()
+        public EbSplitter()
         {
-            this.EbControl = new EbButton();
         }
 
-        //required
+        //required for serialization
         public void BeforeSerialization()
         {
             this.EbControl.TargetType = this.GetType().FullName;
@@ -28,17 +31,8 @@ namespace ExpressBase.Studio.Controls
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
-            this.EbControl = serialized_ctrl;
-            this.Name = serialized_ctrl.Name;
-            this.Dock = DockStyle.Fill;
-            this.Text = serialized_ctrl.Label;
         }
 
-        public void DoDesignerRefresh()
-        {
-            this.Name = this.EbControl.Name;
-            this.Dock = DockStyle.Fill;
-            this.Text = this.EbControl.Label;
-        }
+        public void DoDesignerRefresh() { }
     }
 }

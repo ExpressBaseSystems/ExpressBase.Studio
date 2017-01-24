@@ -1,28 +1,18 @@
-namespace pF.pDesigner {
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
+using ExpressBase.Studio.Controls;
+using ServiceStack;
+using System.Net;
+using ExpressBase.Common;
+using pF.pDesigner;
 
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
-    using System.Text;
-    using System.Windows.Forms;
-    using System.ComponentModel.Design;
-    using System.ComponentModel.Design.Serialization;
-    using System.Drawing.Design;
-    using System.Windows.Markup;
-    using WeifenLuo.WinFormsUI.Docking;
-    using ExpressBase.Studio;
-    using System.Data.Common;
-    using ExpressBase.Studio.Controls;
-    using ServiceStack;
-    using System.Net;
-    using System.IO;
-    using ExpressBase.Common;
-
-    public partial class pDesignerMainForm : DockContent
+namespace ExpressBase.Studio.DesignerForms
+{
+    public partial class FormDesignerForm : BaseDesignerForm
     {
-        public ToolStrip ToolStrip
+        internal override ToolStrip ToolStrip
         {
             get { return toolStrip1; }
         }
@@ -39,30 +29,21 @@ namespace pF.pDesigner {
             }
         }
 
-        public MainForm MainForm
-        {
-            get
-            {
-                return _parent;
-            }
-        }
-
-        public pDesigner pDesignerCore = null;
+        public pF.pDesigner.pDesigner pDesignerCore = null;
         private IpDesigner IpDesignerCore = null;
 
         #region Init
 
-        private MainForm _parent = null;
         private StudioFormTypes FormType = StudioFormTypes.Desktop;
 
         //- ctor
-        public pDesignerMainForm(MainForm parent, StudioFormTypes form_type)
+        public FormDesignerForm(MainForm parent, StudioFormTypes form_type)
         {
             InitializeComponent();
 
-            _parent = parent;
+            base.MainForm = parent;
             FormType = form_type;
-            pDesignerCore = new pDesigner(this);
+            pDesignerCore = new pF.pDesigner.pDesigner(this.MainForm.PropertyWindow);
 
             //- the control: (pDesigner)pDesignerCore 
             IpDesignerCore = this.pDesignerCore as IpDesigner;
@@ -77,7 +58,7 @@ namespace pF.pDesigner {
         {
             base.OnParentChanged(e);
 
-            Toolbox tb = (this.DockPanel.Parent as MainForm).Toolbox;
+            Toolbox tb = this.MainForm.Toolbox;
             if (tb == null || tb.IsDisposed)
                 tb = new Toolbox();
 
@@ -90,6 +71,8 @@ namespace pF.pDesigner {
                 (IpDesignerCore as IpDesigner).AddDesignSurface<EbFormControl>(414, 736, AlignmentModeEnum.SnapLines, new Size(1, 1));
             else if (this.FormType == StudioFormTypes.UserControl)
                 (IpDesignerCore as IpDesigner).AddDesignSurface4Web<System.Web.UI.WebControls.Panel>(150, 150, AlignmentModeEnum.SnapLines, new Size(1, 1));
+            else if (this.FormType == StudioFormTypes.Report)
+                (IpDesignerCore as IpDesigner).AddDesignSurface<ReportDesignerForm>(414, 736, AlignmentModeEnum.SnapLines, new Size(1, 1));
         }
 
         public void SetEB_Form(EbFormControl _form)
@@ -112,12 +95,12 @@ namespace pF.pDesigner {
         {
             base.OnEnter(e);
             pDesignerCore.DesignSurfaceManager.UpdatePropertyGridHost(pDesignerCore.DesignSurfaceManager.ActiveDesignSurface);
-            (IpDesignerCore as pDesigner).SetPropertyGridToParent();
+            (IpDesignerCore as pF.pDesigner.pDesigner).SetPropertyGridToParent();
         }
 
         private void btnDelete_Click_1(object sender, EventArgs e)
         {
-            var x = (IpDesignerCore as pDesigner).Controls[0].Controls[0].Controls[0].Controls;
+            var x = (IpDesignerCore as pF.pDesigner.pDesigner).Controls[0].Controls[0].Controls[0].Controls;
             IpDesignerCore.DeleteOnDesignSurface();
         }
 
@@ -148,7 +131,7 @@ namespace pF.pDesigner {
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var _form = (IpDesignerCore as pDesigner).Controls[0].Controls[0].Controls[0] as EbFormControl;
+            var _form = (IpDesignerCore as pF.pDesigner.pDesigner).Controls[0].Controls[0].Controls[0] as EbFormControl;
             _form.BeforeSerialization();
 
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();

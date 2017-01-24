@@ -94,12 +94,12 @@ namespace ExpressBase.Studio
             this.toolBarButtonSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolBarButtonLayoutByCode = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonLayoutByXml = new System.Windows.Forms.ToolStripButton();
+            this.btnDiffer = new System.Windows.Forms.ToolStripButton();
             this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.vS2015LightTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
             this.vS2015BlueTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015BlueTheme();
             this.vS2015DarkTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015DarkTheme();
             this.vsToolStripExtender1 = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(this.components);
-            this.btnDiffer = new System.Windows.Forms.ToolStripButton();
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
             this.SuspendLayout();
@@ -257,6 +257,7 @@ namespace ExpressBase.Studio
             this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
             this.reportToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.reportToolStripMenuItem.Text = "Report";
+            this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
             // 
             // sQLStatementToolStripMenuItem
             // 
@@ -626,6 +627,15 @@ namespace ExpressBase.Studio
             this.toolBarButtonLayoutByXml.Size = new System.Drawing.Size(23, 22);
             this.toolBarButtonLayoutByXml.ToolTipText = "Show layout by predefined XML file";
             // 
+            // btnDiffer
+            // 
+            this.btnDiffer.Image = ((System.Drawing.Image)(resources.GetObject("btnDiffer.Image")));
+            this.btnDiffer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDiffer.Name = "btnDiffer";
+            this.btnDiffer.Size = new System.Drawing.Size(56, 22);
+            this.btnDiffer.Text = "Differ";
+            this.btnDiffer.Click += new System.EventHandler(this.btnDiffer_Click);
+            // 
             // dockPanel
             // 
             this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -644,15 +654,6 @@ namespace ExpressBase.Studio
             // vsToolStripExtender1
             // 
             this.vsToolStripExtender1.DefaultRenderer = null;
-            // 
-            // btnDiffer
-            // 
-            this.btnDiffer.Image = ((System.Drawing.Image)(resources.GetObject("btnDiffer.Image")));
-            this.btnDiffer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDiffer.Name = "btnDiffer";
-            this.btnDiffer.Size = new System.Drawing.Size(56, 22);
-            this.btnDiffer.Text = "Differ";
-            this.btnDiffer.Click += new System.EventHandler(this.btnDiffer_Click);
             // 
             // MainForm
             // 

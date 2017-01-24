@@ -1,4 +1,5 @@
 using ExpressBase.Studio.Controls;
+using ExpressBase.Studio.DesignerForms;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
@@ -18,7 +19,7 @@ namespace ExpressBase.Studio
             listBox1.Items.Add(new ToolboxItem(typeof(EbButtonControl)));
             listBox1.Items.Add(new ToolboxItem(typeof(ListView)));
             listBox1.Items.Add(new ToolboxItem(typeof(TreeView)));
-            listBox1.Items.Add(new ToolboxItem(typeof(TextBox)));
+            listBox1.Items.Add(new ToolboxItem(typeof(EbTextBoxControl)));
             listBox1.Items.Add(new ToolboxItem(typeof(EbPasswordControl)));
             listBox1.Items.Add(new ToolboxItem(typeof(NumericUpDown)));
             listBox1.Items.Add(new ToolboxItem(typeof(MaskedTextBox)));
@@ -37,6 +38,7 @@ namespace ExpressBase.Studio
             listBox1.Items.Add(new ToolboxItem(typeof(EbChartControl)));
             listBox1.Items.Add(new ToolboxItem(typeof(EbDataGridViewControl)));
             listBox1.Items.Add(new ToolboxItem(typeof(EbTableLayoutPanel)));
+            listBox1.Items.Add(new ToolboxItem(typeof(EbSplitContainer)));
         }
     }
 }

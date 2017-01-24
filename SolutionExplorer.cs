@@ -10,6 +10,7 @@ using System.Data.Common;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using ExpressBase.Studio.DesignerForms;
 
 namespace ExpressBase.Studio
 {
@@ -44,7 +45,7 @@ namespace ExpressBase.Studio
 
                 if (_formEbObject.EbObjectType == EbObjectType.Form)
                 {
-                    pDesignerMainForm pD = new pDesignerMainForm(this.MainForm, StudioFormTypes.Desktop);
+                    FormDesignerForm pD = new FormDesignerForm(this.MainForm, StudioFormTypes.Desktop);
                     pD.Show(MainForm.DockPanel);
                     var _form = new EbFormControl();
                     _form.EbControl = _formEbObject as EbControl;

@@ -188,7 +188,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\ExpressBase.Common\EbSerializers.cs">
-      <Link>Common\EbSerializers.cs</Link>
+      <Link>Links\ExpressBase.Common\EbSerializers.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Helpers\GridStack.cs">
+      <Link>Links\ExpressBase.Objects\Helpers\GridStack.cs</Link>
     </Compile>
     <Compile Include="..\ExpressBase.Objects\Helpers\HtmlTable.cs">
       <Link>Links\ExpressBase.Objects\Helpers\HtmlTable.cs</Link>
@@ -220,6 +223,12 @@
     <Compile Include="..\ExpressBase.Objects\Objects\EbDataSource.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbDataSource.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbReportDefinition.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbReportDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbTextBox.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbTextBox.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceRequests.cs">
       <Link>ServiceStack_Artifacts\ServiceRequests.cs</Link>
     </Compile>
@@ -235,6 +244,15 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlContainers\EbFormControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlContainers\EbPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlContainers\EbReportPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\EbButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -244,16 +262,34 @@
     <Compile Include="Controls\EbDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\EbForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Controls\EbPassword.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbSplitContainer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbTableLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\EbTextBoxControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\IEbControl.cs" />
+    <Compile Include="DesignerForms\BaseDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesignerForms\FormDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesignerForms\FormDesignerForm.Designer.cs">
+      <DependentUpon>FormDesignerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignerForms\ReportDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesignerForms\ReportDesignerForm.Designer.cs">
+      <DependentUpon>ReportDesignerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Differ\DifferForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,12 +321,6 @@
     </Compile>
     <Compile Include="pDesigner\pDesigner\pDesigner.Designer.cs">
       <DependentUpon>pDesigner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="pDesigner\pDesigner\pDesignerMainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="pDesigner\pDesigner\pDesignerMainForm.Designer.cs">
-      <DependentUpon>pDesignerMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DummyDoc.cs">
       <SubType>Form</SubType>
@@ -347,6 +377,12 @@
       <SubType>Designer</SubType>
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DesignerForms\FormDesignerForm.resx">
+      <DependentUpon>FormDesignerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignerForms\ReportDesignerForm.resx">
+      <DependentUpon>ReportDesignerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Differ\DifferForm.resx">
       <DependentUpon>DifferForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -355,9 +391,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="pDesigner\pDesigner\pDesigner.resx">
       <DependentUpon>pDesigner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="pDesigner\pDesigner\pDesignerMainForm.resx">
-      <DependentUpon>pDesignerMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DummyDoc.resx">
       <SubType>Designer</SubType>

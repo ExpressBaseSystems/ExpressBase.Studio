@@ -1,3 +1,4 @@
+using ExpressBase.Studio.DesignerForms;
 using pF.pDesigner;
 using System;
 using System.Drawing;
@@ -14,7 +15,8 @@ namespace ExpressBase.Studio
         Desktop,
         Web,
         Mobile,
-        UserControl
+        UserControl,
+        Report
     }
 
     public partial class MainForm : System.Windows.Forms.Form
@@ -528,9 +530,9 @@ namespace ExpressBase.Studio
 
             ToolStripManager.RevertMerge(toolBar);
 
-            if (ActiveMdiChild is pDesignerMainForm)
+            if (ActiveMdiChild is BaseDesignerForm)
             {
-                pDesignerMainForm child = ActiveMdiChild as pDesignerMainForm;
+                BaseDesignerForm child = ActiveMdiChild as BaseDesignerForm;
 
                 if (child != null)
                 {
@@ -548,19 +550,19 @@ namespace ExpressBase.Studio
 
         private void desktopWebFormToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pDesignerMainForm pD = new pDesignerMainForm(this, StudioFormTypes.Desktop);
+            FormDesignerForm pD = new FormDesignerForm(this, StudioFormTypes.Desktop);
             pD.Show(this.dockPanel);
         }
 
         private void mobileFormToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pDesignerMainForm pD = new pDesignerMainForm(this, StudioFormTypes.Mobile);
+            FormDesignerForm pD = new FormDesignerForm(this, StudioFormTypes.Mobile);
             pD.Show(this.dockPanel);
         }
 
         private void userControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pDesignerMainForm pD = new pDesignerMainForm(this, StudioFormTypes.UserControl);
+            FormDesignerForm pD = new FormDesignerForm(this, StudioFormTypes.UserControl);
             pD.Show(this.dockPanel);
         }
 
@@ -580,6 +582,13 @@ namespace ExpressBase.Studio
         {
             DifferForm _df = new DifferForm();
             _df.Show(this.dockPanel);
+        }
+
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportDesignerForm pD = new ReportDesignerForm();
+            pD.MainForm = this;
+            pD.Show(this.dockPanel);
         }
     }
 }
