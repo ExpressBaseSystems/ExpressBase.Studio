@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
+	<DefineConstants Condition=" '$(TargetFrameworkVersion)' == 'v4.6.2' ">NET462</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
@@ -199,6 +202,9 @@
     <Compile Include="..\ExpressBase.Objects\ObjectBase\EbControl.cs">
       <Link>Links\ExpressBase.Objects\ObjectBase\EbControl.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Objects\ObjectBase\EbControlContainer.cs">
+      <Link>Links\ExpressBase.Objects\ObjectBase\EbControlContainer.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.Objects\ObjectBase\EbObject.cs">
       <Link>Links\ExpressBase.Objects\ObjectBase\EbObject.cs</Link>
     </Compile>
@@ -340,6 +346,7 @@
     <Compile Include="PropertyWindow.Designer.cs">
       <DependentUpon>PropertyWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="SolutionExplorer.cs">
       <SubType>Form</SubType>
     </Compile>

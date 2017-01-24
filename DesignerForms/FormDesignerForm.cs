@@ -77,7 +77,7 @@ namespace ExpressBase.Studio.DesignerForms
 
         public void SetEB_Form(EbFormControl _form)
         {
-            _form.DoDesignerLayout(IpDesignerCore as IpDesigner, _form.EbControl);
+            _form.DoDesignerLayout(IpDesignerCore as IpDesigner, _form.EbControlContainer);
         }
 
         #endregion
@@ -137,10 +137,10 @@ namespace ExpressBase.Studio.DesignerForms
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
             var f = new ExpressBase.ServiceStack.EbObjectWrapper
             {
-                Id = _form.EbControl.Id,
+                Id = _form.EbControlContainer.Id,
                 EbObjectType = ExpressBase.Objects.EbObjectType.Form,
                 Name = _form.Name,
-                Bytea = EbSerializers.ProtoBuf_Serialize((_form as IEbControl).EbControl)
+                Bytea = EbSerializers.ProtoBuf_Serialize(_form.EbControlContainer)
             };
 
             using (client.Post<HttpWebResponse>(f as object)) { }

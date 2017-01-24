@@ -93,7 +93,7 @@ namespace ExpressBase.Studio.DesignerForms
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
             var f = new ExpressBase.ServiceStack.EbObjectWrapper
             {
-                Id = _rH.EbControl.Id,
+                Id = _rH.EbControlContainer.Id,
                 EbObjectType = ExpressBase.Objects.EbObjectType.Report,
                 Name = _rH.Name,
                 Bytea = EbSerializers.ProtoBuf_Serialize(_rd)

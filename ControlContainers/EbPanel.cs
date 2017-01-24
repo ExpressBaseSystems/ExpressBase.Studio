@@ -7,37 +7,37 @@ using System.Windows.Forms;
 
 namespace ExpressBase.Studio.Controls
 {
-    public class EbPanel : System.Windows.Forms.Panel, IEbControl
+    public class EbPanel : System.Windows.Forms.Panel, IEbControlContainer
     {
-        public EbControl EbControl { get; set; }
+        public EbControlContainer EbControlContainer { get; set; }
 
         public EbPanel(): base()
         {
-            this.EbControl = new EbButton();
+            this.EbControlContainer = new EbForm();
         }
 
         //required for serialization
         public void BeforeSerialization()
         {
-            this.EbControl.TargetType = this.GetType().FullName;
-            this.EbControl.Controls = new List<EbControl>();
+            this.EbControlContainer.TargetType = this.GetType().FullName;
+            this.EbControlContainer.Controls = new List<EbControl>();
             foreach (IEbControl e in this.Controls)
             {
                 e.BeforeSerialization();
-                this.EbControl.Controls.Add(e.EbControl);
+                this.EbControlContainer.Controls.Add(e.EbControl);
             }
         }
 
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
-            if (this.EbControl == null)
-                this.EbControl = new EbButton();
+            if (this.EbControlContainer == null)
+                this.EbControlContainer = new EbForm();
         }
 
-        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControlContainer serialized_ctrl)
         {
-            ((designer.ActiveDesignSurface as IDesignSurfaceExt).RootComponent as EbFormControl).EbControl = serialized_ctrl;
+            ((designer.ActiveDesignSurface as IDesignSurfaceExt).RootComponent as EbFormControl).EbControlContainer = serialized_ctrl;
             foreach (EbControl c in serialized_ctrl.Controls)
             {
                 var ctrl = designer.ActiveDesignSurface.CreateControl(Type.GetType(c.TargetType)) as System.Windows.Forms.Control;

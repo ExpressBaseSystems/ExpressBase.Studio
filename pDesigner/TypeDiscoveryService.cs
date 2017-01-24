@@ -31,7 +31,11 @@ namespace ExpressBase.Studio.pDesigner
             //DesignerAssemblies.Add(typeof(System.Drawing.Point).Assembly);
             //DesignerAssemblies.Add(typeof(System.Windows.Forms.Design.AnchorEditor).Assembly);
             DesignerAssemblies.Add(typeof(System.Windows.Forms.Control).Assembly);
+
             DesignerAssemblies.Add(typeof(ExpressBase.Studio.Controls.IEbControl).Assembly);
+            DesignerAssemblies.Add(typeof(ExpressBase.Studio.Controls.IEbControlContainer).Assembly);
+
+            DesignerAssemblies.Add(typeof(ExpressBase.Objects.EbControl).Assembly);
         }
 
         /// <summary>

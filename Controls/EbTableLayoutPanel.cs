@@ -5,48 +5,48 @@ using System.Windows.Forms;
 
 namespace ExpressBase.Studio.Controls
 {
-    public class EbTableLayoutPanel: TableLayoutPanel, IEbControl
+    public class EbTableLayoutPanel: TableLayoutPanel, IEbControlContainer
     {
-        public EbControl EbControl { get; set; }
+        public EbControlContainer EbControlContainer { get; set; }
 
         public EbTableLayoutPanel() { }
 
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
-            if (this.EbControl == null)
-                this.EbControl = new EbTableLayout();
+            if (this.EbControlContainer == null)
+                this.EbControlContainer = new EbTableLayout();
 
-            this.EbControl.Name = this.Name;
+            this.EbControlContainer.Name = this.Name;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
         }
 
         public void BeforeSerialization()
         {
-            this.EbControl.TargetType = this.GetType().FullName;
-            this.EbControl.Name = this.Name;
-            this.EbControl.Controls = new List<EbControl>();
+            this.EbControlContainer.TargetType = this.GetType().FullName;
+            this.EbControlContainer.Name = this.Name;
+            this.EbControlContainer.Controls = new List<EbControl>();
             foreach (IEbControl e in this.Controls)
             {
                 e.BeforeSerialization();
                 var position = this.GetCellPosition(e as Control);
                 e.EbControl.CellPositionRow = position.Row;
                 e.EbControl.CellPositionColumn = position.Column;
-                this.EbControl.Controls.Add(e.EbControl);
+                this.EbControlContainer.Controls.Add(e.EbControl);
             }
 
-            (this.EbControl as EbTableLayout).Columns = new List<EbTableColumn>();
+            (this.EbControlContainer as EbTableLayout).Columns = new List<EbTableColumn>();
             foreach (ColumnStyle style in this.ColumnStyles)
-                (this.EbControl as EbTableLayout).Columns.Add(new EbTableColumn { Index=this.ColumnStyles.IndexOf(style), Width=Convert.ToInt32(style.Width) });
+                (this.EbControlContainer as EbTableLayout).Columns.Add(new EbTableColumn { Index=this.ColumnStyles.IndexOf(style), Width=Convert.ToInt32(style.Width) });
 
-            (this.EbControl as EbTableLayout).Rows = new List<EbTableRow>();
+            (this.EbControlContainer as EbTableLayout).Rows = new List<EbTableRow>();
             foreach (RowStyle style in this.RowStyles)
-                (this.EbControl as EbTableLayout).Rows.Add(new EbTableRow { Index = this.RowStyles.IndexOf(style), Height = Convert.ToInt32(style.Height) });
+                (this.EbControlContainer as EbTableLayout).Rows.Add(new EbTableRow { Index = this.RowStyles.IndexOf(style), Height = Convert.ToInt32(style.Height) });
         }
 
-        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
+        public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControlContainer serialized_ctrl)
         {
-            this.EbControl = serialized_ctrl;
+            this.EbControlContainer = serialized_ctrl;
             this.Name = serialized_ctrl.Name;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
 
@@ -81,7 +81,7 @@ namespace ExpressBase.Studio.Controls
 
         public void DoDesignerRefresh()
         {
-            this.Name = this.EbControl.Name;
+            this.Name = this.EbControlContainer.Name;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
         }
     }

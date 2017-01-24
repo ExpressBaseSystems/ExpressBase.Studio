@@ -541,7 +541,7 @@ namespace ExpressBase.Studio
 
                     child.FormClosing += delegate (object sender2, FormClosingEventArgs fe)
                     {
-                        child.ToolStrip.Show();
+                        //child.ToolStrip.Show();
                         ToolStripManager.RevertMerge(toolBar, child.ToolStrip);
                     };
                 }

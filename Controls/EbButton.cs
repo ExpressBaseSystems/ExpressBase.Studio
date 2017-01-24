@@ -17,6 +17,11 @@ namespace ExpressBase.Studio.Controls
         public void BeforeSerialization()
         {
             this.EbControl.TargetType = this.GetType().FullName;
+
+            this.EbControl.Left = this.Location.X;
+            this.EbControl.Top = this.Location.Y;
+            this.EbControl.Height = this.Size.Height;
+            this.EbControl.Width = this.Size.Width;
         }
 
         protected override void OnParentChanged(EventArgs e)
@@ -30,8 +35,15 @@ namespace ExpressBase.Studio.Controls
         {
             this.EbControl = serialized_ctrl;
             this.Name = serialized_ctrl.Name;
-            this.Dock = DockStyle.Fill;
             this.Text = serialized_ctrl.Label;
+
+            if (this.EbControl.CellPositionColumn > 0 && this.EbControl.CellPositionRow > 0)
+                this.Dock = DockStyle.Fill;
+            else
+            {
+                this.Location = new System.Drawing.Point(this.EbControl.Left, this.EbControl.Top);
+                this.Size = new System.Drawing.Size(this.EbControl.Width, this.EbControl.Height);
+            }
         }
 
         public void DoDesignerRefresh()

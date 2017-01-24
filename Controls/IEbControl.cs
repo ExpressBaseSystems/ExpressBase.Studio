@@ -18,4 +18,15 @@ namespace ExpressBase.Studio.Controls
 
         void DoDesignerRefresh();
     }
+
+    public interface IEbControlContainer
+    {
+        EbControlContainer EbControlContainer { get; set; }
+
+        void BeforeSerialization();
+
+        void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControlContainer serialized_ctrl);
+
+        void DoDesignerRefresh();
+    }
 }

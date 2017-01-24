@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DockSample")]
+[assembly: AssemblyTitle("ExpressBase Studio")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Weifen Luo")]
-[assembly: AssemblyProduct("DockSample")]
-[assembly: AssemblyCopyright("Copyright © Weifen Luo 2007")]
+[assembly: AssemblyCompany("ExpressBase Systems Private Limited")]
+[assembly: AssemblyProduct("ExpressBase Studio")]
+[assembly: AssemblyCopyright("Copyright © ExpressBase Systems 2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f881c535-4ab4-4ef8-93c2-785db20a791e")]
+[assembly: Guid("F08EFD4B-89F5-4793-A4C5-BE986090EEF5")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -48,8 +48,8 @@ namespace ExpressBase.Studio
                     FormDesignerForm pD = new FormDesignerForm(this.MainForm, StudioFormTypes.Desktop);
                     pD.Show(MainForm.DockPanel);
                     var _form = new EbFormControl();
-                    _form.EbControl = _formEbObject as EbControl;
-                    _form.EbControl.Id = id;
+                    _form.EbControlContainer = _formEbObject as EbControlContainer;
+                    _form.EbControlContainer.Id = id;
                     pD.SetEB_Form(_form);
                 }
                 else if (_formEbObject.EbObjectType == EbObjectType.DataSource)

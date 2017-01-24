@@ -171,7 +171,9 @@
                 var x = selectService.GetSelectedComponents();
                 foreach (Control c in x)
                 {
-                    if (c is IEbControl)
+                    if (c is IEbControlContainer)
+                        comps.Add((c as IEbControlContainer).EbControlContainer);
+                    else if (c is IEbControl)
                         comps.Add((c as IEbControl).EbControl);
                 }
                 //comps.AddRange( selectService.GetSelectedComponents() );
@@ -205,7 +207,9 @@
             var x = selectService.GetSelectedComponents();
             foreach (Control c in x)
             {
-                if (c is IEbControl)
+                if (c is IEbControlContainer)
+                    comps.Add((c as IEbControlContainer).EbControlContainer);
+                else if (c is IEbControl)
                     comps.Add((c as IEbControl).EbControl);
             }
             //comps.AddRange(selectService.GetSelectedComponents());
