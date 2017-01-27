@@ -35,9 +35,9 @@ namespace ExpressBase.Studio.Controls
                 this.EbControlContainer.Controls.Add(e.EbControl);
             }
 
-            (this.EbControlContainer as EbTableLayout).Columns = new List<EbTableColumn>();
+            (this.EbControlContainer as EbTableLayout).Columns = new List<EbTableLayoutColumn>();
             foreach (ColumnStyle style in this.ColumnStyles)
-                (this.EbControlContainer as EbTableLayout).Columns.Add(new EbTableColumn { Index=this.ColumnStyles.IndexOf(style), Width=Convert.ToInt32(style.Width) });
+                (this.EbControlContainer as EbTableLayout).Columns.Add(new EbTableLayoutColumn { Index=this.ColumnStyles.IndexOf(style), Width=Convert.ToInt32(style.Width) });
 
             (this.EbControlContainer as EbTableLayout).Rows = new List<EbTableRow>();
             foreach (RowStyle style in this.RowStyles)
@@ -56,7 +56,7 @@ namespace ExpressBase.Studio.Controls
             this.ColumnStyles.Clear();
             this.RowStyles.Clear();
             
-            foreach (EbTableColumn c in (serialized_ctrl as EbTableLayout).Columns)
+            foreach (EbTableLayoutColumn c in (serialized_ctrl as EbTableLayout).Columns)
                 this.ColumnStyles.Add(new ColumnStyle { SizeType = SizeType.Percent, Width = c.Width });
 
             foreach (EbTableRow r in (serialized_ctrl as EbTableLayout).Rows)
