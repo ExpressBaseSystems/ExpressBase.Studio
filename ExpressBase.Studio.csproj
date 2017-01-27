@@ -34,7 +34,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-	<DefineConstants Condition=" '$(TargetFrameworkVersion)' == 'v4.6.2' ">NET462</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFrameworkVersion)' == 'v4.6.2' ">NET462</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
@@ -226,6 +226,9 @@
     <Compile Include="..\ExpressBase.Objects\Objects\EbChart.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbChart.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbComboBox.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbComboBox.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.Objects\Objects\EbDataSource.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbDataSource.cs</Link>
     </Compile>
@@ -263,6 +266,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbChartControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbComboBoxControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbDataGridView.cs">
@@ -346,7 +352,6 @@
     <Compile Include="PropertyWindow.Designer.cs">
       <DependentUpon>PropertyWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="SolutionExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
