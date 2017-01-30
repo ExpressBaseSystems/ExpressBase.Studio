@@ -246,6 +246,12 @@
     <Compile Include="..\ExpressBase.Objects\Objects\EbDataSource.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbDataSource.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbDate.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbDate.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbNumeric.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbNumeric.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.Objects\Objects\EbReportDefinition.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbReportDefinition.cs</Link>
     </Compile>
@@ -276,7 +282,7 @@
     <Compile Include="ControlContainers\EbReportPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\EbButton.cs">
+    <Compile Include="Controls\EbButtonControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbChartControl.cs">
@@ -286,6 +292,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbDateControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbNumericControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbPassword.cs">
