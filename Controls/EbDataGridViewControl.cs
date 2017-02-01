@@ -1,8 +1,6 @@
 ﻿using System;
-using pF.pDesigner;
 using ExpressBase.Objects;
 using System.Windows.Forms;
-using System.ComponentModel;
 
 namespace ExpressBase.Studio.Controls
 {
@@ -10,14 +8,12 @@ namespace ExpressBase.Studio.Controls
     {
         public EbControl EbControl { get; set; }
 
-        [Browsable(false)]
-        new public DataGridViewColumnCollection Columns { get; set; }
-
         public EbDataGridViewControl() { }
 
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
+
             if (this.EbControl == null)
             {
                 this.EbControl = new EbDataGridView();
@@ -32,6 +28,7 @@ namespace ExpressBase.Studio.Controls
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
             {
                 var col = (e.NewItems[0] as EbDataGridViewColumn);
+
                 this.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = col.Name,
