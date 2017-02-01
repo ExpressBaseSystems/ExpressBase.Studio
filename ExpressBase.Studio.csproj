@@ -294,7 +294,9 @@
     <Compile Include="Controls\EbComboBoxControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\EbDataGridView.cs" />
+    <Compile Include="Controls\EbDataGridViewControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\EbDateControl.cs">
       <SubType>Component</SubType>
     </Compile>
