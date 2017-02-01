@@ -45,12 +45,22 @@ namespace ExpressBase.Studio
 
                 if (_formEbObject.EbObjectType == EbObjectType.Form)
                 {
-                    FormDesignerForm pD = new FormDesignerForm(this.MainForm, StudioFormTypes.Desktop);
-                    pD.Show(MainForm.DockPanel);
-                    var _form = new EbFormControl();
-                    _form.EbControlContainer = _formEbObject as EbControlContainer;
-                    _form.EbControlContainer.Id = id;
-                    pD.SetEB_Form(_form);
+                    var _form_name = string.Format("form_{0}", id);
+                    Form fc = Application.OpenForms[_form_name];
+                    if (fc == null)
+                    {
+                        FormDesignerForm pD = new FormDesignerForm(this.MainForm, StudioFormTypes.Desktop);
+                        pD.Name = _form_name;
+                        pD.Show(MainForm.DockPanel);
+                        var _form = new EbFormControl();
+                        _form.EbControlContainer = _formEbObject as EbControlContainer;
+                        _form.EbControlContainer.Id = id;
+                        pD.SetEB_Form(_form);
+                    }
+                    else
+                    {
+                        fc.Activate();
+                    }
                 }
                 else if (_formEbObject.EbObjectType == EbObjectType.DataSource)
                 {
