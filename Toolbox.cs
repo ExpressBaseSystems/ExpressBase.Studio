@@ -16,15 +16,15 @@ namespace ExpressBase.Studio
             toolPointer.Bitmap = new System.Drawing.Bitmap(16, 16);
             listBox1.Items.Add(toolPointer);
             //- the controls
-            listBox1.Items.Add(new ToolboxItem(typeof(EbButtonControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbTextBoxControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbNumericControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbDateControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbComboBoxControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbChartControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbDataGridViewControl)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbTableLayoutPanel)));
-            listBox1.Items.Add(new ToolboxItem(typeof(EbSplitContainer)));
+            listBox1.Items.Add(new ToolboxItem(typeof(EbButtonControl)) { DisplayName = "Button" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbTextBoxControl)) { DisplayName = "TextBox" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbNumericControl)) { DisplayName = "Numeric" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbDateControl)) { DisplayName = "Date" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbComboBoxControl)) { DisplayName = "ComboBox" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbChartControl)) { DisplayName = "Chart" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbDataGridViewControl)) { DisplayName = "DataGridView" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbTableLayoutPanel)) { DisplayName = "TableLayout" });
+            listBox1.Items.Add(new ToolboxItem(typeof(EbRadioGroupControl)) { DisplayName = "RadioGroup" });
 
             //listBox1.Items.Add(new ToolboxItem(typeof(EbTabControl)));
             //listBox1.Items.Add(new ToolboxItem(typeof(OpenFileDialog)));

@@ -252,6 +252,9 @@
     <Compile Include="..\ExpressBase.Objects\Objects\EbNumeric.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbNumeric.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\EbRadioGroup.cs">
+      <Link>Links\ExpressBase.Objects\Objects\EbRadioGroup.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.Objects\Objects\EbReportDefinition.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbReportDefinition.cs</Link>
     </Compile>
@@ -300,10 +303,7 @@
     <Compile Include="Controls\EbNumericControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\EbPassword.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\EbSplitContainer.cs">
+    <Compile Include="Controls\EbRadioGroupControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbTableLayoutPanel.cs">
