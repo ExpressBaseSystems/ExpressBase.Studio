@@ -546,6 +546,16 @@
     <Content Include="Images\Logo.ico" />
     <Content Include="Images\SplashScreen.png" />
     <Content Include="Logo.ico" />
+    <None Include="Resources\radio.png" />
+    <None Include="Resources\txt.png" />
+    <None Include="Resources\cb.png" />
+    <None Include="Resources\dtime.png" />
+    <None Include="Resources\Grid.png" />
+    <None Include="Resources\label.png" />
+    <None Include="Resources\ls.png" />
+    <None Include="Resources\picture.png" />
+    <None Include="Resources\properties.png" />
+    <None Include="Resources\check.png" />
     <Content Include="SqlScripts\Create.txt" />
     <None Include="Resources\Undo.png" />
     <None Include="Resources\Sign Up.png" />
