@@ -10,6 +10,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
 using ExpressBase.Studio.Controls;
 using ExpressBase.Studio.pDesigner;
+using System.Reflection;
 
 namespace pF.DesignSurfaceExt {
 
@@ -91,6 +92,28 @@ namespace pF.DesignSurfaceExt {
         return this._undoEngine;
     }
 
+        private void CallSetStyle(Control myControl)
+        {
+            try
+            {
+                // Prevent flickering, only if our assembly 
+                // has reflection permission. 
+                Type type = myControl.GetType();
+                BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                MethodInfo method = type.GetMethod("SetStyle", flags);
+
+                if (method != null)
+                {
+                    object[] param = { ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer, true };
+                    method.Invoke(myControl, param);
+                }
+            }
+            catch (Exception e)
+            {
+                // Don't do anything, we are running in a trusted contex.
+            }
+        }
+
     private IComponent CreateRootComponentCore ( Type controlType, Size controlSize, DesignerLoader loader ) {
         const string _signature_ = _Name_ + @"::CreateRootComponentCore()";
         try {
@@ -129,9 +152,13 @@ namespace pF.DesignSurfaceExt {
             Control ctrl = null;
             if( host.RootComponent is  Form ) {
                 ctrl = this.View as Control;
-                ctrl.BackColor = Color.LightGray;
-                //- set the Size
-                PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties( ctrl );
+                    CallSetStyle(ctrl);
+                    CallSetStyle(ctrl.Controls[0]);
+                    ctrl.BackColor = Color.Transparent;
+                    ctrl.Controls[0].BackColor = Color.Transparent;
+                    //ctrl.BackColor = Color.LightGray;
+                    //- set the Size
+                    PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties( ctrl );
                 //- Sets a PropertyDescriptor to the specific property
                 PropertyDescriptor pdS = pdc.Find( "Size", false );
                 if( null != pdS )

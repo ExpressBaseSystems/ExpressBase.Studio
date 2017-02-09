@@ -19,6 +19,9 @@ namespace ExpressBase.Studio.ControlContainers
             this.EbControlContainer = new EbForm();
             this.Dock = DockStyle.Fill;
             this.FormBorderStyle = FormBorderStyle.None;
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            this.BackColor = System.Drawing.Color.Transparent;
         }
 
         //required for serialization
@@ -54,5 +57,12 @@ namespace ExpressBase.Studio.ControlContainers
         }
 
         public void DoDesignerRefresh() { }
+
+        protected override void OnResize(EventArgs e)
+        {
+            this.SuspendLayout();
+            base.OnResize(e);
+            this.ResumeLayout(true);
+        }
     }
 }

@@ -73,6 +73,7 @@
             InitializeComponent();
 
             this._parent = parent;
+            this.BackColor = Color.Transparent;
 
             DesignSurfaceManager = new DesignSurfaceManagerExt();
             SetPropertyGridToParent();

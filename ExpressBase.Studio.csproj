@@ -51,6 +51,10 @@
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
@@ -332,6 +336,18 @@
     <Compile Include="DesignerForms\ReportDesignerForm.Designer.cs">
       <DependentUpon>ReportDesignerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesignerForms\ReportDesignerUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignerForms\ReportDesignerUserControl.Designer.cs">
+      <DependentUpon>ReportDesignerUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignerForms\ReportSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesignerForms\ReportSettingsForm.Designer.cs">
+      <DependentUpon>ReportSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Differ\DifferForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -424,6 +440,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DesignerForms\ReportDesignerForm.resx">
       <DependentUpon>ReportDesignerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignerForms\ReportDesignerUserControl.resx">
+      <DependentUpon>ReportDesignerUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignerForms\ReportSettingsForm.resx">
+      <DependentUpon>ReportSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Differ\DifferForm.resx">
       <DependentUpon>DifferForm.cs</DependentUpon>

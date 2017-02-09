@@ -586,9 +586,8 @@ namespace ExpressBase.Studio
 
         private void reportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReportDesignerForm pD = new ReportDesignerForm();
-            pD.MainForm = this;
-            pD.Show(this.dockPanel);
+            ReportSettingsForm _reportsettings = new ReportSettingsForm();
+            _reportsettings.ShowDialog(this);
         }
     }
 }
