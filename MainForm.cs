@@ -170,6 +170,9 @@ namespace ExpressBase.Studio
         {
             get
             {
+                if (m_toolbox == null || m_toolbox.IsDisposed)
+                    m_toolbox = new Toolbox();
+
                 return m_toolbox;
             }
         }

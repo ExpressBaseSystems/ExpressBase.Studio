@@ -48,9 +48,13 @@ namespace ExpressBase.Studio.DesignerForms
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             ReportDesignerForm pD = new ReportDesignerForm(this.ReportDefinition);
             pD.MainForm = this.Owner as MainForm;
             pD.Show((this.Owner as MainForm).DockPanel);
+            this.Cursor = Cursors.Default;
+
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

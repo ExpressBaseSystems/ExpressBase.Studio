@@ -38,7 +38,7 @@ namespace ExpressBase.Studio.DesignerForms
             tb.Show(this.DockPanel);
             this.AutoScroll = true;
 
-            var _uc = new ReportDesignerUserControl(this.ReportDefinition, new string[] { "RH", "PH", "DT", "PF", "RF" });
+            var _uc = new ReportDesignerUserControl(this.ReportDefinition);
             _uc.Dock = DockStyle.Top;
             _uc.MainForm = this.MainForm;
 

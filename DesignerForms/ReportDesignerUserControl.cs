@@ -17,8 +17,6 @@ namespace ExpressBase.Studio.DesignerForms
     {
         private EbReportDefinition ReportDefinition { get; set; }
 
-        private List<string> sections { get; set; }
-
         internal MainForm MainForm { get; set; }
 
         internal ToolStrip ToolStrip { get; }
@@ -29,29 +27,11 @@ namespace ExpressBase.Studio.DesignerForms
             this.ReportDefinition = def;
             this.BackColor = Color.Transparent;
             this.DoubleBuffered = true;
-
-            sections = new List<string>();
-        }
-
-        internal ReportDesignerUserControl(EbReportDefinition def, params string[] sectionnames)
-        {
-            InitializeComponent();
-            this.ReportDefinition = def;
-            this.BackColor = Color.Transparent;
-
-            if (sectionnames == null & sectionnames.Length != 5)
-                throw new NotSupportedException("You can't use this");
-
-            sections = new List<string>();
-            this.sections.AddRange(sectionnames.Reverse());
         }
 
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
-
-            if (this.sections.Count == 0)
-                this.sections.AddRange(new string[] { "RH1", "RH2"});
 
             this.InitSections();
         }
@@ -61,72 +41,130 @@ namespace ExpressBase.Studio.DesignerForms
             this.Height = (int)this.ReportDefinition.PaperSize.Height;
             this.Width = (int)this.ReportDefinition.PaperSize.Width;
 
-            Toolbox tb = this.MainForm.Toolbox;
-            if (tb == null || tb.IsDisposed)
-                tb = new Toolbox();
-
             this.SuspendLayout();
+            this.Controls.Clear();
 
-            foreach (string section in this.sections)
-            {
-                var panel = new Panel
-                {
-                    Dock = DockStyle.Top,
-                    Height = 100,
-                    BackColor = Color.Transparent
-                };
+            this.ReportDefinition.ReportHeaders.Sort();
+            foreach (EbReportSection section in this.ReportDefinition.ReportHeaders)
+                AddSection(section);
 
-                var btn = new Label { Dock = DockStyle.Left, Text = section, BackColor = Color.LightBlue };
-                btn.MouseClick += Btn_MouseClick;
+            this.ReportDefinition.PageHeaders.Sort();
+            foreach (EbReportSection section in this.ReportDefinition.PageHeaders)
+                AddSection(section);
 
-                panel.Controls.Add(btn);
+            this.ReportDefinition.Details.Sort();
+            foreach (EbReportSection section in this.ReportDefinition.Details)
+                AddSection(section);
 
-                var pDesignerCore1 = new pF.pDesigner.pDesigner(this.MainForm.PropertyWindow);
-                pDesignerCore1.BackColor = Color.Transparent;
-                pDesignerCore1.Parent = panel;
-                (pDesignerCore1 as IpDesigner).Toolbox = tb.listBox1;
-                (pDesignerCore1 as IpDesigner).AddDesignSurface<EbReportPanel>(600, 100, AlignmentModeEnum.SnapLines, new Size(1, 1));
+            this.ReportDefinition.PageFooters.Sort();
+            foreach (EbReportSection section in this.ReportDefinition.PageFooters)
+                AddSection(section);
 
-                this.Controls.Add(panel);
-                this.Controls.Add(new Splitter { Dock = DockStyle.Top, BackColor = Color.DarkBlue, Width = 1 });
-            }
+            this.ReportDefinition.ReportFooters.Sort();
+            foreach (EbReportSection section in this.ReportDefinition.ReportFooters)
+                AddSection(section);
 
             this.ResumeLayout(true);
         }
 
-        private Label _justNowClickedSectionButton = null;
+        private void AddSection(EbReportSection section)
+        {
+            var panel = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 100,
+                BackColor = Color.Transparent
+            };
 
-        private void Btn_MouseClick(object sender, MouseEventArgs e)
+            Color btnColor = Color.White;
+            if (section is EbReportHeaderSection || section is EbReportFooterSection)
+                btnColor = Color.LightSeaGreen;
+            else if (section is EbReportPageHeaderSection || section is EbReportPageFooterSection)
+                btnColor = Color.LightSkyBlue;
+            else if (section is EbReportDetailSection)
+                btnColor = Color.SandyBrown;
+
+            var sectionlbl = new Label { Dock = DockStyle.Left, Text = section.Name, BackColor = btnColor, Width = 35 };
+            sectionlbl.Tag = section;
+            sectionlbl.MouseClick += Sectionlbl_MouseClick;
+
+            panel.Controls.Add(sectionlbl);
+
+            var pDesignerCore1 = new pF.pDesigner.pDesigner(this.MainForm.PropertyWindow);
+            pDesignerCore1.BackColor = Color.Transparent;
+            pDesignerCore1.Parent = panel;
+            (pDesignerCore1 as IpDesigner).Toolbox = this.MainForm.Toolbox.listBox1;
+            (pDesignerCore1 as IpDesigner).AddDesignSurface<EbReportPanel>(600, 100, AlignmentModeEnum.SnapLines, new Size(1, 1));
+
+            this.Controls.Add(panel);
+            this.Controls.Add(new Splitter { Dock = DockStyle.Top, BackColor = Color.DarkBlue, Width = 1 });
+        }
+
+        private EbReportSection _justNowClickedSection = null;
+
+        private void Sectionlbl_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                _justNowClickedSectionButton = sender as Label;
+                _justNowClickedSection = (sender as Label).Tag as EbReportSection;
 
-                var item1 = new MenuItem("Insert Section Above");
-                var item2 = new MenuItem("Delete Section");
-                item1.Click += Item1_Click;
-                item2.Click += Item2_Click;
+                var itemInsertAbove = new MenuItem("Insert Section Above");
+                var itemInsertBelow = new MenuItem("Insert Section Below");
+                var itemDeleteSection = new MenuItem("Delete Section");
+                itemInsertAbove.Click += ItemInsertAbove_Click;
+                itemInsertBelow.Click += ItemInsertBelow_Click;
+                itemDeleteSection.Click += ItemDeleteSection_Click;
 
-                (sender as Label).ContextMenu = new ContextMenu(new MenuItem[] { item1, item2 });
+                (sender as Label).ContextMenu = new ContextMenu(new MenuItem[] { itemInsertAbove, itemInsertBelow, itemDeleteSection });
             }
         }
 
-        private void Item2_Click(object sender, EventArgs e)
+        private void ItemInsertAbove_Click(object sender, EventArgs e)
         {
-            if (_justNowClickedSectionButton.Text == "RH")
-            {
-                var _childUC = new ReportDesignerUserControl(this.ReportDefinition, new string[] { "RH1", "RH2" });
-                _childUC.Dock = DockStyle.Fill;
-                _childUC.MainForm = this.MainForm;
-                _justNowClickedSectionButton.Parent.Controls.RemoveAt(1);
-                _justNowClickedSectionButton.Parent.Controls.Add(new Panel { Height = _justNowClickedSectionButton.Height });
-                _justNowClickedSectionButton.Parent.Controls[1].Controls.Add(_childUC);
-            }
+            if (_justNowClickedSection is EbReportHeaderSection)
+                this.ReportDefinition.ReportHeaders.InsertBefore(_justNowClickedSection as EbReportHeaderSection);
+            else if (_justNowClickedSection is EbReportPageHeaderSection)
+                this.ReportDefinition.PageHeaders.InsertBefore(_justNowClickedSection as EbReportPageHeaderSection);
+            else if (_justNowClickedSection is EbReportDetailSection)
+                this.ReportDefinition.Details.InsertBefore(_justNowClickedSection as EbReportDetailSection);
+            else if (_justNowClickedSection is EbReportPageFooterSection)
+                this.ReportDefinition.PageFooters.InsertBefore(_justNowClickedSection as EbReportPageFooterSection);
+            else if (_justNowClickedSection is EbReportFooterSection)
+                this.ReportDefinition.ReportFooters.InsertBefore(_justNowClickedSection as EbReportFooterSection);
+
+            this.InitSections();
         }
 
-        private void Item1_Click(object sender, EventArgs e)
+        private void ItemInsertBelow_Click(object sender, EventArgs e)
         {
-            
+            if (_justNowClickedSection is EbReportHeaderSection)
+                this.ReportDefinition.ReportHeaders.InsertAfter(_justNowClickedSection as EbReportHeaderSection);
+            else if (_justNowClickedSection is EbReportPageHeaderSection)
+                this.ReportDefinition.PageHeaders.InsertAfter(_justNowClickedSection as EbReportPageHeaderSection);
+            else if (_justNowClickedSection is EbReportDetailSection)
+                this.ReportDefinition.Details.InsertAfter(_justNowClickedSection as EbReportDetailSection);
+            else if (_justNowClickedSection is EbReportPageFooterSection)
+                this.ReportDefinition.PageFooters.InsertAfter(_justNowClickedSection as EbReportPageFooterSection);
+            else if (_justNowClickedSection is EbReportFooterSection)
+                this.ReportDefinition.ReportFooters.InsertAfter(_justNowClickedSection as EbReportFooterSection);
+
+            this.InitSections();
+        }
+
+        private void ItemDeleteSection_Click(object sender, EventArgs e)
+        {
+            if (_justNowClickedSection is EbReportHeaderSection)
+                this.ReportDefinition.ReportHeaders.DeleteSection(_justNowClickedSection as EbReportHeaderSection);
+            else if (_justNowClickedSection is EbReportPageHeaderSection)
+                this.ReportDefinition.PageHeaders.DeleteSection(_justNowClickedSection as EbReportPageHeaderSection);
+            else if (_justNowClickedSection is EbReportDetailSection)
+                this.ReportDefinition.Details.DeleteSection(_justNowClickedSection as EbReportDetailSection);
+            else if (_justNowClickedSection is EbReportPageFooterSection)
+                this.ReportDefinition.PageFooters.DeleteSection(_justNowClickedSection as EbReportPageFooterSection);
+            else if (_justNowClickedSection is EbReportFooterSection)
+                this.ReportDefinition.ReportFooters.DeleteSection(_justNowClickedSection as EbReportFooterSection);
+
+            this.InitSections();
         }
 
         protected override void OnResize(EventArgs e)

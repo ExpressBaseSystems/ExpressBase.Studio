@@ -31,7 +31,6 @@
             this.cmbPageSize = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnOpenReportDesigner = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,8 +43,10 @@
             this.intTop = new System.Windows.Forms.NumericUpDown();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radPortrait = new System.Windows.Forms.RadioButton();
             this.radLandscape = new System.Windows.Forms.RadioButton();
+            this.radPortrait = new System.Windows.Forms.RadioButton();
+            this.cmbEbDataSource = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.intBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intRight)).BeginInit();
@@ -74,16 +75,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(288, 285);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnOpenReportDesigner
             // 
@@ -221,6 +212,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Orientation";
             // 
+            // radLandscape
+            // 
+            this.radLandscape.AutoSize = true;
+            this.radLandscape.Location = new System.Drawing.Point(165, 19);
+            this.radLandscape.Name = "radLandscape";
+            this.radLandscape.Size = new System.Drawing.Size(78, 17);
+            this.radLandscape.TabIndex = 1;
+            this.radLandscape.TabStop = true;
+            this.radLandscape.Text = "Landscape";
+            this.radLandscape.UseVisualStyleBackColor = true;
+            // 
             // radPortrait
             // 
             this.radPortrait.AutoSize = true;
@@ -233,27 +235,34 @@
             this.radPortrait.Text = "Portrait";
             this.radPortrait.UseVisualStyleBackColor = true;
             // 
-            // radLandscape
+            // cmbEbDataSource
             // 
-            this.radLandscape.AutoSize = true;
-            this.radLandscape.Location = new System.Drawing.Point(165, 19);
-            this.radLandscape.Name = "radLandscape";
-            this.radLandscape.Size = new System.Drawing.Size(78, 17);
-            this.radLandscape.TabIndex = 1;
-            this.radLandscape.TabStop = true;
-            this.radLandscape.Text = "Landscape";
-            this.radLandscape.UseVisualStyleBackColor = true;
+            this.cmbEbDataSource.FormattingEnabled = true;
+            this.cmbEbDataSource.Location = new System.Drawing.Point(38, 278);
+            this.cmbEbDataSource.Name = "cmbEbDataSource";
+            this.cmbEbDataSource.Size = new System.Drawing.Size(299, 21);
+            this.cmbEbDataSource.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(37, 262);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(128, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "ExpressBase DataSource";
             // 
             // ReportSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 536);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cmbEbDataSource);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnOpenReportDesigner);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbPageSize);
             this.MaximizeBox = false;
@@ -282,7 +291,6 @@
         private System.Windows.Forms.ComboBox cmbPageSize;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnOpenReportDesigner;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
@@ -297,5 +305,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radLandscape;
         private System.Windows.Forms.RadioButton radPortrait;
+        private System.Windows.Forms.ComboBox cmbEbDataSource;
+        private System.Windows.Forms.Label label6;
     }
 }
