@@ -17,6 +17,8 @@ namespace ExpressBase.Studio.Controls
         void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl);
 
         void DoDesignerRefresh();
+
+        string ToString();
     }
 
     public interface IEbControlContainer

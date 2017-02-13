@@ -16,6 +16,7 @@ namespace ExpressBase.Studio.Controls
         public EbReportFieldControl()
         {
             this.EbControl = new EbTextBox();
+            this.EbControl.Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
         }
 
         //required
@@ -27,15 +28,6 @@ namespace ExpressBase.Studio.Controls
             this.EbControl.Top = this.Location.Y;
             this.EbControl.Height = this.Size.Height;
             this.EbControl.Width = this.Size.Width;
-        }
-
-        protected override void OnParentChanged(EventArgs e)
-        {
-            base.OnParentChanged(e);
-            if (this.EbControl == null)
-                this.EbControl = new EbButton();
-
-            this.EbControl.Name = this.Name;
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
@@ -56,8 +48,8 @@ namespace ExpressBase.Studio.Controls
         public void DoDesignerRefresh()
         {
             this.Name = this.EbControl.Name;
-            this.Dock = DockStyle.Fill;
             this.Text = this.EbControl.Label;
+            this.Font = this.EbControl.Font;
         }
     }
 }

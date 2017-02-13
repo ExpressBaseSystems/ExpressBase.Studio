@@ -21,6 +21,7 @@
     using System.Collections;
     using ExpressBase.Studio.Controls;
     using ExpressBase.Studio.DesignerForms;
+    using ExpressBase.Objects;
 
 
     //- [Note FROM MSDN]:
@@ -214,10 +215,23 @@
                 //- events raised for component-level events
                 componentChangeService.ComponentChanged += ( Object sender, ComponentChangedEventArgs e )=>
                 {
-                    // do nothing
+                    if (e.Component is IEbControl)
+                        (e.Component as IEbControl).DoDesignerRefresh();
+                     // do nothing
                 };
                 componentChangeService.ComponentAdded += ( Object sender, ComponentEventArgs e )=>
                 {
+                    if (e.Component is EbReportFieldControl)
+                    {
+                        if (tbox.Toolbox.SelectedItem != null)
+                        {
+                            var fieldname = (tbox.Toolbox.SelectedItem as ToolboxItem).DisplayName;
+                            (e.Component as EbReportFieldControl).EbControl.Name = fieldname;
+                            (e.Component as EbReportFieldControl).EbControl.Label = fieldname;
+                            ((e.Component as EbReportFieldControl).EbControl as EbTextBox).Text = fieldname;
+                        }
+                    }
+
                     DesignSurfaceManager.UpdatePropertyGridHost( surface );
                 };
                 componentChangeService.ComponentRemoved += ( Object sender, ComponentEventArgs e )=>

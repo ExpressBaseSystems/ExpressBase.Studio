@@ -12,9 +12,10 @@
     using System.Diagnostics;
 
     using pF.DesignSurfaceManagerExt;
+    using ExpressBase.Objects;
+    using ExpressBase.Studio.Controls;
 
-
-public partial class PropertyGridHost : UserControl {
+    public partial class PropertyGridHost : UserControl {
     private const string _Name_ = "PropertyGridHost";
 
 
@@ -64,10 +65,9 @@ public partial class PropertyGridHost : UserControl {
 
             pgrdPropertyGrid.PropertyValueChanged += (object s, PropertyValueChangedEventArgs e) =>
             {
-                if (this.SelectedObject != null)
+                if (this.SelectedObject != null && pgrdComboBox.SelectedItem != null)
                 {
-                    //if (this.SelectedObject is ExpressBase.Studio.Controls.EbObject && !(this.SelectedObject is ExpressBase.Studio.Controls.EbButton))
-                    //    (this.SelectedObject as ExpressBase.Studio.Controls.EbObject).IEbControl.DoDesignerRefresh();
+                    (pgrdComboBox.SelectedItem as IEbControl).DoDesignerRefresh();
                 }
             };
 
@@ -121,7 +121,7 @@ public partial class PropertyGridHost : UserControl {
 
 		//- get the name of the control selected from the comboBox
 		//- and if we are not able to get it then it's better to exit
-		string sName = pgrdComboBox.SelectedItem.ToString();
+		string sName = (pgrdComboBox.SelectedItem as IEbControl).EbControl.Name;
 		if (string.IsNullOrEmpty(sName))
 			return;
 
@@ -193,7 +193,7 @@ public partial class PropertyGridHost : UserControl {
 
                 foreach( Component comp in ctrlsExisting ) {
                     string sItemText = TranslateComponentToName( comp );
-                    ctrlsToAdd.Add( sItemText );
+                    ctrlsToAdd.Add(comp);
                     if( sName == comp.Site.Name )
                         pgrdComboBox_Text = sItemText;
                 }//end_foreach

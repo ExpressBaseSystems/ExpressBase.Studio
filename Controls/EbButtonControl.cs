@@ -49,8 +49,15 @@ namespace ExpressBase.Studio.Controls
         public void DoDesignerRefresh()
         {
             this.Name = this.EbControl.Name;
-            this.Dock = DockStyle.Fill;
+            //this.Dock = DockStyle.Fill;
             this.Text = this.EbControl.Label;
+            this.Font = this.EbControl.Font;
+            //this.BackColor = this.EbControl.BackColor;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", this.Name, this.EbControl.GetType().Name); 
         }
     }
 }
