@@ -1,10 +1,14 @@
-﻿using ExpressBase.Objects;
+﻿using ExpressBase.Data;
+using ExpressBase.Objects;
+using ExpressBase.ServiceStack;
+using ServiceStack;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,6 +37,8 @@ namespace ExpressBase.Studio.DesignerForms
 
             cmbPageSize.EndUpdate();
 
+            this.PopulateDataSources();
+
             this.ReportDefinition = new EbReportDefinition();
         }
 
@@ -42,13 +48,19 @@ namespace ExpressBase.Studio.DesignerForms
                 ReportDefinition.PaperSize = cmbPageSize.SelectedItem as EbReportPaperSize;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnOpenReportDesigner_Click(object sender, EventArgs e)
         {
-        }
+            if (cmbEbDataSource.SelectedItem == null)
+                return;
 
-        private void button2_Click(object sender, EventArgs e)
-        {
             this.Cursor = Cursors.WaitCursor;
+            this.ReportDefinition.EbDataSourceId = (cmbEbDataSource.SelectedItem as EbObjectWrapper).Id;
+
+            JsonServiceClient client = new JsonServiceClient("http://localhost:53125/");
+            var resp = client.Get<DataSourceColumnsResponse>(new DataSourceColumnsRequest { Id = this.ReportDefinition.EbDataSourceId });
+            //var resp = client.Get<DataSourceColumnsResponse>(string.Format("http://localhost:53125/ds/columns/{0}", this.ReportDefinition.EbDataSourceId));
+            this.ReportDefinition.ColumnColletion = resp.Columns;
+
             ReportDesignerForm pD = new ReportDesignerForm(this.ReportDefinition);
             pD.MainForm = this.Owner as MainForm;
             pD.Show((this.Owner as MainForm).DockPanel);
@@ -61,5 +73,40 @@ namespace ExpressBase.Studio.DesignerForms
         {
             this.Close();
         }
+
+        private void PopulateDataSources()
+        {
+            IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
+            var fr = client.Get<EbObjectResponse>("http://localhost:53125/ebo?format=json");
+
+            cmbEbDataSource.DisplayMember = "Name";
+            cmbEbDataSource.ValueMember = "Id";
+            cmbEbDataSource.BeginUpdate();
+
+            foreach (EbObjectWrapper dr in fr.Data)
+            {
+                if (dr.EbObjectType == EbObjectType.DataSource)
+                    cmbEbDataSource.Items.Add(dr);
+            }
+
+            cmbEbDataSource.EndUpdate();
+        }
+    }
+
+    public class DataSourceColumnsRequest : IReturn<DataSourceColumnsResponse>
+    {
+        public int Id { get; set; }
+
+        public string SearchText { get; set; }
+
+        public string OrderByDirection { get; set; }
+
+        public string SelectedColumnName { get; set; }
+    }
+
+    public class DataSourceColumnsResponse
+    {
+        [DataMember(Order = 1)]
+        public ColumnColletion Columns { get; set; }
     }
 }

@@ -209,6 +209,18 @@
     <Compile Include="..\ExpressBase.Common\EbSerializers.cs">
       <Link>Links\ExpressBase.Common\EbSerializers.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Data\DataSet\EbDataColumn.cs">
+      <Link>Links\ExpressBase.Data\EbDataColumn.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Data\DataSet\EbDataRow.cs">
+      <Link>Links\ExpressBase.Data\EbDataRow.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Data\DataSet\EbDataset.cs">
+      <Link>Links\ExpressBase.Data\EbDataset.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Data\DataSet\EbDataTable.cs">
+      <Link>Links\ExpressBase.Data\EbDataTable.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.Objects\Helpers\EbTable.cs">
       <Link>Links\ExpressBase.Objects\Helpers\EbTable.cs</Link>
     </Compile>
@@ -315,6 +327,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbTableLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EbReportFieldControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbTextBoxControl.cs">

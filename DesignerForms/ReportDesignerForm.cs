@@ -35,6 +35,7 @@ namespace ExpressBase.Studio.DesignerForms
             if (tb == null || tb.IsDisposed)
                 tb = new Toolbox();
 
+            tb.Redraw(this.ReportDefinition.ColumnColletion);
             tb.Show(this.DockPanel);
             this.AutoScroll = true;
 

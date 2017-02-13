@@ -1,3 +1,4 @@
+using ExpressBase.Data;
 using ExpressBase.Studio.Controls;
 using ExpressBase.Studio.DesignerForms;
 using System.Drawing;
@@ -22,6 +23,7 @@ namespace ExpressBase.Studio
             toolPointer.DisplayName = "<Pointer>";
             toolPointer.Bitmap = new System.Drawing.Bitmap(16, 16);
             listBox1.Items.Add(toolPointer);
+
             //- the controls
             listBox1.Items.Add(new ToolboxItem(typeof(EbButtonControl)) { DisplayName = "Button" });
             listBox1.Items.Add(new ToolboxItem(typeof(EbTextBoxControl)) { DisplayName = "TextBox", Bitmap = ExpressBase.Studio.Properties.Resources.txt });
@@ -47,11 +49,23 @@ namespace ExpressBase.Studio
         private void ListBox1_DrawItem(object sender, DrawItemEventArgs e)
         {
             var item = listBox1.Items[e.Index] as ToolboxItem;
-            ButtonRenderer.DrawButton(e.Graphics, e.Bounds, item.DisplayName, 
-                new Font(FontFamily.GenericSansSerif, 8f), 
-                item.Bitmap, 
-                new Rectangle(new Point(e.Bounds.Location.X + 10, e.Bounds.Location.Y + 5), new Size(16, 16)), false, 
+            ButtonRenderer.DrawButton(e.Graphics, e.Bounds, item.DisplayName,
+                new Font(FontFamily.GenericSansSerif, 8f),
+                item.Bitmap,
+                new Rectangle(new Point(e.Bounds.Location.X + 10, e.Bounds.Location.Y + 5), new Size(16, 16)), false,
                 System.Windows.Forms.VisualStyles.PushButtonState.Normal);
+        }
+
+        public void Redraw(ColumnColletion columns)
+        {
+            if (columns != null)
+            {
+                this.listBox1.Items.Clear();
+                foreach (var col in columns)
+                {
+                    listBox1.Items.Add(new ToolboxItem(typeof(EbReportFieldControl)) { DisplayName = col.ColumnName });
+                }
+            }
         }
     }
 }

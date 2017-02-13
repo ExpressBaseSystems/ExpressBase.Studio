@@ -84,7 +84,7 @@
             this.btnOpenReportDesigner.TabIndex = 3;
             this.btnOpenReportDesigner.Text = "Open Report Designer";
             this.btnOpenReportDesigner.UseVisualStyleBackColor = true;
-            this.btnOpenReportDesigner.Click += new System.EventHandler(this.button2_Click);
+            this.btnOpenReportDesigner.Click += new System.EventHandler(this.btnOpenReportDesigner_Click);
             // 
             // groupBox1
             // 
