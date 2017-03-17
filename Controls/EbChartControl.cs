@@ -7,7 +7,10 @@ namespace ExpressBase.Studio.Controls
     {
         public EbControl EbControl { get; set; }
 
-        public EbChartControl() { }
+        public EbChartControl()
+        {
+            this.EbControl = new EbChart();
+        }
 
         //required
         public void BeforeSerialization()

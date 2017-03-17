@@ -1,4 +1,5 @@
 using ExpressBase.Studio.DesignerForms;
+using FontAwesome.Sharp;
 using pF.pDesigner;
 using System;
 using System.Drawing;
@@ -28,14 +29,14 @@ namespace ExpressBase.Studio
         private Toolbox m_toolbox;
         private DummyOutputWindow m_outputWindow;
         private DummyTaskList m_taskList;
-        private SplashScreen _splashScreen;
+        internal string JwtToken { get; set; }
 
-        public MainForm()
+        public MainForm(string jwt_token)
         {
             InitializeComponent();
+            this.JwtToken = jwt_token;
             AutoScaleMode = AutoScaleMode.Dpi;
 
-            SetSplashScreen();
             CreateStandardControls();
 
             RightToLeftLayout = (RightToLeft == RightToLeft.Yes);
@@ -44,6 +45,14 @@ namespace ExpressBase.Studio
             
             vsToolStripExtender1.DefaultRenderer = _toolStripProfessionalRenderer;
             SetSchema();
+
+            //var icons = Enum.GetValues(typeof(IconChar)).OfType<IconChar>().ToArray();
+
+            imageList1.AddIcon(IconChar.FolderOpen, 16, Color.Blue);
+            imageList1.AddIcon(IconChar.Linkedin, 16, Color.Blue);
+            imageList1.AddIcon(IconChar.Facebook, 16, Color.Blue);
+
+            btnDiffer.Image = imageList1.Images[1];
         }
 
         #region Methods
@@ -234,6 +243,18 @@ namespace ExpressBase.Studio
         private void menuItemPropertyWindow_Click(object sender, System.EventArgs e)
         {
             m_propertyWindow.Show(dockPanel);
+
+            //if (this.ActiveMdiChild is BaseDesignerForm)
+            //{
+            //    BaseDesignerForm child = ActiveMdiChild as BaseDesignerForm;
+
+            //    child.DesignerCore.DesignSurfaceManager.UpdatePropertyGridHost(child.ActiveDesignSurface);
+            //    //this.PropertyWindow.PropertyGridHost = child.DesignerCore.PropertyGridHost;
+
+            //    //this.PropertyWindow.PropertyGridHost.ReloadComboBox();
+
+            //    //child.DesignerCore.PropertyGridHost.pr
+            //}
         }
 
         private void menuItemToolbox_Click(object sender, System.EventArgs e)
@@ -377,7 +398,7 @@ namespace ExpressBase.Studio
 
         private void menuItemNewWindow_Click(object sender, System.EventArgs e)
         {
-            MainForm newWindow = new MainForm();
+            MainForm newWindow = new MainForm(this.JwtToken);
             newWindow.Text = newWindow.Text + " - New";
             newWindow.Show();
         }
@@ -416,38 +437,6 @@ namespace ExpressBase.Studio
             doc4.Show(doc3.Pane, DockAlignment.Right, 0.5);
 
             dockPanel.ResumeLayout(true, true);
-        }
-
-        private void SetSplashScreen()
-        {
-            _splashScreen = new SplashScreen();
-
-            ResizeSplash();
-            _splashScreen.Visible = true;
-            _splashScreen.TopMost = true;
-
-            Timer _timer = new Timer();
-            _timer.Tick += (sender, e) =>
-            {
-                _splashScreen.Visible = false;
-                _timer.Enabled = false;
-            };
-            _timer.Interval = 4000;
-            _timer.Enabled = true;
-        }
-
-        private void ResizeSplash()
-        {
-            //if (_showSplash) {
-                
-            //var centerXMain = (this.Location.X + this.Width) / 2.0;
-            //var LocationXSplash = Math.Max(0, centerXMain - (_splashScreen.Width / 2.0));
-
-            //var centerYMain = (this.Location.Y + this.Height) / 2.0;
-            //var LocationYSplash = Math.Max(0, centerYMain - (_splashScreen.Height / 2.0));
-
-            //_splashScreen.Location = new Point((int)Math.Round(LocationXSplash), (int)Math.Round(LocationYSplash));
-            //}
         }
 
         private void CreateStandardControls()
@@ -513,7 +502,7 @@ namespace ExpressBase.Studio
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            ResizeSplash();
+
         }
 
         private void sQLStatementToolStripMenuItem_Click(object sender, EventArgs e)

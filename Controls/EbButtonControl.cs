@@ -10,7 +10,8 @@ namespace ExpressBase.Studio.Controls
 
         public EbButtonControl()
         {
-            this.EbControl = new EbButton();
+            this.EbControl = new EbButton(this);
+            this.Size = new System.Drawing.Size(120, 20);
         }
 
         //required
@@ -27,15 +28,21 @@ namespace ExpressBase.Studio.Controls
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
-            if (this.EbControl == null)
-                this.EbControl = new EbButton();
+            this.BeforeSerialization();
         }
 
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
             this.EbControl = serialized_ctrl;
-            this.Name = serialized_ctrl.Name;
-            this.Text = serialized_ctrl.Label;
+            this.DoDesignerRefresh();
+        }
+
+        public void DoDesignerRefresh()
+        {
+            this.Name = this.EbControl.Name;
+            this.Text = (!string.IsNullOrEmpty(this.EbControl.Label)) ? this.EbControl.Label : this.EbControl.Name;
+            this.Font = this.EbControl.Font;
+            //this.BackColor = this.EbControl.BackColor;
 
             if (this.EbControl.CellPositionColumn > 0 && this.EbControl.CellPositionRow > 0)
                 this.Dock = DockStyle.Fill;
@@ -44,15 +51,6 @@ namespace ExpressBase.Studio.Controls
                 this.Location = new System.Drawing.Point(this.EbControl.Left, this.EbControl.Top);
                 this.Size = new System.Drawing.Size(this.EbControl.Width, this.EbControl.Height);
             }
-        }
-
-        public void DoDesignerRefresh()
-        {
-            this.Name = this.EbControl.Name;
-            //this.Dock = DockStyle.Fill;
-            this.Text = this.EbControl.Label;
-            this.Font = this.EbControl.Font;
-            //this.BackColor = this.EbControl.BackColor;
         }
 
         public override string ToString()

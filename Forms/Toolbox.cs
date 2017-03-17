@@ -48,12 +48,15 @@ namespace ExpressBase.Studio
 
         private void ListBox1_DrawItem(object sender, DrawItemEventArgs e)
         {
-            var item = listBox1.Items[e.Index] as ToolboxItem;
-            ButtonRenderer.DrawButton(e.Graphics, e.Bounds, item.DisplayName,
-                new Font(FontFamily.GenericSansSerif, 8f),
-                item.Bitmap,
-                new Rectangle(new Point(e.Bounds.Location.X + 10, e.Bounds.Location.Y + 5), new Size(16, 16)), false,
-                System.Windows.Forms.VisualStyles.PushButtonState.Normal);
+            if (listBox1.Items.Count > 0)
+            {
+                var item = listBox1.Items[e.Index] as ToolboxItem;
+                ButtonRenderer.DrawButton(e.Graphics, e.Bounds, item.DisplayName,
+                    new Font(FontFamily.GenericSansSerif, 8f),
+                    item.Bitmap,
+                    new Rectangle(new Point(e.Bounds.Location.X + 10, e.Bounds.Location.Y + 5), new Size(16, 16)), false,
+                    System.Windows.Forms.VisualStyles.PushButtonState.Normal);
+            }
         }
 
         public void Redraw(ColumnColletion columns)
@@ -63,7 +66,10 @@ namespace ExpressBase.Studio
                 this.listBox1.Items.Clear();
                 foreach (var col in columns)
                 {
-                    listBox1.Items.Add(new ToolboxItem(typeof(EbReportFieldControl)) { DisplayName = col.ColumnName });
+                    if (col.Type == typeof(System.String))
+                        listBox1.Items.Add(new ToolboxItem(typeof(EbReportFieldTextControl)) { DisplayName = col.ColumnName });
+                    else if (col.Type == typeof(System.Int32))
+                        listBox1.Items.Add(new ToolboxItem(typeof(EbReportFieldNumericControl)) { DisplayName = col.ColumnName });
                 }
             }
         }

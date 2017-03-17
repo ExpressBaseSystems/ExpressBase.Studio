@@ -36,7 +36,7 @@ namespace ExpressBase.Studio
                 int id = Convert.ToInt32(node.Tag);
 
                 IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-                var fr = client.Get<EbObjectResponse>(string.Format("http://localhost:53125/ebo/{0}", id));
+                var fr = client.Get<EbObjectResponse>(new EbObjectRequest() { Id = id, Token=MainForm.JwtToken });
 
                 var _formEbObject = EbSerializers.ProtoBuf_DeSerialize<EbObject>(fr.Data[0].Bytea);
                 _formEbObject.EbObjectType = fr.Data[0].EbObjectType;
@@ -84,7 +84,7 @@ namespace ExpressBase.Studio
         private void RefreshTreeView()
         {
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var fr = client.Get<EbObjectResponse>("http://localhost:53125/ebo?format=json");
+            var fr = client.Get<EbObjectResponse>(new EbObjectRequest() { Id = 0, Token = MainForm.JwtToken });
 
             treeView1.SuspendLayout();
             treeView1.Nodes[0].Nodes.Clear();

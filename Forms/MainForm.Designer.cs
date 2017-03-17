@@ -100,6 +100,7 @@ namespace ExpressBase.Studio
             this.vS2015BlueTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015BlueTheme();
             this.vS2015DarkTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015DarkTheme();
             this.vsToolStripExtender1 = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
             this.SuspendLayout();
@@ -655,6 +656,12 @@ namespace ExpressBase.Studio
             // 
             this.vsToolStripExtender1.DefaultRenderer = null;
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(579, 409);
@@ -752,5 +759,6 @@ namespace ExpressBase.Studio
         private System.Windows.Forms.ToolStripMenuItem mobileFormToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dashboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton btnDiffer;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

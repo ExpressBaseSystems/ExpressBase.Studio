@@ -1,20 +1,22 @@
-﻿using System;
+﻿using ExpressBase.Objects;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ExpressBase.Objects;
 using System.Windows.Forms;
 
 namespace ExpressBase.Studio.Controls
 {
-    public class EbComboBoxControl : ComboBox, IEbControl
+    public class EbReportFieldNumericControl: System.Windows.Forms.TextBox, IEbControl
     {
         public EbControl EbControl { get; set; }
 
-        public EbComboBoxControl()
+        public EbReportFieldNumericControl()
         {
-            this.EbControl = new EbComboBox();
+            this.EbControl = new EbReportFieldNumeric(this);
+            this.EbControl.Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
         }
 
         //required
@@ -37,20 +39,16 @@ namespace ExpressBase.Studio.Controls
         public void DoDesignerRefresh()
         {
             this.Name = this.EbControl.Name;
+            this.Text = this.EbControl.Label;
             this.Font = this.EbControl.Font;
-            if (!string.IsNullOrEmpty((this.EbControl as EbComboBox).Text))
-                this.Text = (this.EbControl as EbComboBox).Text;
-            if ((this.EbControl as EbComboBox).Value > 0)
-                this.SelectedValue = (this.EbControl as EbComboBox).Value;
 
             if (this.EbControl.CellPositionColumn == 0 && this.EbControl.CellPositionRow == 0)
             {
-                this.Location = new System.Drawing.Point(this.EbControl.Left, this.EbControl.Top);
-                this.Size = new System.Drawing.Size(this.EbControl.Width, this.EbControl.Height);
+                this.EbControl.Left = this.Location.X;
+                this.EbControl.Top = this.Location.Y;
+                this.EbControl.Height = this.Size.Height;
+                this.EbControl.Width = this.Size.Width;
             }
-            else
-                this.Dock = DockStyle.Fill;
         }
     }
 }
-

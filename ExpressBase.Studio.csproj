@@ -13,6 +13,21 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +66,10 @@
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.4.7.0\lib\net40\FontAwesome.Sharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
@@ -63,6 +82,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.1.0\lib\net451\protobuf-net.dll</HintPath>
       <Private>True</Private>
@@ -190,6 +211,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -204,6 +226,7 @@
       <HintPath>..\packages\DockPanelSuite.ThemeVS2015.2.12.0-rc1\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\ExpressBase.Common\EbSerializers.cs">
@@ -275,11 +298,20 @@
     <Compile Include="..\ExpressBase.Objects\Objects\EbRadioGroup.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbRadioGroup.cs</Link>
     </Compile>
-    <Compile Include="..\ExpressBase.Objects\Objects\EbReportDefinition.cs">
-      <Link>Links\ExpressBase.Objects\Objects\EbReportDefinition.cs</Link>
-    </Compile>
     <Compile Include="..\ExpressBase.Objects\Objects\EbTextBox.cs">
       <Link>Links\ExpressBase.Objects\Objects\EbTextBox.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\ReportRelated\EbReportDefinition.cs">
+      <Link>Links\ExpressBase.Objects\Objects\ReportRelated\EbReportDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\ReportRelated\EbReportField.cs">
+      <Link>Links\ExpressBase.Objects\Objects\ReportRelated\EbReportField.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldNumeric.cs">
+      <Link>Links\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldNumeric.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldText.cs">
+      <Link>Links\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldText.cs</Link>
     </Compile>
     <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceRequests.cs">
       <Link>ServiceStack_Artifacts\ServiceRequests.cs</Link>
@@ -329,7 +361,10 @@
     <Compile Include="Controls\EbTableLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\EbReportFieldControl.cs">
+    <Compile Include="Controls\ReportFieldControls\EbReportFieldNumericControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ReportFieldControls\EbReportFieldTextControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EbTextBoxControl.cs">
@@ -369,6 +404,12 @@
     <Compile Include="Differ\DifferForm.Designer.cs">
       <DependentUpon>DifferForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="pDesigner\TypeDiscoveryService.cs" />
     <Compile Include="pDesigner\DesignSurfaceExt\DesignerOptionServiceExt.cs" />
     <Compile Include="pDesigner\DesignSurfaceExt\DesignerSerializationServiceImpl.cs" />
@@ -407,16 +448,16 @@
     <Compile Include="DummyOutputWindow.Designer.cs">
       <DependentUpon>DummyOutputWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="PropertyWindow.cs">
+    <Compile Include="Forms\PropertyWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PropertyWindow.Designer.cs">
+    <Compile Include="Forms\PropertyWindow.Designer.cs">
       <DependentUpon>PropertyWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="SolutionExplorer.cs">
+    <Compile Include="Forms\SolutionExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SolutionExplorer.Designer.cs">
+    <Compile Include="Forms\SolutionExplorer.Designer.cs">
       <DependentUpon>SolutionExplorer.cs</DependentUpon>
     </Compile>
     <Compile Include="DummyTaskList.cs">
@@ -425,25 +466,25 @@
     <Compile Include="DummyTaskList.Designer.cs">
       <DependentUpon>DummyTaskList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Toolbox.cs">
+    <Compile Include="Forms\Toolbox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Toolbox.Designer.cs">
+    <Compile Include="Forms\Toolbox.Designer.cs">
       <DependentUpon>Toolbox.cs</DependentUpon>
     </Compile>
     <Compile Include="Customization\DockHelper.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SplashScreen.cs">
+    <Compile Include="Forms\SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SplashScreen.Designer.cs">
+    <Compile Include="Forms\SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutDialog.resx">
@@ -465,6 +506,9 @@
     <EmbeddedResource Include="Differ\DifferForm.resx">
       <DependentUpon>DifferForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="pDesigner\DesignSurfaceManagerExt\PropertyGridHost.resx">
       <DependentUpon>PropertyGridHost.cs</DependentUpon>
     </EmbeddedResource>
@@ -479,11 +523,11 @@
       <SubType>Designer</SubType>
       <DependentUpon>DummyOutputWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PropertyWindow.resx">
+    <EmbeddedResource Include="Forms\PropertyWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PropertyWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SolutionExplorer.resx">
+    <EmbeddedResource Include="Forms\SolutionExplorer.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SolutionExplorer.cs</DependentUpon>
     </EmbeddedResource>
@@ -491,11 +535,11 @@
       <SubType>Designer</SubType>
       <DependentUpon>DummyTaskList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Toolbox.resx">
+    <EmbeddedResource Include="Forms\Toolbox.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Toolbox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -530,10 +574,10 @@
     <Compile Include="Documents\SqlStatementEditor.Designer.cs">
       <DependentUpon>SqlStatementEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindow.cs">
+    <Compile Include="Forms\ToolWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ToolWindow.Designer.cs">
+    <Compile Include="Forms\ToolWindow.Designer.cs">
       <DependentUpon>ToolWindow.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -563,13 +607,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExpressBase.Studio.xml" />
-    <EmbeddedResource Include="SplashScreen.resx">
+    <EmbeddedResource Include="Forms\SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Documents\SqlStatementEditor.resx">
       <DependentUpon>SqlStatementEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolWindow.resx">
+    <EmbeddedResource Include="Forms\ToolWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ToolWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -661,7 +705,13 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

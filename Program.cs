@@ -1,3 +1,4 @@
+using ExpressBase.Studio.Forms;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -14,7 +15,7 @@ namespace ExpressBase.Studio
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new LoginForm());
         }
     }
 }
