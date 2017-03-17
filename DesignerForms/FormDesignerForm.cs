@@ -54,6 +54,12 @@ namespace ExpressBase.Studio.DesignerForms
 
         }
 
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            pDesignerCore.PropertyGridHost.ReloadComboBox();
+        }
+
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
@@ -70,7 +76,7 @@ namespace ExpressBase.Studio.DesignerForms
             else if (this.FormType == StudioFormTypes.Mobile)
                 (IpDesignerCore as IpDesigner).AddDesignSurface<EbFormControl>(414, 736, AlignmentModeEnum.SnapLines, new Size(1, 1));
             else if (this.FormType == StudioFormTypes.UserControl)
-                (IpDesignerCore as IpDesigner).AddDesignSurface4Web<System.Web.UI.WebControls.Panel>(150, 150, AlignmentModeEnum.SnapLines, new Size(1, 1));
+                (IpDesignerCore as IpDesigner).AddDesignSurface<EbFormControl>(150, 150, AlignmentModeEnum.SnapLines, new Size(1, 1));
             else if (this.FormType == StudioFormTypes.Report)
                 (IpDesignerCore as IpDesigner).AddDesignSurface<ReportDesignerForm>(414, 736, AlignmentModeEnum.SnapLines, new Size(1, 1));
         }
@@ -147,6 +153,23 @@ namespace ExpressBase.Studio.DesignerForms
 
             this.Close();
         }
+
+        internal override pF.DesignSurfaceExt.DesignSurfaceExt2 ActiveDesignSurface
+        {
+            get
+            {
+                return this.pDesignerCore.ActiveDesignSurface;
+            }
+        }
+
+        internal override pF.pDesigner.pDesigner DesignerCore
+        {
+            get
+            {
+                return this.pDesignerCore;
+            }
+        }
+
     }//end_class
 }//end_namespace
 

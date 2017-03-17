@@ -22,6 +22,7 @@
     using ExpressBase.Studio.Controls;
     using ExpressBase.Studio.DesignerForms;
     using ExpressBase.Objects;
+    using ExpressBase.Studio.ControlContainers;
 
 
     //- [Note FROM MSDN]:
@@ -191,13 +192,10 @@
             //- step.4
             //- create the Root compoment, in these cases a Form
             Control rootComponent = null;
-            //- cast to .NET Control because the TT object 
-            //- has a constraint: to be a ".NET Control"
+            //- cast to .NET Control because the TT object has a constraint: to be a ".NET Control"
             rootComponent = surface.CreateRootComponent( typeof( TT ), new Size( startingFormWidth, startingFormHeight ) ) as Control;
             //- rename the Sited component
-            //- (because the user may add more then one Form
-            //- and every new Form will be called "Form1"
-            //- if we don't set its Name)
+            //- (because the user may add more then one Form and every new Form will be called "Form1" if we don't set its Name)
             rootComponent.Site.Name = this.DesignSurfaceManager.GetValidFormName();
             //-
             //-
@@ -219,19 +217,9 @@
                         (e.Component as IEbControl).DoDesignerRefresh();
                      // do nothing
                 };
+
                 componentChangeService.ComponentAdded += ( Object sender, ComponentEventArgs e )=>
                 {
-                    if (e.Component is EbReportFieldControl)
-                    {
-                        if (tbox.Toolbox.SelectedItem != null)
-                        {
-                            var fieldname = (tbox.Toolbox.SelectedItem as ToolboxItem).DisplayName;
-                            (e.Component as EbReportFieldControl).EbControl.Name = fieldname;
-                            (e.Component as EbReportFieldControl).EbControl.Label = fieldname;
-                            ((e.Component as EbReportFieldControl).EbControl as EbTextBox).Text = fieldname;
-                        }
-                    }
-
                     DesignSurfaceManager.UpdatePropertyGridHost( surface );
                 };
                 componentChangeService.ComponentRemoved += ( Object sender, ComponentEventArgs e )=>
@@ -253,139 +241,6 @@
             PropertyDescriptor pdS = pdc.Find( "Text", false );
             if( null != pdS )
                 pdS.SetValue( rootComponent, rootComponent.Site.Name + " (design mode)" );
-            //-
-            //-
-            //- step.8
-            //- display the DesignSurface
-            //string sTabPageText = rootComponent.Site.Name;
-            //TabPage newPage = new TabPage( sTabPageText );
-            //newPage.Name = sTabPageText;
-            //newPage.SuspendLayout(); //----------------------------------------------------
-            view.Dock = DockStyle.Fill;
-            view.Parent = this; // newPage; //- Note this assignment
-            //this.tbCtrlpDesigner.TabPages.Add( newPage );
-            //newPage.ResumeLayout(); //-----------------------------------------------------
-            //- select the TabPage created
-            //this.tbCtrlpDesigner.SelectedIndex = this.tbCtrlpDesigner.TabPages.Count - 1;
-            //-
-            //-
-            //- step.9
-            //- finally return the DesignSurface created to let it be modified again by user
-            return surface;
-        }
-
-        //- Create the DesignSurface and the rootComponent (a .NET Control)
-        //- using IDesignSurfaceExt.CreateRootComponent() 
-        //- if the alignmentMode doesn't use the GRID, then the gridSize param is ignored
-        //- Note:
-        //-     the generics param is used to know which type of control to use as RootComponent
-        //-     TT is requested to be derived from .NET Control class 
-        public DesignSurfaceExt2 AddDesignSurface4Web<TT>(
-                                                        int startingFormWidth, int startingFormHeight,
-                                                        AlignmentModeEnum alignmentMode, Size gridSize
-                                                       ) where TT : System.Web.UI.Control
-        {
-            const string _signature_ = _Name_ + @"::AddDesignSurface<>()";
-
-            if (!this)
-                throw new Exception(_signature_ + " - Exception: " + _Name_ + " is not initialized! Please set the Property: IpDesigner::Toolbox before calling any methods!");
-
-
-            //- step.0
-            //- create a DesignSurface
-            DesignSurfaceExt2 surface = DesignSurfaceManager.CreateDesignSurfaceExt2();
-            this.DesignSurfaceManager.ActiveDesignSurface = surface;
-            //-
-            //-
-            //- step.1
-            //- choose an alignment mode...
-            switch (alignmentMode)
-            {
-                case AlignmentModeEnum.SnapLines:
-                    surface.UseSnapLines();
-                    break;
-                case AlignmentModeEnum.Grid:
-                    surface.UseGrid(gridSize);
-                    break;
-                case AlignmentModeEnum.GridWithoutSnapping:
-                    surface.UseGridWithoutSnapping(gridSize);
-                    break;
-                case AlignmentModeEnum.NoGuides:
-                    surface.UseNoGuides();
-                    break;
-                default:
-                    surface.UseSnapLines();
-                    break;
-            }//end_switch
-            //-
-            //-
-            //- step.2
-            //- enable the UndoEngine
-            ((IDesignSurfaceExt)surface).GetUndoEngineExt().Enabled = true;
-            //-
-            //-
-            //- step.3
-            //- Select the service IToolboxService
-            //- and hook it to our ListBox
-            ToolboxServiceImp tbox = ((IDesignSurfaceExt2)surface).GetIToolboxService() as ToolboxServiceImp;
-            //- we don't check if Toolbox is null because the very first check: if(!this)...
-            if (null != tbox)
-                tbox.Toolbox = this.Toolbox;
-            //-
-            //-
-            //- step.4
-            //- create the Root compoment, in these cases a Form
-            System.Web.UI.Control rootComponent = null;
-            //- cast to .NET Control because the TT object 
-            //- has a constraint: to be a ".NET Control"
-            rootComponent = surface.CreateRootComponent(typeof(TT), new Size(startingFormWidth, startingFormHeight)) as System.Web.UI.Control;
-            //- rename the Sited component
-            //- (because the user may add more then one Form
-            //- and every new Form will be called "Form1"
-            //- if we don't set its Name)
-            rootComponent.Site.Name = this.DesignSurfaceManager.GetValidFormName();
-            //-
-            //-
-            //- step.5
-            //- enable the Drag&Drop on RootComponent
-            ((DesignSurfaceExt2)surface).EnableDragandDrop();
-            //-
-            //-
-            //- step.6
-            //- IComponentChangeService is marked as Non replaceable service
-            IComponentChangeService componentChangeService = (IComponentChangeService)(surface.GetService(typeof(IComponentChangeService)));
-            if (null != componentChangeService)
-            {
-                //- the Type "ComponentEventHandler Delegate" Represents the method that will
-                //- handle the ComponentAdding, ComponentAdded, ComponentRemoving, and ComponentRemoved
-                //- events raised for component-level events
-                componentChangeService.ComponentChanged += (Object sender, ComponentChangedEventArgs e) =>
-                {
-                    // do nothing
-                };
-                componentChangeService.ComponentAdded += (Object sender, ComponentEventArgs e) =>
-                {
-                    DesignSurfaceManager.UpdatePropertyGridHost(surface);
-                };
-                componentChangeService.ComponentRemoved += (Object sender, ComponentEventArgs e) =>
-                {
-                    DesignSurfaceManager.UpdatePropertyGridHost(surface);
-                };
-            }
-            //-
-            //-
-            //- step.7
-            //- now set the Form::Text Property
-            //- (because it will be an empty string
-            //- if we don't set it)
-            Control view = surface.GetView();
-            if (null == view)
-                return null;
-            PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties(view);
-            //- Sets a PropertyDescriptor to the specific property
-            PropertyDescriptor pdS = pdc.Find("Text", false);
-            if (null != pdS)
-                pdS.SetValue(rootComponent as object, rootComponent.Site.Name + " (design mode)");
             //-
             //-
             //- step.8
@@ -488,8 +343,66 @@
             if ( null != isurf )
                 isurf.SwitchTabOrder();
         }
-        
+
+        internal ReportDesignerUserControl ReportDesignerUserControl { get; set; }
+
+        public DesignSurfaceExt2 AddReportSectionDesignSurface(Control parent, ReportDesignerUserControl rduc)
+        {
+            this.ReportDesignerUserControl = rduc;
+
+            DesignSurfaceExt2 surface = DesignSurfaceManager.CreateDesignSurfaceExt2();
+            this.DesignSurfaceManager.ActiveDesignSurface = surface;
+            surface.UseSnapLines();
+            surface.GetUndoEngineExt().Enabled = true;
+            surface.GetIToolboxService().Toolbox = this.Toolbox;
+
+            Control rootComponent = surface.CreateRootComponent(typeof(EbReportPanel), new Size(1, 1)) as Control;
+            rootComponent.Site.Name = this.DesignSurfaceManager.GetValidFormName();
+            (rootComponent as EbReportPanel).ReportDesignerUserControl = this.ReportDesignerUserControl;
+            surface.EnableDragandDrop(); // DO THIS AFTER CREATING rootComponent
+
+            IComponentChangeService componentChangeService = (IComponentChangeService)(surface.GetService(typeof(IComponentChangeService)));
+            if (null != componentChangeService)
+            {
+                componentChangeService.ComponentChanged += (Object sender, ComponentChangedEventArgs e) =>
+                {
+                    if (e.Component is IEbControl)
+                        (e.Component as IEbControl).DoDesignerRefresh();
+                };
+
+                componentChangeService.ComponentAdding += (Object sender, ComponentEventArgs e) =>
+                {
+                    if (surface.GetIToolboxService().Toolbox.SelectedItem != null)
+                    {
+                        var fieldname = (surface.GetIToolboxService().Toolbox.SelectedItem as ToolboxItem).DisplayName;
+                        if (e.Component is EbReportFieldTextControl)
+                        {
+                            (e.Component as EbReportFieldTextControl).EbControl.Name = fieldname;
+                            (e.Component as EbReportFieldTextControl).EbControl.Label = fieldname;
+                        }
+                        else if (e.Component is EbReportFieldNumericControl)
+                        {
+                            (e.Component as EbReportFieldNumericControl).EbControl.Name = fieldname;
+                            (e.Component as EbReportFieldNumericControl).EbControl.Label = fieldname;
+                        }
+                    }
+                };
+
+                componentChangeService.ComponentAdded += (Object sender, ComponentEventArgs e) => { DesignSurfaceManager.UpdatePropertyGridHost(surface); };
+                componentChangeService.ComponentRemoved += (Object sender, ComponentEventArgs e) => { DesignSurfaceManager.UpdatePropertyGridHost(surface); };
+            }
+
+            Control view = surface.GetView();
+            if (null == view)
+                return null;
+
+            view.Dock = DockStyle.Fill;
+            view.Parent = parent;
+
+            return surface;
+        }
+
         #endregion
 
-    }//end_class
-}//end_namespace
+    }
+}

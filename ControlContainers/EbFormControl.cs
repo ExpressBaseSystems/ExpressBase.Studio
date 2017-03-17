@@ -8,8 +8,6 @@ namespace ExpressBase.Studio.Controls
 {
     public class EbFormControl : System.Windows.Forms.Form, IEbControlContainer
     {
-        //public EbControl EbControl { get; set; }
-
         public EbControlContainer EbControlContainer { get; set; }
 
         public EbFormControl()

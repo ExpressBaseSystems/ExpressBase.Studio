@@ -12,7 +12,7 @@
 
     using DesignSurfaceExt;
     using DesignSurfaceManagerExt;
-
+    using ExpressBase.Studio.DesignerForms;
 
     public enum AlignmentModeEnum : int { SnapLines = 0, Grid, GridWithoutSnapping, NoGuides };
 
@@ -51,15 +51,12 @@
         //- Note:
         //-     the generics param is used to know which type of control to use as RootComponent
         //-     TT is requested to be derived from .NET Control class 
-        DesignSurfaceExt2 AddDesignSurface<TT>(
-                                               int startingFormWidth, int startingFormHeight,
-                                               AlignmentModeEnum alignmentMode, Size gridSize
-                                              ) where TT : Control;
+        DesignSurfaceExt2 AddDesignSurface<TT>(int startingFormWidth, int startingFormHeight,
+                                               AlignmentModeEnum alignmentMode, Size gridSize) where TT : Control;
 
-        DesignSurfaceExt2 AddDesignSurface4Web<TT>(
-                                               int startingFormWidth, int startingFormHeight,
-                                               AlignmentModeEnum alignmentMode, Size gridSize
-                                              ) where TT : System.Web.UI.Control;
+        //DesignSurfaceExt2 AddDesignSurface<TT>(AlignmentModeEnum alignmentMode, Control parent) where TT : Control;
+
+        DesignSurfaceExt2 AddReportSectionDesignSurface(Control parent, ReportDesignerUserControl rduc);
 
         void RemoveDesignSurface ( DesignSurfaceExt2 activeSurface );
 

@@ -15,7 +15,7 @@ namespace ExpressBase.Studio.DesignerForms
 {
     public partial class ReportDesignerUserControl : UserControl
     {
-        private EbReportDefinition ReportDefinition { get; set; }
+        internal EbReportDefinition ReportDefinition { get; set; }
 
         internal MainForm MainForm { get; set; }
 
@@ -72,6 +72,8 @@ namespace ExpressBase.Studio.DesignerForms
             this.ResumeLayout(true);
         }
 
+        private pF.pDesigner.pDesigner pDesignerCore1 { get; set; }
+
         private void AddSection(EbReportSection section)
         {
             if (section.Panel == null)
@@ -97,11 +99,15 @@ namespace ExpressBase.Studio.DesignerForms
 
                 section.Panel.Controls.Add(sectionlbl);
 
-                var pDesignerCore1 = new pF.pDesigner.pDesigner(this.MainForm.PropertyWindow);
-                pDesignerCore1.BackColor = Color.Transparent;
-                pDesignerCore1.Parent = section.Panel;
-                (pDesignerCore1 as IpDesigner).Toolbox = this.MainForm.Toolbox.listBox1;
-                (pDesignerCore1 as IpDesigner).AddDesignSurface<EbReportPanel>(600, 100, AlignmentModeEnum.SnapLines, new Size(1, 1));
+                if (pDesignerCore1 == null)
+                {
+                    pDesignerCore1 = new pF.pDesigner.pDesigner(this.MainForm.PropertyWindow);
+                    pDesignerCore1.BackColor = Color.Transparent;
+                    pDesignerCore1.Parent = this;
+                    (pDesignerCore1 as IpDesigner).Toolbox = this.MainForm.Toolbox.listBox1;
+                }
+
+                (pDesignerCore1 as IpDesigner).AddReportSectionDesignSurface(section.Panel, this);
             }
 
             (section.Panel.Controls[0] as Label).Text = section.Name;
@@ -181,6 +187,22 @@ namespace ExpressBase.Studio.DesignerForms
             this.SuspendLayout();
             base.OnResize(e);
             this.ResumeLayout(true);
+        }
+
+        internal pF.DesignSurfaceExt.DesignSurfaceExt2 ActiveDesignSurface
+        {
+            get
+            {
+                return pDesignerCore1.ActiveDesignSurface;
+            }
+        }
+
+        internal pF.pDesigner.pDesigner DesignerCore
+        {
+            get
+            {
+                return this.pDesignerCore1;
+            }
         }
     }
 }

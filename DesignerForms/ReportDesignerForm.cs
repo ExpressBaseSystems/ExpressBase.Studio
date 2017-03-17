@@ -15,6 +15,8 @@ namespace ExpressBase.Studio.DesignerForms
     {
         private EbReportDefinition ReportDefinition { get; set; }
 
+        private ReportDesignerUserControl ReportDesignerUserControl { get; set; }
+
         internal override ToolStrip ToolStrip
         {
             get { return new ToolStrip(); }
@@ -39,11 +41,11 @@ namespace ExpressBase.Studio.DesignerForms
             tb.Show(this.DockPanel);
             this.AutoScroll = true;
 
-            var _uc = new ReportDesignerUserControl(this.ReportDefinition);
-            _uc.Dock = DockStyle.Top;
-            _uc.MainForm = this.MainForm;
+            this.ReportDesignerUserControl = new ReportDesignerUserControl(this.ReportDefinition);
+            this.ReportDesignerUserControl.Dock = DockStyle.Top;
+            this.ReportDesignerUserControl.MainForm = this.MainForm;
 
-            this.Controls.Add(_uc);
+            this.Controls.Add(this.ReportDesignerUserControl);
         }
 
         protected override void OnResize(EventArgs e)
@@ -51,6 +53,29 @@ namespace ExpressBase.Studio.DesignerForms
             this.SuspendLayout();
             base.OnResize(e);
             this.ResumeLayout(true);
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            //this.DesignerCore.PropertyGridHost.ReloadComboBox();
+            this.DesignerCore.DesignSurfaceManager.UpdatePropertyGridHost(this.DesignerCore.ActiveDesignSurface);
+        }
+
+        internal override pF.DesignSurfaceExt.DesignSurfaceExt2 ActiveDesignSurface
+        {
+            get
+            {
+                return this.ReportDesignerUserControl.ActiveDesignSurface;
+            }
+        }
+
+        internal override pF.pDesigner.pDesigner DesignerCore
+        {
+            get
+            {
+                return this.ReportDesignerUserControl.DesignerCore;
+            }
         }
     }
 }

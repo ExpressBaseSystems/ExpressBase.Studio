@@ -13,5 +13,9 @@ namespace ExpressBase.Studio.DesignerForms
         internal MainForm MainForm { get; set; }
 
         internal virtual ToolStrip ToolStrip { get; }
+
+        internal virtual pF.DesignSurfaceExt.DesignSurfaceExt2 ActiveDesignSurface { get; }
+
+        internal virtual pF.pDesigner.pDesigner DesignerCore { get; }
     }
 }
