@@ -8,18 +8,21 @@ using System.Windows.Forms;
 
 namespace ExpressBase.Studio.Controls
 {
-    public class EbComboBoxControl : ComboBox, IEbControl
+    public class EbComboBoxControl : System.Windows.Forms.ComboBox, IEbControl
     {
         public EbControl EbControl { get; set; }
 
         public EbComboBoxControl()
         {
-            this.EbControl = new EbComboBox();
+            this.EbControl = new EbComboBox(this);
         }
 
         //required
         public void BeforeSerialization()
         {
+            if (this.EbControl.Parent == null)
+                this.EbControl.Parent = this;
+
             this.EbControl.TargetType = this.GetType().FullName;
 
             this.EbControl.Left = this.Location.X;
@@ -36,13 +39,13 @@ namespace ExpressBase.Studio.Controls
 
         public void DoDesignerRefresh()
         {
-            this.Name = this.EbControl.Name;
-            this.Font = this.EbControl.Font;
             if (!string.IsNullOrEmpty((this.EbControl as EbComboBox).Text))
                 this.Text = (this.EbControl as EbComboBox).Text;
             if ((this.EbControl as EbComboBox).Value > 0)
                 this.SelectedValue = (this.EbControl as EbComboBox).Value;
 
+            this.Name = this.EbControl.Name;
+            this.Font = this.EbControl.Font;
             if (this.EbControl.CellPositionColumn == 0 && this.EbControl.CellPositionRow == 0)
             {
                 this.Location = new System.Drawing.Point(this.EbControl.Left, this.EbControl.Top);

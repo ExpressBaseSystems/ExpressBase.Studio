@@ -214,7 +214,7 @@
                 componentChangeService.ComponentChanged += ( Object sender, ComponentChangedEventArgs e )=>
                 {
                     if (e.Component is IEbControl)
-                        (e.Component as IEbControl).DoDesignerRefresh();
+                        (e.Component as IEbControl).BeforeSerialization();
                      // do nothing
                 };
 
