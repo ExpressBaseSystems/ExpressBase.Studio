@@ -35,6 +35,7 @@ namespace ExpressBase.Studio.Controls
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
             this.EbControl = serialized_ctrl;
+            this.EbControl.Parent = this;
             this.DoDesignerRefresh();
         }
 

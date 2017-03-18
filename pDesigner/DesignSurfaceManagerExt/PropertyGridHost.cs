@@ -45,9 +45,8 @@ namespace pF.DesignSurfaceManagerExt
 
                 if (pgrdPropertyGrid.SelectedObjects.Count() == 1)
                 {
-                    pgrdComboBox.SelectedIndex = pgrdComboBox.Items.IndexOf(pgrdPropertyGrid.SelectedObject);
                     this.SelectedObject = pgrdPropertyGrid.SelectedObject;
-                    //OrientPropertyGridTowardsObject();
+
                     if (pgrdPropertyGrid.SelectedObject is EbControl && (pgrdPropertyGrid.SelectedObject as EbControl).Parent != null)
                         pgrdComboBox.SelectedIndex = pgrdComboBox.Items.IndexOf((pgrdPropertyGrid.SelectedObject as EbControl).Parent);
                 }
@@ -71,7 +70,9 @@ namespace pF.DesignSurfaceManagerExt
             {
                 if( _bSuppressEvents )
                     return;
-                //OrientPropertyGridTowardsObject();
+
+                if ((pgrdComboBox.Items[pgrdComboBox.SelectedIndex] is IEbControl))
+                    this.SelectedObject = (pgrdComboBox.Items[pgrdComboBox.SelectedIndex] as IEbControl).EbControl;
             };
         }
 

@@ -15,9 +15,6 @@ namespace ExpressBase.Studio.Controls
 
         public void BeforeSerialization()
         {
-            if (this.EbControl.Parent == null)
-                this.EbControl.Parent = this;
-
             this.EbControl.TargetType = this.GetType().FullName;
 
             this.EbControl.Left = this.Location.X;
@@ -29,6 +26,7 @@ namespace ExpressBase.Studio.Controls
         public void DoDesignerLayout(pF.pDesigner.IpDesigner designer, EbControl serialized_ctrl)
         {
             this.EbControl = serialized_ctrl;
+            this.EbControl.Parent = this;
             this.DoDesignerRefresh();
         }
 
