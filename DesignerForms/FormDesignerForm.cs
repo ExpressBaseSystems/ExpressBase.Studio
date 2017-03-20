@@ -7,6 +7,7 @@ using ServiceStack;
 using System.Net;
 using ExpressBase.Common;
 using pF.pDesigner;
+using ExpressBase.Objects.ServiceStack_Artifacts;
 
 namespace ExpressBase.Studio.DesignerForms
 {
@@ -141,7 +142,7 @@ namespace ExpressBase.Studio.DesignerForms
             _form.BeforeSerialization();
 
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var f = new ExpressBase.ServiceStack.EbObjectWrapper
+            var f = new EbObjectWrapper
             {
                 Id = _form.EbControlContainer.Id,
                 EbObjectType = ExpressBase.Objects.EbObjectType.Form,

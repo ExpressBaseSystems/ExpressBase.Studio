@@ -1,5 +1,6 @@
 ﻿using ExpressBase.Common;
 using ExpressBase.Objects;
+using ExpressBase.Objects.ServiceStack_Artifacts;
 using ServiceStack;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace ExpressBase.Studio
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var f = new ExpressBase.ServiceStack.EbObjectWrapper
+            var f = new EbObjectWrapper
             {
                 Id = this.Id,
                 EbObjectType = Objects.EbObjectType.DataSource,

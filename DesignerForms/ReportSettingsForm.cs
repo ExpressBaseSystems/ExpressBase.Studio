@@ -1,6 +1,6 @@
 ﻿using ExpressBase.Data;
 using ExpressBase.Objects;
-using ExpressBase.ServiceStack;
+using ExpressBase.Objects.ServiceStack_Artifacts;
 using ServiceStack;
 using System;
 using System.Collections.Generic;

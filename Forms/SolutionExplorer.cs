@@ -1,5 +1,4 @@
 using ExpressBase.Common;
-using ExpressBase.ServiceStack;
 using ExpressBase.Studio.Controls;
 using ExpressBase.Objects;
 using pF.pDesigner;
@@ -11,6 +10,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using ExpressBase.Studio.DesignerForms;
+using ExpressBase.Objects.ServiceStack_Artifacts;
 
 namespace ExpressBase.Studio
 {

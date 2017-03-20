@@ -313,14 +313,17 @@
     <Compile Include="..\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldText.cs">
       <Link>Links\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldText.cs</Link>
     </Compile>
-    <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceRequests.cs">
-      <Link>ServiceStack_Artifacts\ServiceRequests.cs</Link>
+    <Compile Include="..\ExpressBase.Objects\ServiceStack_Artifacts\DataSourceService_Artifacts.cs">
+      <Link>ServiceStack_Artifacts\DataSourceService_Artifacts.cs</Link>
     </Compile>
-    <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceResponses.cs">
-      <Link>ServiceStack_Artifacts\ServiceResponses.cs</Link>
+    <Compile Include="..\ExpressBase.Objects\ServiceStack_Artifacts\FormPersistService_Artifacts.cs">
+      <Link>ServiceStack_Artifacts\FormPersistService_Artifacts.cs</Link>
     </Compile>
-    <Compile Include="..\ExpressBase.ServiceStack\Artifacts\ServiceWrappers.cs">
-      <Link>ServiceStack_Artifacts\ServiceWrappers.cs</Link>
+    <Compile Include="..\ExpressBase.Objects\ServiceStack_Artifacts\InfraService_Artifacts.cs">
+      <Link>ServiceStack_Artifacts\InfraService_Artifacts.cs</Link>
+    </Compile>
+    <Compile Include="..\ExpressBase.Objects\ServiceStack_Artifacts\StudioService_Arifacts.cs">
+      <Link>ServiceStack_Artifacts\StudioService_Arifacts.cs</Link>
     </Compile>
     <Compile Include="AboutDialog.cs">
       <SubType>Form</SubType>
@@ -712,6 +715,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
