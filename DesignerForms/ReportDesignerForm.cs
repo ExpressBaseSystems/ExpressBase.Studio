@@ -107,7 +107,7 @@ namespace ExpressBase.Studio.DesignerForms
 //        Details = (_dT as IEbControl).EbControl
 //    };
 
-//    IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
+//    IServiceClient client = new JsonServiceClient(CacheHelper.SERVICESTACK_URL).WithCache();
 //    var f = new ExpressBase.ServiceStack.EbObjectWrapper
 //    {
 //        Id = _rH.EbControlContainer.Id,

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace ExpressBase.Studio.Forms
         {
             InitializeComponent();
 
+            CacheHelper.Set(CacheKeys.SERVICESTACK_URL, ConfigurationManager.AppSettings["ServiceStackUrl"]);
+
             SetSplashScreen();
         }
 
@@ -26,7 +29,7 @@ namespace ExpressBase.Studio.Forms
 
             try
             {
-                var authClient = new JsonServiceClient("http://localhost:53125/");
+                var authClient = new JsonServiceClient(CacheHelper.SERVICESTACK_URL);
 
                 authResponse = authClient.Send(new Authenticate
                 {

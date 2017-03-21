@@ -141,7 +141,7 @@ namespace ExpressBase.Studio.DesignerForms
             var _form = (IpDesignerCore as pF.pDesigner.pDesigner).Controls[0].Controls[0].Controls[0] as EbFormControl;
             _form.BeforeSerialization();
 
-            IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
+            IServiceClient client = new JsonServiceClient(CacheHelper.SERVICESTACK_URL).WithCache();
             var f = new EbObjectWrapper
             {
                 Id = _form.EbControlContainer.Id,

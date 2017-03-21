@@ -56,9 +56,8 @@ namespace ExpressBase.Studio.DesignerForms
             this.Cursor = Cursors.WaitCursor;
             this.ReportDefinition.EbDataSourceId = (cmbEbDataSource.SelectedItem as EbObjectWrapper).Id;
 
-            JsonServiceClient client = new JsonServiceClient("http://localhost:53125/");
+            JsonServiceClient client = new JsonServiceClient(CacheHelper.SERVICESTACK_URL);
             var resp = client.Get<DataSourceColumnsResponse>(new DataSourceColumnsRequest { Id = this.ReportDefinition.EbDataSourceId });
-            //var resp = client.Get<DataSourceColumnsResponse>(string.Format("http://localhost:53125/ds/columns/{0}", this.ReportDefinition.EbDataSourceId));
             this.ReportDefinition.ColumnColletion = resp.Columns;
 
             ReportDesignerForm pD = new ReportDesignerForm(this.ReportDefinition);
@@ -76,8 +75,8 @@ namespace ExpressBase.Studio.DesignerForms
 
         private void PopulateDataSources()
         {
-            IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
-            var fr = client.Get<EbObjectResponse>("http://localhost:53125/ebo?format=json");
+            IServiceClient client = new JsonServiceClient(CacheHelper.SERVICESTACK_URL).WithCache();
+            var fr = client.Get<EbObjectResponse>(string.Format("{0}/ebo?format=json", CacheHelper.SERVICESTACK_URL));
 
             cmbEbDataSource.DisplayMember = "Name";
             cmbEbDataSource.ValueMember = "Id";

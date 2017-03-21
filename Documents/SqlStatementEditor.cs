@@ -27,7 +27,7 @@ namespace ExpressBase.Studio
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            IServiceClient client = new JsonServiceClient("http://localhost:53125/").WithCache();
+            IServiceClient client = new JsonServiceClient(CacheHelper.SERVICESTACK_URL).WithCache();
             var f = new EbObjectWrapper
             {
                 Id = this.Id,
