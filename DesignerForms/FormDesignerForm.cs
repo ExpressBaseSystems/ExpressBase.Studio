@@ -147,7 +147,8 @@ namespace ExpressBase.Studio.DesignerForms
                 Id = _form.EbControlContainer.Id,
                 EbObjectType = ExpressBase.Objects.EbObjectType.Form,
                 Name = _form.Name,
-                Bytea = EbSerializers.ProtoBuf_Serialize(_form.EbControlContainer)
+                Bytea = EbSerializers.ProtoBuf_Serialize(_form.EbControlContainer),
+                Token = MainForm.JwtToken
             };
 
             using (client.Post<HttpWebResponse>(f as object)) { }
