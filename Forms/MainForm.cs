@@ -508,6 +508,7 @@ namespace ExpressBase.Studio
         private void sQLStatementToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SqlStatementEditor sqled = new SqlStatementEditor();
+            sqled.MainForm = this;
             sqled.Show(this.dockPanel);
         }
 
@@ -561,12 +562,14 @@ namespace ExpressBase.Studio
         private void viewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SqlStatementEditor sqled = new SqlStatementEditor();
+            sqled.MainForm = this;
             sqled.Show(this.dockPanel);
         }
 
         private void dataSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SqlStatementEditor sqled = new SqlStatementEditor();
+            sqled.MainForm = this;
             sqled.Show(this.dockPanel);
         }
 

@@ -65,6 +65,7 @@ namespace ExpressBase.Studio
                 else if (_formEbObject.EbObjectType == EbObjectType.DataSource)
                 {
                     SqlStatementEditor ed = new SqlStatementEditor();
+                    sqled.MainForm = this;
                     ed.Set(id, _formEbObject.Name, (_formEbObject as EbDataSource).Sql);
                     ed.Show(MainForm.DockPanel);
                 }

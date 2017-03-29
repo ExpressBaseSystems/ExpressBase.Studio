@@ -20,6 +20,8 @@ namespace ExpressBase.Studio
     {
         private int Id { get; set; }
 
+        internal MainForm MainForm { get; set; }
+
         public SqlStatementEditor()
         {
             InitializeComponent();
@@ -38,7 +40,8 @@ namespace ExpressBase.Studio
                         Id = this.Id,
                         Name = txtName.Text.Trim(),
                         Sql = this.scintilla1.Text.Trim()
-                    })
+                    }),
+                Token = MainForm.JwtToken
             };
 
             using (client.Post<HttpWebResponse>(f)) { }
