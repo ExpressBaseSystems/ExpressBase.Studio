@@ -315,6 +315,9 @@
     <Compile Include="..\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldText.cs">
       <Link>Links\ExpressBase.Objects\Objects\ReportRelated\EbReportFieldText.cs</Link>
     </Compile>
+    <Compile Include="..\ExpressBase.Objects\ServiceStack_Artifacts\BaseService_Artifacts.cs">
+      <Link>ServiceStack_Artifacts\BaseService_Artifacts.cs</Link>
+    </Compile>
     <Compile Include="..\ExpressBase.Objects\ServiceStack_Artifacts\DataSourceService_Artifacts.cs">
       <Link>ServiceStack_Artifacts\DataSourceService_Artifacts.cs</Link>
     </Compile>
